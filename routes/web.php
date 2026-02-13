@@ -9,5 +9,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('createRoom' ,[RoomController::class ,'create'])->name('createRoom');
-Route::post('storeRoom' ,[RoomController::class ,'store'])->name('storeRoom');
+Route::get('/rooms/create' ,[RoomController::class ,'create'])->name('createRoom');
+Route::post('/rooms' ,[RoomController::class ,'store'])->name('storeRoom');
+Route::get('rooms/{room}/edit' ,[RoomController::class ,'edit'])->name('editRoom');
+Route::put('rooms/{room}' ,[RoomController::class ,'update'])->name('updateRoom');
+
