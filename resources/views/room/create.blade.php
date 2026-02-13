@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Room</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{asset('css/createRoom.css')}}">
 </head>
 <body>
 
@@ -11,7 +11,7 @@
     <h2>Add New Room</h2>
 
     <form action="{{route('storeRoom')}}" method="POST">
-
+        @csrf
      <div class="form-group">
             <label for="roomNumber">Room Number</label>
             <input type="text" name="roomNumber" id="roomNumber" placeholder="e.g. 101" required>
