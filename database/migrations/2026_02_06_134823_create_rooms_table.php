@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('roomNumber');
             $table->string('type');
             $table->decimal('price' ,10,2);
-            $table->enum('status' ,['available', 'occupied', 'maintenance'])->default('libre');
+            $table->enum('status' ,['available', 'occupied', 'maintenance'])->default('available');
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */
