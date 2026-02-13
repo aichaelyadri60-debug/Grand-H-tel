@@ -10,7 +10,7 @@
 <div class="container">
     <h2>Add New Room</h2>
 
-    <form action="/rooms" method="POST">
+    <form action="{{route('storeRoom')}}" method="POST">
 
      <div class="form-group">
             <label for="roomNumber">Room Number</label>

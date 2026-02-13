@@ -28,7 +28,16 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room =new Room();
+        $room->roomNumber =$request->roomNumber;
+        $room->type =$request->type;
+        $room->price =$request->price;
+        $room->status =$request->status;
+        $room->save();
+        return redirect()
+        ->back()
+        ->with('succes' ,'chambre creer avec succes');
+
     }
 
     /**
