@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ContactController;
 
 
 Route::get('/', function () {
@@ -17,3 +18,5 @@ Route::put('rooms/{room}' ,[RoomController::class ,'update'])->name('updateRoom'
 Route::delete('rooms/{room}' ,[RoomController::class ,'destroy'])->name('destroyRoom');
 
 Route::get('services' ,[ServiceController::class ,'index'])->name('services.index');
+Route::get('contact' ,[ContactController::class ,'index'])->name('contact.index');
+// Route::get('services' ,[ContactController::class ,'index'])->name('services.index');
