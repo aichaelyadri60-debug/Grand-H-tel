@@ -14,9 +14,13 @@
                 Experience luxury, comfort and unforgettable moments
             </p>
 
-            <a class="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-semibold">
+            <a href="{{route('Room.index')}}" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-semibold">
                 Explore Rooms
             </a>
+            {{-- <a class="flex-column items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+                Contact us
+            </a> --}}
         </div>
     </section>
 
