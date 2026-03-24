@@ -10,9 +10,15 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query =Room::query();
+        if($request->type){
+            $query->where('type' ,$request->type);
+        }
+        $rooms = $query->orderBy('created_at', 'desc')->paginate(6);
+
+        return view('room.list', compact('rooms'));
     }
 
     /**
@@ -28,32 +34,44 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $room =new Room();
-        $room->roomNumber =$request->roomNumber;
-        $room->type =$request->type;
-        $room->price =$request->price;
-        $room->status =$request->status;
-        $room->save();
-        return redirect()
-        ->back()
-        ->with('succes' ,'chambre creer avec succes');
 
+        $request->validate([
+            'roomNumber' => 'required',
+            'type' => 'required',
+            'price' => 'required|numeric',
+            'status' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+        ]);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')
+                ->store('rooms', 'public');
+        }
+
+        Room::create([
+            'roomNumber' => $request->roomNumber,
+            'type' => $request->type,
+            'price' => $request->price,
+            'status' => $request->status,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->back()->with('success', 'Room created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
-    {
-        //
-    }
+    public function show(Room $room) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Room $room)
     {
-        return view('room.edit' ,compact('room'));
+        return view('room.edit', compact('room'));
     }
 
     /**
@@ -61,14 +79,14 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        $room->roomNumber =$request->roomNumber;
-        $room->type =$request->type;
-        $room->price =$request->price;
-        $room->status =$request->status;
+        $room->roomNumber = $request->roomNumber;
+        $room->type = $request->type;
+        $room->price = $request->price;
+        $room->status = $request->status;
         $room->save();
         return redirect()
-        ->back()
-        ->with('succes','chambre modifier avec succes');
+            ->back()
+            ->with('succes', 'chambre modifier avec succes');
     }
 
     /**
@@ -76,6 +94,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete();
+        return redirect()->back()->with('success', 'chambre supprimer avec success');
     }
 }
