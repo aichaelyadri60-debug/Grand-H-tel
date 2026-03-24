@@ -50,6 +50,6 @@ class ServiceController extends Controller
                 'description' => 'Meeting rooms and professional support staff.'
             ],
         ];
-        return view('service.index', compact('services'));
+        return view('services.index', compact('services'));
     }
 }

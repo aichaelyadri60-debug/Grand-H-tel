@@ -35,7 +35,7 @@
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
                     Rooms
                 </a>
-                <a class="nav-link relative text-sm font-medium text-white/90 hover:text-amber-300 transition-colors duration-200 cursor-pointer
+                <a href="{{route('services.index')}}" class="nav-link relative text-sm font-medium text-white/90 hover:text-amber-300 transition-colors duration-200 cursor-pointer
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
                     Services
                 </a>
@@ -83,7 +83,7 @@
                 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
                 Rooms
             </a>
-            <a class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 text-sm font-medium hover:bg-amber-50 hover:text-amber-600 transition-colors duration-200 cursor-pointer">
+            <a href="{{route('services.index')}}" class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 text-sm font-medium hover:bg-amber-50 hover:text-amber-600 transition-colors duration-200 cursor-pointer">
                 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 Services
             </a>
