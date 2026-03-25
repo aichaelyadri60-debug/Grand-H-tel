@@ -51,7 +51,7 @@
 
             {{-- ── Staff Login ── --}}
             <div class="hidden lg:flex items-center gap-3">
-                <a  id="staffBtn"
+                <a href="{{route('Showlogin')}}" id="staffBtn"
                     class="px-5 py-2 rounded-xl text-sm font-medium
                            bg-white/15 backdrop-blur-sm text-white border border-white/25
                            hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">

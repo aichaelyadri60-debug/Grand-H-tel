@@ -21,3 +21,7 @@ Route::get('services', [ServiceController::class, 'index'])->name('services.inde
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'sendmail'])
     ->name('contact.store');
+
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::get('login', [AuthController::class, 'Showlogin'])->name('Showlogin');
+
