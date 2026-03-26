@@ -10,6 +10,7 @@ class Room extends Model
         'roomNumber' ,
         'type' ,
         'price' ,
-        'status'
+        'status',
+        'image'
     ];
 }
