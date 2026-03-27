@@ -25,3 +25,5 @@ Route::post('/contact', [ContactController::class, 'sendmail'])
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('login', [AuthController::class, 'Showlogin'])->name('Showlogin');
 
+Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregister');

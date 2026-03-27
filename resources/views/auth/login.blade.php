@@ -1,101 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Staff Login</title>
-    @vite('resources/css/app.css')
-</head>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<div class="min-h-screen grid md:grid-cols-2 bg-[#F8F5F1]">
 
-    {{-- Header --}}
-    <div class="p-6">
-        <a href="/" class="flex items-center text-gray-600 hover:text-black">
-            ← Back to Home
-        </a>
+    {{-- LEFT SIDE IMAGE --}}
+    <div class="hidden md:block relative">
+
+        {{-- IMAGE --}}
+        <img
+            src="{{ asset('img/imaaaaage.webp')}}"
+            alt="Hotel"
+            class="absolute inset-0 w-full h-full object-cover"
+        >
+
+        {{-- OVERLAY --}}
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        {{-- TEXT OVER IMAGE --}}
+        <div class="relative z-10 h-full flex flex-col justify-between p-12 text-white">
+
+            <a href="/" class="text-white/80 hover:text-white text-sm">
+                ← Back to Home
+            </a>
+
+            <div>
+                <h1 class="text-4xl font-semibold leading-snug">
+                    Hotel Management
+                </h1>
+
+                <p class="mt-4 text-sm text-white/80 max-w-md">
+                    Gérez vos chambres, réservations et clients
+                    avec une plateforme moderne conçue pour les hôtels.
+                </p>
+            </div>
+
+            <p class="text-xs text-white/60">
+                © {{ date('Y') }} Hotel Manager
+            </p>
+
+        </div>
     </div>
 
-    {{-- Center Content --}}
-    <div class="flex flex-col items-center justify-center flex-1">
 
-        {{-- Logo --}}
-        <div class="bg-orange-500 w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-10 h-10 text-white"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 21h18M5 21V7l7-4 7 4v14"/>
-            </svg>
-        </div>
 
-        <h1 class="text-3xl font-bold text-gray-800">Grand Hotel</h1>
-        <p class="text-gray-500 mb-8">Staff Management Portal</p>
+    {{-- RIGHT SIDE LOGIN --}}
+    <div class="flex items-center justify-center px-6">
 
-        {{-- Login Card --}}
-        <div class="bg-white rounded-2xl shadow-md w-[420px] p-8">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-10 border border-gray-100">
 
-            <h2 class="text-2xl font-semibold text-center mb-6">
-                Staff Login
-            </h2>
+            {{-- TITLE --}}
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-semibold text-gray-800">
+                    Connexion
+                </h2>
+                <p class="text-sm text-gray-400 mt-1">
+                    Accédez à votre tableau de bord
+                </p>
+            </div>
 
-            {{-- Errors --}}
-            @if ($errors->any())
-                <div class="bg-red-100 text-red-600 p-3 rounded mb-4">
-                    {{ $errors->first() }}
-                </div>
+            {{-- ERRORS --}}
+            @if($errors->any())
+            <div id="errorBox"
+                 class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}" class="space-y-5">
+            {{-- SUCCESS --}}
+            @if(session('success'))
+            <div id="successBox"
+                 class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                {{ session('success') }}
+            </div>
+            @endif
+
+
+            {{-- FORM --}}
+            <form action="{{ route('login') }}" method="POST" class="space-y-5">
                 @csrf
 
-                {{-- Email --}}
+                {{-- EMAIL --}}
                 <div>
-                    <label class="block text-sm mb-1">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
-                        required
-                    >
+                    <label class="text-sm font-medium text-gray-600">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           required
+                           class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
+                                  focus:ring-2 focus:ring-amber-400
+                                  focus:border-amber-400 outline-none transition">
                 </div>
 
-                {{-- Password --}}
+                {{-- PASSWORD --}}
                 <div>
-                    <label class="block text-sm mb-1">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
-                        required
-                    >
+                    <label class="text-sm font-medium text-gray-600">
+                        Mot de passe
+                    </label>
+
+                    <input type="password"
+                           name="password"
+                           required
+                           class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
+                                  focus:ring-2 focus:ring-amber-400
+                                  focus:border-amber-400 outline-none transition">
                 </div>
 
-                {{-- Role --}}
-                <div>
-                    <label class="block text-sm mb-1">Role</label>
-                    <select name="role"
-                        class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-                        <option value="receptionist">Receptionist</option>
-                        <option value="manager">Manager</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                {{-- Button --}}
-                <button
-                    type="submit"
-                    class="w-full bg-teal-600 text-white py-3 rounded-lg hover:bg-teal-700 transition">
-                    Sign In
+                {{-- BUTTON --}}
+                <button type="submit"
+                        class="w-full bg-amber-600 text-white py-3 rounded-lg
+                               font-medium hover:bg-amber-700 transition">
+                    Se connecter
                 </button>
-
             </form>
+
+            {{-- FOOTER --}}
+            <p class="text-center text-sm text-gray-500 mt-6">
+                Pas encore de compte ?
+                <a href="{{ route('Showregister')}}" class="text-amber-600 font-medium hover:underline">
+                    Créer un compte
+                </a>
+            </p>
+
         </div>
     </div>
+</div>
 
-</body>
-</html>
+
+<script>
+setTimeout(() => {
+    document.getElementById('errorBox')?.remove();
+    document.getElementById('successBox')?.remove();
+}, 4000);
+</script>
