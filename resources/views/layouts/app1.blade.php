@@ -32,12 +32,11 @@
 
 
     {{-- Page Content --}}
-    <main>
+    <main class="ml-[260px] min-h-screen">
 
         @yield('content')
     </main>
 
-    @include('layouts.footer')
 
 </body>
 

@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
-<<<<<<< HEAD
-<div cglass="modal-overlay">
-    <div class="modal">
-=======
+
 @section('content')
->>>>>>> auth
+
 
     <div
         class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-teal-50 flex items-center justify-center px-4 py-24">

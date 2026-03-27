@@ -23,8 +23,13 @@ Route::post('/contact', [ContactController::class, 'sendmail'])
     ->name('contact.store');
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('login', [AuthController::class, 'Showlogin'])->name('Showlogin');
+
+
+// receptionnist
 Route::get('dashboard', [ReceptionnistController::class, 'index'])->name('receptionnist.dashboard');
+Route::get('dashboard/room', [ReceptionnistController::class, 'dashboard'])->name('receptionnist.dashboard.room');
 
 
 
