@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\loginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth ;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -17,16 +21,10 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function login(Request $request)
+    public function login(loginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'role' => 'required|in:admin,receptionist'
-        ]);
 
-
-        if (Auth::attempt($request->only('email', 'password', 'role'))) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             return redirect('/');
         }
@@ -34,5 +32,14 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Invalid credentials'
         ]);
+    }
+
+    public function Register(RegisterRequest  $request){
+        User::create([
+            'name'       =>$request->name,
+            'email'      =>$request->email,
+            'password'   =>Hash::make($request->password)
+        ]);
+        return redirect()->route('Showlogin')->with('success' ,'vous avez enregistrer avec success .');
     }
 }
