@@ -143,7 +143,7 @@
 
             </div>
 
-            <a href="#" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg">
+            <a href="{{ route('Room.index')}}" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg">
                 View All Rooms
             </a>
 
@@ -167,11 +167,11 @@
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
 
-                <a href="#" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg">
+                <a href="{{route('Room.index')}}" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg">
                     Book Now
                 </a>
 
-                <a href="#"
+                <a href="{{ route('contact.index')}}"
                     class="px-8 py-3 bg-white/20 backdrop-blur text-white border border-white/30 rounded-lg hover:bg-white/30">
                     Contact Us
                 </a>

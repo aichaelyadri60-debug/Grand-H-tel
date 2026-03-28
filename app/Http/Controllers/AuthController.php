@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\loginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\loginRequest;
 
 class AuthController extends Controller
 {
@@ -46,7 +46,7 @@ class AuthController extends Controller
         ]);
         return redirect()->route('Showlogin')->with('success', 'vous avez enregistrer avec success .');
     }
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
