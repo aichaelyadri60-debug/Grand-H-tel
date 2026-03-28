@@ -1,5 +1,6 @@
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
 
+
     <div class="container mx-auto px-6">
         <div class="flex items-center justify-between">
 
@@ -7,8 +8,10 @@
             <a class="flex items-center gap-3 group cursor-pointer">
                 <div id="logoIcon"
                     class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300">
+
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
+
                         <path d="M3 21h18M4 21V7l8-4 8 4v14" />
                     </svg>
                 </div>
@@ -17,7 +20,9 @@
                         class="text-xl font-serif font-bold text-white transition-colors duration-300 leading-tight">
                         Grand Hotel
                     </h1>
+
                     <p id="logoSub" class="text-xs text-white/70 transition-colors duration-300 tracking-wide">
+
                         Luxury &amp; Elegance
                     </p>
                 </div>
@@ -25,6 +30,7 @@
 
             {{-- ── Desktop Nav ── --}}
             <div class="hidden lg:flex items-center gap-8">
+
                 <a href="{{ route('homepage') }}"
                     class="nav-link relative text-sm font-medium text-white/90 hover:text-amber-300 transition-colors duration-200 cursor-pointer
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
@@ -47,13 +53,15 @@
                 </a>
                 <a href="{{ route('contact.index') }}"
                     class="nav-link relative text-sm font-medium text-white/90 hover:text-amber-300 transition-colors duration-200 cursor-pointer
+
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
                     Contact
                 </a>
             </div>
+
             @auth
 
-        
+
                 <div class="hidden lg:flex items-center gap-3">
                     <a href="{{ route('receptionnist.dashboard') }}" id="staffBtn"
                         class="px-5 py-2 rounded-xl text-sm font-medium
@@ -62,33 +70,34 @@
                         dashboard
                     </a>
                 </div>
+
+
+            @endauth
+
+            @guest
+
+
+                {{-- ── Staff Login ── --}}
                 <div class="hidden lg:flex items-center gap-3">
-                    <a href="{{ route('receptionnist.dashboard') }}" id="staffBtn"
+                    <a href="{{ route('Showlogin') }}" id="staffBtn"
                         class="px-5 py-2 rounded-xl text-sm font-medium
                            bg-white/15 backdrop-blur-sm text-white border border-white/25
                            hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
-                        Staff Login
+                        Register / Login
+
                     </a>
                 </div>
-
-            @endauth
-            {{-- ── Staff Login ── --}}
-            <div class="hidden lg:flex items-center gap-3">
-                <a href="{{ route('Showlogin') }}" id="staffBtn"
-                    class="px-5 py-2 rounded-xl text-sm font-medium
-                           bg-white/15 backdrop-blur-sm text-white border border-white/25
-                           hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
-                    Staff Login
-                </a>
-            </div>
+            @endguest
 
             {{-- ── Mobile Button ── --}}
             <button id="menuBtn"
                 class="lg:hidden p-2 rounded-xl text-white hover:bg-white/10 transition-colors duration-200">
+
                 <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
                     <path id="menuIconPath" stroke-linecap="round" stroke-linejoin="round"
                         d="M4 6h16M4 12h16M4 18h16" />
+
                 </svg>
             </button>
 
@@ -100,6 +109,7 @@
         class="hidden lg:hidden mt-3 mx-4 rounded-2xl bg-white shadow-xl shadow-gray-200/80 border border-amber-100 overflow-hidden">
 
         <div class="px-6 py-5 space-y-1">
+
             <a
                 class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 text-sm font-medium hover:bg-amber-50 hover:text-amber-600 transition-colors duration-200 cursor-pointer">
                 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
@@ -142,6 +152,7 @@
                     <path
                         d="M22 16.92V19a2 2 0 01-2.18 2A19.79 19.79 0 013 4.18 2 2 0 015 2h2.09a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 16.92z" />
                 </svg>
+
                 Contact
             </a>
 
@@ -149,13 +160,33 @@
             <div class="h-px bg-amber-100 my-2"></div>
 
             {{-- Staff Login --}}
-            <a
-                class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
-                </svg>
-                Staff Login
-            </a>
+            @auth
+
+
+                <a href="{{ route('receptionnist.dashboard') }}" id="staffBtn"
+                    class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                    </svg>
+
+                    dashboard
+                </a>
+
+
+
+            @endauth
+
+            @guest
+                <a href="{{ route('Showlogin') }}" id="staffBtn"
+                    class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                    </svg>
+
+                    Register / Login
+                </a>
+            @endguest
+
         </div>
     </div>
 </nav>
