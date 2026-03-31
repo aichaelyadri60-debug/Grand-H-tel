@@ -84,14 +84,7 @@
                         </button>
                     </form>
 
-                    {{-- Add Room button --}}
-                    {{-- <a href="{{ route('rooms.create') }}"
-                    class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white text-sm font-semibold rounded-xl shadow-md shadow-amber-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                    Add Room
-                </a> --}}
+
                 </div>
             </div>
 
@@ -192,23 +185,22 @@
                                     ${{ number_format($room->price, 2) }}
                                 </span>
                             </div>
-  <a href="{{ route('receptionnist.dashboard') }}"
-   class="flex items-center justify-center gap-2 w-full py-3 px-4
+                            <a href="{{ route('ShowReservation', $room->id) }}"
+                                class="flex items-center justify-center gap-2 w-full py-3 px-4
           rounded-xl bg-gradient-to-r from-amber-500 to-orange-400
           text-white font-semibold
           shadow-lg hover:shadow-xl
           hover:scale-[1.02]
           transition-all duration-200">
 
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-         viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/>
-    </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                                </svg>
 
-    Réserver
-</a>
+                                Réserver
+                            </a>
                         </div>
 
 
@@ -229,6 +221,7 @@
                 @endforelse
 
             </div>
+   
 
             {{-- ── Pagination ── --}}
             @if ($rooms->hasPages())

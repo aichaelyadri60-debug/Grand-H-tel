@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ReceptionnistController;
-
+use App\Http\Controllers\ReservationController;
 
 Route::get('/', function () {
     return view('home');
@@ -24,7 +24,6 @@ Route::post('/contact', [ContactController::class, 'sendmail'])
     ->name('contact.store');
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
-
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('login', [AuthController::class, 'Showlogin'])->name('Showlogin');
 
@@ -37,3 +36,7 @@ Route::get('dashboard/room', [ReceptionnistController::class, 'dashboard'])->nam
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregister');
 
+
+// reservation
+Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
+Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
