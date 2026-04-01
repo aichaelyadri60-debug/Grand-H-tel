@@ -7,7 +7,6 @@
     <div
         class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-teal-50 flex items-center justify-center px-4 py-24">
 
-        {{-- Background blobs --}}
         <div class="pointer-events-none fixed top-20 right-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
         <div class="pointer-events-none fixed bottom-10 left-0 w-60 h-60 bg-teal-200/20 rounded-full blur-3xl"></div>
 
@@ -15,7 +14,6 @@
 
             <div class="bg-white rounded-2xl shadow-xl shadow-amber-100/50 overflow-hidden border border-amber-100">
 
-                {{-- HEADER --}}
                 <div class="bg-gradient-to-r from-amber-500 to-amber-400 px-8 pt-8 pb-10 text-center relative">
 
                     <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -37,13 +35,11 @@
                     <div class="absolute bottom-0 left-0 right-0 h-6 bg-white rounded-t-3xl"></div>
                 </div>
 
-                {{-- FORM --}}
                 <div class="px-8 pb-8 pt-2">
 
                     <form action="{{ route('storeRoom') }}" method="POST" class="space-y-5" enctype="multipart/form-data">
                         @csrf
 
-                        {{-- SECTION --}}
                         <div class="flex items-center gap-3 mb-1">
                             <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">
                                 Room Details
@@ -51,10 +47,8 @@
                             <div class="flex-1 h-px bg-gray-100"></div>
                         </div>
 
-                        {{-- NUMBER + TYPE --}}
                         <div class="grid grid-cols-2 gap-4">
 
-                            {{-- Room Number --}}
                             <div>
                                 <label class="text-xs font-semibold text-gray-500 uppercase">Room No.</label>
                                 <input type="text" name="roomNumber" value="{{ old('roomNumber') }}" required
@@ -62,7 +56,6 @@
                                     class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-400/40">
                             </div>
 
-                            {{-- Type --}}
                             <div>
                                 <label class="text-xs font-semibold text-gray-500 uppercase">Type</label>
 
@@ -80,7 +73,6 @@
 
                         </div>
 
-                        {{-- PRICE --}}
                         <div>
                             <label class="text-xs font-semibold text-gray-500 uppercase">
                                 Price per Night
@@ -94,7 +86,6 @@
                             </div>
                         </div>
 
-                        {{-- STATUS --}}
                         <div>
 
                             <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">
@@ -126,7 +117,6 @@
 
                             </div>
                         </div>
-                        {{-- Room Image --}}
                         <div>
                             <label
                                 class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
@@ -143,7 +133,6 @@
                focus:outline-none focus:ring-2 focus:ring-amber-400/40">
                         </div>
 
-                        {{-- ERRORS --}}
                         @if ($errors->any())
                             <div class="bg-red-50 border border-red-200 rounded-xl p-3">
                                 <ul class="text-xs text-red-600 list-disc list-inside">
@@ -154,7 +143,6 @@
                             </div>
                         @endif
 
-                        {{-- BUTTON --}}
                         <button type="submit"
                             class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white rounded-xl font-semibold shadow-md transition">
                             Create Room

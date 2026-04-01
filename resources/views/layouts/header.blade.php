@@ -4,7 +4,6 @@
     <div class="container mx-auto px-6">
         <div class="flex items-center justify-between">
 
-            {{-- ── Logo ── --}}
             <a class="flex items-center gap-3 group cursor-pointer">
                 <div id="logoIcon"
                     class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300">
@@ -28,7 +27,6 @@
                 </div>
             </a>
 
-            {{-- ── Desktop Nav ── --}}
             <div class="hidden lg:flex items-center gap-8">
 
                 <a href="{{ route('homepage') }}"
@@ -77,7 +75,6 @@
             @guest
 
 
-                {{-- ── Staff Login ── --}}
                 <div class="hidden lg:flex items-center gap-3">
                     <a href="{{ route('Showlogin') }}" id="staffBtn"
                         class="px-5 py-2 rounded-xl text-sm font-medium
@@ -89,7 +86,6 @@
                 </div>
             @endguest
 
-            {{-- ── Mobile Button ── --}}
             <button id="menuBtn"
                 class="lg:hidden p-2 rounded-xl text-white hover:bg-white/10 transition-colors duration-200">
 
@@ -104,7 +100,6 @@
         </div>
     </div>
 
-    {{-- ── Mobile Menu ── --}}
     <div id="mobileMenu"
         class="hidden lg:hidden mt-3 mx-4 rounded-2xl bg-white shadow-xl shadow-gray-200/80 border border-amber-100 overflow-hidden">
 
@@ -156,10 +151,8 @@
                 Contact
             </a>
 
-            {{-- Divider --}}
             <div class="h-px bg-amber-100 my-2"></div>
 
-            {{-- Staff Login --}}
             @auth
 
 

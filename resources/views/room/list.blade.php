@@ -1,20 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- ══════════════════════════════════════════
-     HERO SECTION
-══════════════════════════════════════════ --}}
     <section class="relative h-[420px] flex items-center justify-center overflow-hidden">
 
-        {{-- Background image --}}
         <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style="background-image: url('{{ asset('img/hero.jpg') }}');">
         </div>
 
-        {{-- Dark overlay --}}
         <div class="absolute inset-0 bg-black/55"></div>
 
-        {{-- Hero content --}}
         <div class="relative z-10 text-center px-6">
             <p class="text-amber-400 text-sm font-semibold tracking-[0.25em] uppercase mb-3">
                 Accommodations
@@ -27,7 +21,6 @@
                 Discover your perfect sanctuary from our collection of elegantly designed rooms
             </p>
         </div>
-        {{-- Wave bottom --}}
         <div class="absolute bottom-0 left-0 right-0">
             <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
                 <path d="M0 60 C360 0 1080 0 1440 60 L1440 60 L0 60 Z" fill="#f8f5f0" />
@@ -35,16 +28,11 @@
         </div>
     </section>
 
-    {{-- ══════════════════════════════════════════
-     MAIN CONTENT
-══════════════════════════════════════════ --}}
     <div class="bg-gradient-to-b from-[#f8f5f0] to-white min-h-screen">
         <div class="max-w-7xl mx-auto px-6 py-10">
 
-            {{-- ── Toolbar: Title + Filter + Add Button ── --}}
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
 
-                {{-- Left: count info --}}
                 <div>
                     <h2 class="text-2xl font-serif font-bold text-gray-800">
                         Rooms Management
@@ -54,10 +42,8 @@
                     </p>
                 </div>
 
-                {{-- Right: filter + add --}}
                 <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
 
-                    {{-- Filter form --}}
                     <form method="GET" class="flex gap-2">
                         <div class="relative">
                             <select name="type"
@@ -88,20 +74,17 @@
                 </div>
             </div>
 
-            {{-- ── Rooms Grid ── --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
 
                 @forelse($rooms as $room)
                     <div
                         class="group bg-white rounded-2xl shadow-sm shadow-gray-200/80 overflow-hidden border border-gray-100 hover:shadow-xl hover:shadow-amber-100/60 hover:-translate-y-1 transition-all duration-300">
 
-                        {{-- Room Image --}}
                         <div class="relative h-52 overflow-hidden bg-gray-100">
                             @if ($room->image)
                                 <img src="{{ asset('storage/' . $room->image) }}" alt="Room {{ $room->roomNumber }}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
-                                {{-- Placeholder --}}
                                 <div
                                     class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100/50">
                                     <svg class="w-12 h-12 text-amber-300" fill="none" stroke="currentColor"
@@ -113,7 +96,6 @@
                                 </div>
                             @endif
 
-                            {{-- Price badge --}}
                             <div class="absolute top-3 right-3">
                                 <span
                                     class="px-3 py-1.5 bg-amber-500 text-white text-sm font-bold rounded-full shadow-lg shadow-amber-500/30">
@@ -121,7 +103,6 @@
                                 </span>
                             </div>
 
-                            {{-- Room number badge --}}
                             <div class="absolute top-3 left-3">
                                 <span
                                     class="px-3 py-1.5 bg-black/40 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
@@ -130,10 +111,8 @@
                             </div>
                         </div>
 
-                        {{-- Card Body --}}
                         <div class="p-5">
 
-                            {{-- Top row: type + status --}}
                             <div class="flex items-center justify-between mb-3">
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 bg-amber-50 rounded-lg flex items-center justify-center">
@@ -146,7 +125,6 @@
                                     <span class="text-gray-800 font-semibold text-sm">{{ $room->type }} Room</span>
                                 </div>
 
-                                {{-- Status badge --}}
                                 @if ($room->status == 'available')
                                     <span
                                         class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 text-teal-700 text-xs font-semibold rounded-full border border-teal-200">
@@ -168,10 +146,8 @@
                                 @endif
                             </div>
 
-                            {{-- Divider --}}
                             <div class="h-px bg-gray-100 mb-3"></div>
 
-                            {{-- Meta info --}}
                             <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span class="flex items-center gap-1">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2"
@@ -207,7 +183,6 @@
 
                     </div>
                 @empty
-                    {{-- Empty state --}}
                     <div class="col-span-3 flex flex-col items-center justify-center py-24 text-center">
                         <div class="w-20 h-20 bg-amber-50 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor"
@@ -221,9 +196,8 @@
                 @endforelse
 
             </div>
-   
 
-            {{-- ── Pagination ── --}}
+
             @if ($rooms->hasPages())
                 <div class="mt-10 flex justify-center">
                     <div class="pagination-wrapper">
@@ -235,7 +209,6 @@
         </div>
     </div>
 
-    {{-- Custom pagination styling --}}
     <style>
         .pagination-wrapper nav span[aria-current="page"] span,
         .pagination-wrapper nav a:hover {

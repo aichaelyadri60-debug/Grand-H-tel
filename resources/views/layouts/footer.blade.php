@@ -4,7 +4,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-            {{-- BRAND --}}
             <div>
                 <div class="flex items-center gap-3 mb-4">
 
@@ -26,7 +25,6 @@
             </div>
 
 
-            {{-- QUICK LINKS --}}
             <div>
                 <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
 
@@ -71,7 +69,6 @@
             </div>
 
 
-            {{-- CONTACT INFO --}}
             <div>
                 <h4 class="font-semibold text-lg mb-4">Contact Us</h4>
 
@@ -103,7 +100,6 @@
             </div>
 
 
-            {{-- SOCIAL MEDIA --}}
             <div>
                 <h4 class="font-semibold text-lg mb-4">Follow Us</h4>
 
@@ -135,7 +131,6 @@
     </div>
 
 
-    {{-- BOTTOM BAR --}}
     <div class="border-t border-slate-800">
 
         <div class="container mx-auto px-6 py-6">

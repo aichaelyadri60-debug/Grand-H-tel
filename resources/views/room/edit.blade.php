@@ -4,18 +4,14 @@
 
 <div class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-teal-50 flex items-center justify-center px-4 py-24">
 
-    {{-- Decorative background blobs --}}
     <div class="pointer-events-none fixed top-20 right-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
     <div class="pointer-events-none fixed bottom-10 left-0 w-60 h-60 bg-teal-200/20 rounded-full blur-3xl"></div>
 
     <div class="w-full max-w-xl relative z-10">
 
-        {{-- Card --}}
         <div class="bg-white rounded-2xl shadow-xl shadow-amber-100/50 overflow-hidden border border-amber-100">
 
-            {{-- Amber header --}}
             <div class="bg-gradient-to-r from-amber-500 to-amber-400 px-8 pt-8 pb-10 text-center relative">
-                {{-- Icon --}}
                 <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
@@ -25,7 +21,6 @@
                 <p class="text-amber-100 text-xs tracking-widest uppercase mb-1 font-medium">Room Management</p>
                 <h2 class="text-white text-2xl font-bold font-serif tracking-wide">Edit Room</h2>
 
-                {{-- White curved bottom --}}
                 <div class="absolute bottom-0 left-0 right-0 h-6 bg-white rounded-t-3xl"></div>
             </div>
 
@@ -36,16 +31,13 @@
                     @csrf
                     @method('PUT')
 
-                    {{-- Section label --}}
                     <div class="flex items-center gap-3 mb-1">
                         <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">Room Details</span>
                         <div class="flex-1 h-px bg-gray-100"></div>
                     </div>
 
-                    {{-- Row: Number + Type --}}
                     <div class="grid grid-cols-2 gap-4">
 
-                        {{-- Room Number --}}
                         <div>
                             <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
                                 <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
@@ -65,7 +57,6 @@
                             >
                         </div>
 
-                        {{-- Room Type --}}
                         <div>
                             <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
                                 <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
@@ -94,7 +85,6 @@
                         </div>
                     </div>
 
-                    {{-- Price --}}
                     <div>
                         <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
                             <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
@@ -118,13 +108,11 @@
                         </div>
                     </div>
 
-                    {{-- Section label --}}
                     <div class="flex items-center gap-3 pt-1">
                         <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">Room Status</span>
                         <div class="flex-1 h-px bg-gray-100"></div>
                     </div>
 
-                    {{-- Status pills --}}
                     <div>
                         <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
                             <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
@@ -133,7 +121,6 @@
                             Current Status
                         </label>
 
-                        {{-- Hidden select for form submission --}}
                         <select name="status" id="statusSelect" class="hidden">
                             <option value="available"    {{ $room->status == 'available'    ? 'selected' : '' }}>Available</option>
                             <option value="occupied"     {{ $room->status == 'occupied'     ? 'selected' : '' }}>Occupied</option>
@@ -142,7 +129,6 @@
 
                         <div class="grid grid-cols-3 gap-3">
 
-                            {{-- Available --}}
                             <button type="button"
                                 onclick="setStatus('available')"
                                 id="pill-available"
@@ -152,7 +138,6 @@
                                 Available
                             </button>
 
-                            {{-- Occupied --}}
                             <button type="button"
                                 onclick="setStatus('occupied')"
                                 id="pill-occupied"
@@ -162,7 +147,6 @@
                                 Occupied
                             </button>
 
-                            {{-- Maintenance --}}
                             <button type="button"
                                 onclick="setStatus('maintenance')"
                                 id="pill-maintenance"
@@ -175,7 +159,6 @@
                         </div>
                     </div>
 
-                    {{-- Validation errors --}}
                     @if ($errors->any())
                         <div class="bg-red-50 border border-red-200 rounded-xl p-3">
                             <ul class="text-xs text-red-600 space-y-1 list-disc list-inside">
@@ -186,7 +169,6 @@
                         </div>
                     @endif
 
-                    {{-- Actions --}}
                     <div class="flex justify-between items-center pt-3 border-t border-gray-100">
 
                         <a href="{{ url()->previous() }}"

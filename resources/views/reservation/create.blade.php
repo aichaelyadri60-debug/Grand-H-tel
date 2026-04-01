@@ -9,7 +9,6 @@
             {{-- ================= ROOM INFO ================= --}}
             <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
-                {{-- IMAGE --}}
                 <div
                     class="h-56 bg-gradient-to-r from-amber-500 to-orange-400 flex items-center justify-center text-white text-5xl">
                     <img src="{{ asset('storage/' . $room->image) }}" alt="Room {{ $room->roomNumber }}"
@@ -26,7 +25,6 @@
                         Chambre confortable idéale pour votre séjour.
                     </p>
 
-                    {{-- ROOM DETAILS --}}
                     <div class="grid grid-cols-2 gap-4 text-sm">
 
                         <div class="bg-slate-50 p-3 rounded-xl">
@@ -63,14 +61,12 @@
             </div>
 
 
-            {{-- ================= FORM ================= --}}
             <div class="bg-white rounded-3xl shadow-lg p-8">
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">
                     Réserver maintenant
                 </h2>
 
-                {{-- ERRORS --}}
                 @if (session('success'))
                     <div id="success" class="mb-5 bg-green-50 border border-green-200 text-green-600 p-4 rounded-xl">
                         <span>{{ session('success') }}</span>
@@ -88,28 +84,24 @@
                 <form method="POST" action="{{ route('reservations.store', $room->id) }}" class="space-y-5">
                     @csrf
 
-                    {{-- CHECK IN --}}
                     <div>
                         <label class="text-sm text-gray-600">Check In</label>
                         <input type="datetime-local" name="check_in" required
                             class="w-full mt-1 border rounded-xl p-3 focus:ring-2 focus:ring-amber-500">
                     </div>
 
-                    {{-- CHECK OUT --}}
                     <div>
                         <label class="text-sm text-gray-600">Check Out</label>
                         <input type="datetime-local" name="check_out" required
                             class="w-full mt-1 border rounded-xl p-3 focus:ring-2 focus:ring-amber-500">
                     </div>
 
-                    {{-- GUESTS --}}
                     <div>
                         <label class="text-sm text-gray-600">Guests</label>
                         <input type="number" name="guests" min="1" value="1"
                             class="w-full mt-1 border rounded-xl p-3">
                     </div>
 
-                    {{-- BUTTONS --}}
                     <div class="flex justify-between items-center pt-6">
 
                         <a href="{{ route('Room.index') }}"

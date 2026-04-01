@@ -1,7 +1,7 @@
 @extends('layouts.app1')
 @section('content')
 
-{{-- Google Fonts --}}
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
   body { font-family: 'DM Sans', sans-serif; }
@@ -10,8 +10,8 @@
 
 <div class="p-6 max-w-7xl mx-auto">
 
-  {{-- ── HEADER ── --}}
-  <div class="flex justify-between items-end mb-8">
+
+    <div class="flex justify-between items-end mb-8">
     <div>
       <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
         Rooms Management
@@ -32,7 +32,7 @@
 
 
 
-  {{-- ── FILTERS ── --}}
+
   <form method="GET"
         class="bg-white rounded-2xl border border-gray-300 p-5 mb-6
                grid grid-cols-1 md:grid-cols-4 gap-3 items-center">
@@ -66,7 +66,7 @@
     </button>
   </form>
 
-  {{-- ── TABLE ── --}}
+
   <div class="bg-white rounded-2xl m-5 border border-gray-300 overflow-hidden">
     <table class="w-full  text-sm text-left">
 
@@ -84,15 +84,14 @@
         @forelse($rooms as $room)
         <tr class="hover:bg-gray-50/60 transition">
 
-          {{-- Room number --}}
-          <td class="px-6 py-4">
+            <td class="px-6 py-4">
             <p class="font-semibold text-gray-900" style="font-family:'Playfair Display',serif">
               #{{ $room->roomNumber }}
             </p>
             <p class="text-xs text-gray-400 font-light mt-0.5">Floor {{ floor($room->roomNumber / 100) }}</p>
           </td>
 
-          {{-- Type badge --}}
+
           <td class="px-6 py-4">
             @if($room->type === 'Single')
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800">
@@ -109,13 +108,13 @@
             @endif
           </td>
 
-          {{-- Price --}}
+
           <td class="px-6 py-4">
             <p class="font-medium text-gray-900">${{ number_format($room->price, 2) }}</p>
             <p class="text-xs text-gray-400 font-light">per night</p>
           </td>
 
-          {{-- Status badge --}}
+
           <td class="px-6 py-4">
             @if($room->status === 'available')
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800">
@@ -132,7 +131,7 @@
             @endif
           </td>
 
-          {{-- Actions --}}
+
           <td class="px-6 py-4">
             <div class="flex justify-end gap-2">
               <a href="{{ route('editRoom', $room->id) }}"
@@ -167,7 +166,7 @@
     </table>
   </div>
 
-  {{-- ── PAGINATION ── --}}
+
   <div class="mt-8 flex justify-center">
     {{ $rooms->links() }}
   </div>

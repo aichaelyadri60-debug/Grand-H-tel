@@ -39,7 +39,6 @@
 
 <aside class="fixed left-0 top-0 h-screen  bg-slate-900 w-65 text-white flex flex-col transition-all duration-300">
 
-    {{-- LOGO --}}
     <div class="h-16 flex items-center justify-between px-4 border-b border-slate-800">
 
         <div class="flex items-center gap-3 overflow-hidden">
@@ -57,18 +56,15 @@
 
 
     </div>
-    {{-- USER INFO --}}
     <div class="px-4 py-4 border-b border-slate-800">
         <div class="flex items-center gap-3">
 
-            {{-- Avatar --}}
             <div
                 class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0
                  bg-gradient-to-br from-blue to-cyan-600 ">
                 {{ $initials }}
             </div>
 
-            {{-- Infos --}}
             <div class="min-w-0 leading-tight">
                 <p class="text-sm font-medium text-slate-200 truncate">
                     {{ $userName }}
@@ -84,7 +80,6 @@
 
 
 
-    {{-- NAVIGATION --}}
     <nav class="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
 
         @foreach ($navItems as $item)
@@ -95,7 +90,6 @@
                        ? 'bg-teal-600 text-white'
                        : 'text-slate-400 hover:bg-slate-800 hover:text-white' }} transition">
 
-                    {{-- ICON --}}
 
                     <span x-show="!collapsed" class="font-medium whitespace-nowrap">
                         {{ $item['label'] }}
@@ -106,25 +100,18 @@
         @endforeach
 
     </nav>
-
-    {{-- BOTTOM ACTIONS --}}
     <div class="p-3 border-t border-slate-800 space-y-1">
 
-        {{-- PUBLIC SITE --}}
         <a href="/"
             class="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">
 
-            {{-- <div id="logoIcon"
-                class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300"> --}}
             <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5M5 9.5V21h14V9.5" />
             </svg>
-            {{-- </div> --}}
             <span x-show="!collapsed">Public Site</span>
         </a>
 
-        {{-- LOGOUT --}}
         <form method="POST" action="{{route('logout')}}">
             @csrf
             <button
