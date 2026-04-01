@@ -11,6 +11,23 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
+    public function index(Request $request){
+        $query =Reservation::with('user');
+        if($request->status){
+            $query->where('status' , $request->status);
+        }
+        if($request->search){
+            $query->whereHas('user' ,function($q) use ($request){
+                $q->where('name' ,'like' ,'%'.$request->search.'%');
+            });
+        }
+        $reservations =$query
+            ->orderBy('created_at' ,'desc')
+            ->paginate(6);
+
+        return view('receptionist.reservations' ,compact('reservations'));
+    }
+
     public function formReserv(Room $room){
         $user = auth()->user();
         if (!$user) {
@@ -49,5 +66,7 @@ class ReservationController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Reservation created successfully!');
-    }   
+    }
+
+
 }

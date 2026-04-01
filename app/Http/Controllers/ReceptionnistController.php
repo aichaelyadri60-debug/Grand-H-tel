@@ -17,7 +17,6 @@ class ReceptionnistController extends Controller
     {
         $query = Room::query();
 
-        // Search
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('roomNumber', 'like', '%' . $request->search . '%')
@@ -25,12 +24,10 @@ class ReceptionnistController extends Controller
             });
         }
 
-        // Status filter
         if ($request->status && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
 
-        // Type filter
         if ($request->type && $request->type !== 'all') {
             $query->where('type', $request->type);
         }

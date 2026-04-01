@@ -23,7 +23,7 @@
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'Room.index',
+            'path' => 'Reservations.index',
             'label' => 'Reservations',
             'icon' => 'calendar-check',
             'roles' => ['admin', 'Receptionniste'],

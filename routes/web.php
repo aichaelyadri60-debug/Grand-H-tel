@@ -40,3 +40,5 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 // reservation
 Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
 Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
+
+Route::get('reservations',[ReservationController::class ,'index'])->name('Reservations.index');
