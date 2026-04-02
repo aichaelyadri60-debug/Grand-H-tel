@@ -68,5 +68,10 @@ class ReservationController extends Controller
             ->with('success', 'Reservation created successfully!');
     }
 
+    public function destroy(Reservation $reservation){
+        $reservation->delete();
+        return redirect()->route('Reservations.index')->with('success' ,'reservations supprimer avec succes .');
+    }
+
 
 }

@@ -127,7 +127,7 @@ h1   { font-family: 'Playfair Display', serif; }
                 View
             </a>
 
-            <form method="POST"
+            <form method="POST" action="{{route('Reservations.destroy' ,$reservation->id)}}"
 
                   onsubmit="return confirm('Delete reservation?')">
                 @csrf

@@ -42,3 +42,4 @@ Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->
 Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
 
 Route::get('reservations',[ReservationController::class ,'index'])->name('Reservations.index');
+Route::delete('reservations/{reservation}',[ReservationController::class ,'destroy'])->name('Reservations.destroy');
