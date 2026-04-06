@@ -120,52 +120,78 @@
 
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
+                                    @if ($reservation->status === 'confirmed')
+                                        @if ($reservation->payment->status != 'paid')
+                                            <form method="POST"
+                                                action="{{ route('payments.pay', $reservation->payment->id) }}">
+                                                @csrf
+                                                @method('PATCH')
 
-                                    <!-- Accepter -->
-                                    <form method="POST" action="{{ route('reservations.accept', $reservation->id) }}">
-                                        @csrf
-                                        @method('PATCH')
 
-                                        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                                            Accepter
-                                        </button>
-                                    </form>
+                                                <button type="submit"
+                                                    class="flex items-center justify-center px-4 py-2 text-xs font-medium
+                   text-blue-700 bg-blue-100 border border-blue-300
+                   rounded-lg transition duration-200
+                   hover:bg-blue-200 hover:shadow-sm">
+                                                    Mark as Paid
+                                                </button>
+                                            </form>
+                                        @else
+                                            <button
+                                                class="flex items-center justify-center px-4 py-2 text-xs font-medium
+                   text-blue-700 bg-blue-100 border border-blue-300
+                   rounded-lg transition duration-200
+                   hover:bg-blue-200 hover:shadow-sm">
+                                                Paid
+                                            </button>
+                                        @endif
+                                    @else
+                                        <!-- Accepter -->
+                                        <form method="POST" action="{{ route('reservations.accept', $reservation->id) }}">
+                                            @csrf
+                                            @method('PATCH')
 
-                                    <!-- Refuser -->
-                                    <a href="#"
-                                        class="flex items-center justify-center px-4 py-2 text-xs font-medium
+                                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                                Accepter
+                                            </button>
+                                        </form>
+
+                                        <!-- Refuser -->
+                                        <a href="#"
+                                            class="flex items-center justify-center px-4 py-2 text-xs font-medium
               text-red-700 bg-red-100 border border-red-300
               rounded-lg transition duration-200
               hover:bg-red-200 hover:shadow-sm">
-                                        Refuser
-                                    </a>
+                                            Refuser
+                                        </a>
 
-                                    <!-- Delete -->
-                                    <form method="POST" action="{{ route('Reservations.destroy', $reservation->id) }}"
-                                        onsubmit="return confirm('Delete reservation?')">
-                                        @csrf
-                                        @method('DELETE')
+                                        <!-- Delete -->
+                                        <form method="POST" action="{{ route('Reservations.destroy', $reservation->id) }}"
+                                            onsubmit="return confirm('Delete reservation?')">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button type="submit"
-                                            class="flex items-center justify-center px-4 py-2 text-xs font-medium
+                                            <button type="submit"
+                                                class="flex items-center justify-center px-4 py-2 text-xs font-medium
                    text-gray-700 bg-gray-100 border border-gray-300
                    rounded-lg transition duration-200
                    hover:bg-gray-200 hover:shadow-sm">
-                                            Delete
-                                        </button>
-                                    </form>
+                                                Delete
+                                            </button>
+                                        </form>
 
                                 </div>
-                            </td>
+                    @endif
+                    </td>
 
-                        </tr>
+                    </tr>
 
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center py-16 text-gray-400">
-                                No reservations found
-                            </td>
-                        </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-16 text-gray-400">
+                            No reservations found
+                        </td>
+                    </tr>
                     @endforelse
 
                 </tbody>

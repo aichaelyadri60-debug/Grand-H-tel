@@ -5,6 +5,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ReceptionnistController;
 use App\Http\Controllers\ReservationController;
 use GuzzleHttp\Middleware;
@@ -33,19 +34,18 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 
 
 
-Route::middleware(['auth' ,'client'])->group(function(){
+Route::middleware(['auth', 'client'])->group(function () {
     Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
     Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
-
 });
 
 
 
 
-Route::middleware(['auth' ,'role:admin,Receptionniste'])->group(function(){
-    Route::patch('reservations/{reservations}/accept' ,[ReservationController::class ,'accept'])->name('reservations.accept');
-    Route::get('reservations',[ReservationController::class ,'index'])->name('Reservations.index');
-    Route::delete('reservations/{reservation}',[ReservationController::class ,'destroy'])->name('Reservations.destroy');
+Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
+    Route::patch('reservations/{reservation}/accept', [ReservationController::class, 'accept'])->name('reservations.accept');
+    Route::get('reservations', [ReservationController::class, 'index'])->name('Reservations.index');
+    Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('Reservations.destroy');
     Route::get('dashboard', [ReceptionnistController::class, 'index'])->name('receptionnist.dashboard');
     Route::get('dashboard/room', [ReceptionnistController::class, 'dashboard'])->name('receptionnist.dashboard.room');
     Route::get('/rooms/create', [RoomController::class, 'create'])->name('createRoom');
@@ -55,4 +55,5 @@ Route::middleware(['auth' ,'role:admin,Receptionniste'])->group(function(){
     Route::put('rooms/{room}', [RoomController::class, 'update'])->name('updateRoom');
     Route::delete('rooms/{room}', [RoomController::class, 'destroy'])->name('destroyRoom');
 
+    Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');
 });

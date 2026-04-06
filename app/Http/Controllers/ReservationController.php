@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\reservationrequest;
+use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -96,8 +98,34 @@ class ReservationController extends Controller
         return redirect()->route('Reservations.index')->with('success', 'reservations supprimer avec succes .');
     }
 
+    public function accept(Reservation $reservation)
+    {
+        DB::transaction(function () use ($reservation) {
 
-    public function accept(Reservation $reservation){
-        
+            $reservation->update([
+                'status' => 'confirmed'
+            ]);
+
+            // dd($reservation);
+            Payment::create([
+                'reservation_id' => $reservation->id,
+                'amount' => $reservation->total_price,
+                'status' => 'unpaid'
+            ]);
+
+            Reservation::where('room_id', $reservation->room_id)
+                ->where('id', '!=', $reservation->id)
+                ->where('status', 'pending')
+                ->where(function ($query) use ($reservation) {
+
+                    $query->where('check_in', '<', $reservation->check_out)
+                        ->where('check_out', '>', $reservation->check_in);
+                })
+                ->update([
+                    'status' => 'cancelled'
+                ]);
+        });
+
+        return back()->with('success', 'Reservation accepted & payment created');
     }
 }
