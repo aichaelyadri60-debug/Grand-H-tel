@@ -1,165 +1,181 @@
 @extends('layouts.app1')
 @section('content')
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
-body { font-family: 'DM Sans', sans-serif; }
-h1   { font-family: 'Playfair Display', serif; }
-</style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
 
-<div class="p-6 max-w-7xl mx-auto">
+        h1 {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
 
-<div class="flex justify-between items-end mb-8">
-    <div>
-        <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
-            Reservations Management
-        </h1>
+    <div class="p-6 max-w-7xl mx-auto">
 
-        <p class="mt-1 text-xs text-gray-400 uppercase tracking-widest font-light">
-            {{ $reservations->total() }} reservations found · Updated today
-        </p>
-    </div>
-</div>
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
+                    Reservations Management
+                </h1>
+
+                <p class="mt-1 text-xs text-gray-400 uppercase tracking-widest font-light">
+                    {{ $reservations->total() }} reservations found · Updated today
+                </p>
+            </div>
+        </div>
 
 
-<form method="GET"
-      class="bg-white rounded-2xl border border-gray-300 p-5 mb-6
+        <form method="GET"
+            class="bg-white rounded-2xl border border-gray-300 p-5 mb-6
              grid grid-cols-1 md:grid-cols-3 gap-3">
 
-    <input type="text"
-           name="search"
-           value="{{ request('search') }}"
-           placeholder="Search by customer name..."
-           class="border border-gray-400 bg-gray-50 rounded-lg px-4 py-2.5 text-sm
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by customer name..."
+                class="border border-gray-400 bg-gray-50 rounded-lg px-4 py-2.5 text-sm
                   focus:ring-2 focus:ring-orange-300 focus:border-orange-400 outline-none">
 
-    <select name="status"
-            class="border border-gray-400 bg-gray-50 rounded-lg px-4 py-2.5 text-sm
+            <select name="status"
+                class="border border-gray-400 bg-gray-50 rounded-lg px-4 py-2.5 text-sm
                    focus:ring-2 focus:ring-orange-300 outline-none">
 
-        <option value="">All Status</option>
-        <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
-        <option value="confirmed" {{ request('status')=='confirmed'?'selected':'' }}>Confirmed</option>
-        <option value="checked_in" {{ request('status')=='checked_in'?'selected':'' }}>Checked In</option>
-        <option value="cancelled" {{ request('status')=='cancelled'?'selected':'' }}>Cancelled</option>
+                <option value="">All Status</option>
+                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                <option value="checked_in" {{ request('status') == 'checked_in' ? 'selected' : '' }}>Checked In</option>
+                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
 
-    </select>
+            </select>
 
-    <button class="bg-gray-900 hover:bg-black text-white rounded-lg px-4 py-2.5 text-sm font-medium transition">
-        Filter
-    </button>
-</form>
+            <button class="bg-gray-900 hover:bg-black text-white rounded-lg px-4 py-2.5 text-sm font-medium transition">
+                Filter
+            </button>
+        </form>
 
 
-<div class="bg-white rounded-2xl border border-gray-300 overflow-hidden">
+        <div class="bg-white rounded-2xl border border-gray-300 overflow-hidden">
 
-<table class="w-full text-sm text-left">
+            <table class="w-full text-sm text-left">
 
-<thead class="bg-gray-50 border-b border-gray-300">
-<tr>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase">Customer</th>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase">Room</th>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase">Check In</th>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase">Check Out</th>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase">Status</th>
-    <th class="px-6 py-4 text-xs text-gray-400 uppercase text-right">Actions</th>
-</tr>
-</thead>
+                <thead class="bg-gray-50 border-b border-gray-300">
+                    <tr>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase">Customer</th>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase">Room</th>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase">Check In</th>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase">Check Out</th>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase">Status</th>
+                        <th class="px-6 py-4 text-xs text-gray-400 uppercase text-right">Actions</th>
+                    </tr>
+                </thead>
 
-<tbody class="divide-y divide-gray-50">
+                <tbody class="divide-y divide-gray-50">
 
-@forelse($reservations as $reservation)
-<tr class="hover:bg-gray-50/60 transition">
+                    @forelse($reservations as $reservation)
+                        <tr class="hover:bg-gray-50/60 transition">
 
-    <td class="px-6 py-4">
-        <p class="font-semibold text-gray-900">
-            {{ $reservation->user->name ?? 'Unknown' }}
-        </p>
-        <p class="text-xs text-gray-400">
-            Reservation #{{ $reservation->id }}
-        </p>
-    </td>
+                            <td class="px-6 py-4">
+                                <p class="font-semibold text-gray-900">
+                                    {{ $reservation->user->name ?? 'Unknown' }}
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    Reservation #{{ $reservation->id }}
+                                </p>
+                            </td>
 
-    <td class="px-6 py-4">
-        <span class="font-medium text-gray-900">
-            Room #{{ $reservation->room_id }}
-        </span>
-    </td>
+                            <td class="px-6 py-4">
+                                <span class="font-medium text-gray-900">
+                                    Room #{{ $reservation->room_id }}
+                                </span>
+                            </td>
 
-    <td class="px-6 py-4">
-        {{ \Carbon\Carbon::parse($reservation->check_in)->format('d M Y') }}
-    </td>
+                            <td class="px-6 py-4">
+                                {{ \Carbon\Carbon::parse($reservation->check_in)->format('d M Y') }}
+                            </td>
 
-    <td class="px-6 py-4">
-        {{ \Carbon\Carbon::parse($reservation->check_out)->format('d M Y') }}
-    </td>
+                            <td class="px-6 py-4">
+                                {{ \Carbon\Carbon::parse($reservation->check_out)->format('d M Y') }}
+                            </td>
 
-    <td class="px-6 py-4">
+                            <td class="px-6 py-4">
 
-        @if($reservation->status == 'pending')
-            <span class="px-3 py-1 rounded-full text-xs bg-yellow-50 text-yellow-800">
-                Pending
-            </span>
+                                @if ($reservation->status == 'pending')
+                                    <span class="px-3 py-1 rounded-full text-xs bg-yellow-50 text-yellow-800">
+                                        Pending
+                                    </span>
+                                @elseif($reservation->status == 'confirmed')
+                                    <span class="px-3 py-1 rounded-full text-xs bg-blue-50 text-blue-800">
+                                        Confirmed
+                                    </span>
+                                @elseif($reservation->status == 'checked_in')
+                                    <span class="px-3 py-1 rounded-full text-xs bg-green-50 text-green-800">
+                                        Checked In
+                                    </span>
+                                @else
+                                    <span class="px-3 py-1 rounded-full text-xs bg-red-50 text-red-800">
+                                        Cancelled
+                                    </span>
+                                @endif
 
-        @elseif($reservation->status == 'confirmed')
-            <span class="px-3 py-1 rounded-full text-xs bg-blue-50 text-blue-800">
-                Confirmed
-            </span>
+                            </td>
 
-        @elseif($reservation->status == 'checked_in')
-            <span class="px-3 py-1 rounded-full text-xs bg-green-50 text-green-800">
-                Checked In
-            </span>
+                            <td class="px-6 py-4">
+                                <div class="flex justify-end gap-2">
 
-        @else
-            <span class="px-3 py-1 rounded-full text-xs bg-red-50 text-red-800">
-                Cancelled
-            </span>
-        @endif
+                                    <!-- Accepter -->
+                                    <form method="POST" action="{{ route('reservations.accept', $reservation->id) }}">
+                                        @csrf
+                                        @method('PATCH')
 
-    </td>
+                                        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                            Accepter
+                                        </button>
+                                    </form>
 
-    <td class="px-6 py-4">
-        <div class="flex justify-end gap-2">
+                                    <!-- Refuser -->
+                                    <a href="#"
+                                        class="flex items-center justify-center px-4 py-2 text-xs font-medium
+              text-red-700 bg-red-100 border border-red-300
+              rounded-lg transition duration-200
+              hover:bg-red-200 hover:shadow-sm">
+                                        Refuser
+                                    </a>
 
-            <a
-               class="px-3 py-1.5 text-xs rounded-lg bg-gray-50 border hover:bg-gray-100">
-                View
-            </a>
+                                    <!-- Delete -->
+                                    <form method="POST" action="{{ route('Reservations.destroy', $reservation->id) }}"
+                                        onsubmit="return confirm('Delete reservation?')">
+                                        @csrf
+                                        @method('DELETE')
 
-            <form method="POST" action="{{route('Reservations.destroy' ,$reservation->id)}}"
+                                        <button type="submit"
+                                            class="flex items-center justify-center px-4 py-2 text-xs font-medium
+                   text-gray-700 bg-gray-100 border border-gray-300
+                   rounded-lg transition duration-200
+                   hover:bg-gray-200 hover:shadow-sm">
+                                            Delete
+                                        </button>
+                                    </form>
 
-                  onsubmit="return confirm('Delete reservation?')">
-                @csrf
-                @method('DELETE')
+                                </div>
+                            </td>
 
-                <button class="px-3 py-1.5 text-xs rounded-lg
-                               bg-red-50 text-red-800 border border-red-200 hover:bg-red-100">
-                    Delete
-                </button>
-            </form>
+                        </tr>
 
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-16 text-gray-400">
+                                No reservations found
+                            </td>
+                        </tr>
+                    @endforelse
+
+                </tbody>
+            </table>
         </div>
-    </td>
-
-</tr>
-
-@empty
-<tr>
-<td colspan="6" class="text-center py-16 text-gray-400">
-    No reservations found
-</td>
-</tr>
-@endforelse
-
-</tbody>
-</table>
-</div>
 
 
-<div class="mt-8 flex justify-center">
-    {{ $reservations->appends(request()->query())->links() }}
-</div>
+        <div class="mt-8 flex justify-center">
+            {{ $reservations->appends(request()->query())->links() }}
+        </div>
 
-</div>
+    </div>
 @endsection

@@ -11,30 +11,32 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    public function index(Request $request){
-        $query =Reservation::with('user');
-        if($request->status){
-            $query->where('status' , $request->status);
+    public function index(Request $request)
+    {
+        $query = Reservation::with('user');
+        if ($request->status) {
+            $query->where('status', $request->status);
         }
-        if($request->search){
-            $query->whereHas('user' ,function($q) use ($request){
-                $q->where('name' ,'like' ,'%'.$request->search.'%');
+        if ($request->search) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
             });
         }
-        $reservations =$query
-            ->orderBy('created_at' ,'desc')
+        $reservations = $query
+            ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return view('receptionist.reservations' ,compact('reservations'));
+        return view('receptionist.reservations', compact('reservations'));
     }
 
-    public function formReserv(Room $room){
+    public function formReserv(Room $room)
+    {
         $user = auth()->user();
         if (!$user) {
             return redirect()->route('Showlogin');
         }
-        $room = Room::findOrFail( $room->id);
-        return view('reservation.create' ,compact('room'));
+        $room = Room::findOrFail($room->id);
+        return view('reservation.create', compact('room'));
     }
     public function reserver(reservationrequest $request, Room $room)
     {
@@ -48,6 +50,26 @@ class ReservationController extends Controller
 
         $checkIn = Carbon::parse($request->check_in);
         $checkOut = Carbon::parse($request->check_out);
+        $alreadyConfirmed = Reservation::where('room_id', $room->id)
+            ->where('status', 'confirmed')
+            ->where(function ($query) use ($checkIn, $checkOut) {
+
+                $query->whereBetween('check_in', [$checkIn, $checkOut])
+                    ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                    ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                        $q->where('check_in', '<=', $checkIn)
+                            ->where('check_out', '>=', $checkOut);
+                    });
+            })
+            ->exists();
+
+        if ($alreadyConfirmed ) {
+            return back()->with(
+                'error',
+                'Cette chambre est déjà réservée pour ces dates.'
+            );
+        }
+
 
         $nights = $checkIn->diffInDays($checkOut);
         $totalPrice = $nights * $room->price;
@@ -68,10 +90,9 @@ class ReservationController extends Controller
             ->with('success', 'Reservation created successfully!');
     }
 
-    public function destroy(Reservation $reservation){
+    public function destroy(Reservation $reservation)
+    {
         $reservation->delete();
-        return redirect()->route('Reservations.index')->with('success' ,'reservations supprimer avec succes .');
+        return redirect()->route('Reservations.index')->with('success', 'reservations supprimer avec succes .');
     }
-
-
 }
