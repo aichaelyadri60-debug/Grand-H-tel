@@ -63,7 +63,7 @@ class ReservationController extends Controller
             })
             ->exists();
 
-        if ($alreadyConfirmed ) {
+        if ($alreadyConfirmed) {
             return back()->with(
                 'error',
                 'Cette chambre est déjà réservée pour ces dates.'
@@ -94,5 +94,10 @@ class ReservationController extends Controller
     {
         $reservation->delete();
         return redirect()->route('Reservations.index')->with('success', 'reservations supprimer avec succes .');
+    }
+
+
+    public function accept(Reservation $reservation){
+        
     }
 }
