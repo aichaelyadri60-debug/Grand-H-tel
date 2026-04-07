@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ReceptionnistController;
 use App\Http\Controllers\ReservationController;
+use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
@@ -55,5 +57,9 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
     Route::put('rooms/{room}', [RoomController::class, 'update'])->name('updateRoom');
     Route::delete('rooms/{room}', [RoomController::class, 'destroy'])->name('destroyRoom');
 
+    Route::get('clients', [ClientController::class,'index'])
+    ->name('clients.index');
+    Route::post('clients/{client}', [ClientController::class,'banOrdeban'])
+    ->name('clients.banordeban');
     Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');
 });

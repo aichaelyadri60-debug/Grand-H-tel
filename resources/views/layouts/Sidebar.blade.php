@@ -17,7 +17,7 @@
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'Room.index',
+            'path' => 'clients.index',
             'label' => 'Clients',
             'icon' => 'users',
             'roles' => ['admin', 'Receptionniste'],
@@ -112,7 +112,7 @@
             <span x-show="!collapsed">Public Site</span>
         </a>
 
-        <form method="POST" action="{{route('logout')}}">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button
                 class="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white">

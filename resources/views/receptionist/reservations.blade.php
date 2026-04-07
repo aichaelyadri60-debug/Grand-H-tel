@@ -200,7 +200,7 @@
 
 
         <div class="mt-8 flex justify-center">
-            {{ $reservations->appends(request()->query())->links() }}
+            {{ $reservations->links() }}
         </div>
 
     </div>
