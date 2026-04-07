@@ -6,7 +6,6 @@
 
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 
-        {{-- HEADER --}}
         <div class="bg-amber-700 text-center pt-8 px-8 relative">
 
             <div class="w-11 h-11 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
@@ -28,10 +27,10 @@
             <div class="h-6 bg-white rounded-t-2xl"></div>
         </div>
 
-        {{-- BODY --}}
+
         <div class="px-8 pb-8 pt-4">
 
-            {{-- ERRORS --}}
+
             @if ($errors->any())
                 <div class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
                     @foreach ($errors->all() as $error)
@@ -40,7 +39,7 @@
                 </div>
             @endif
 
-            {{-- SUCCESS --}}
+
             @if (session('success'))
                 <div class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
                     {{ session('success') }}
@@ -50,7 +49,6 @@
             <form  method="POST">
                 @csrf
 
-                {{-- SECTION TITLE --}}
                 <div class="flex items-center gap-3 my-5">
                     <span class="text-[10px] uppercase tracking-widest text-gray-400">
                         Client Details
@@ -58,7 +56,6 @@
                     <div class="flex-1 h-px bg-gray-200"></div>
                 </div>
 
-                {{-- NAME --}}
                 <div class="mb-4">
                     <label class="block text-xs uppercase tracking-wider text-gray-500 mb-1">
                         Name
@@ -72,7 +69,6 @@
                                focus:ring-2 focus:ring-amber-300 focus:border-amber-400 outline-none">
                 </div>
 
-                {{-- EMAIL --}}
                 <div class="mb-4">
                     <label class="block text-xs uppercase tracking-wider text-gray-500 mb-1">
                         Email
@@ -86,7 +82,7 @@
                                focus:ring-2 focus:ring-amber-300 focus:border-amber-400 outline-none">
                 </div>
 
-                {{-- PHONE --}}
+
                 <div class="mb-6">
                     <label class="block text-xs uppercase tracking-wider text-gray-500 mb-1">
                         Phone Number
