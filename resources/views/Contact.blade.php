@@ -168,7 +168,6 @@
                         </div>
                     </div>
 
-                    {{-- PHONE --}}
                     <div class="flex items-start gap-4">
                         <div
                             class="w-11 h-11 flex-shrink-0 bg-amber-50 rounded-xl flex items-center justify-center
@@ -184,7 +183,6 @@
                         </div>
                     </div>
 
-                    {{-- EMAIL --}}
                     <div class="flex items-start gap-4">
                         <div
                             class="w-11 h-11 flex-shrink-0 bg-amber-50 rounded-xl flex items-center justify-center
@@ -200,7 +198,6 @@
                         </div>
                     </div>
 
-                    {{-- HOURS --}}
                     <div class="flex items-start gap-4">
                         <div
                             class="w-11 h-11 flex-shrink-0 bg-amber-50 rounded-xl flex items-center justify-center

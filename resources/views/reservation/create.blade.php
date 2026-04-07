@@ -6,7 +6,6 @@
 
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
 
-            {{-- ================= ROOM INFO ================= --}}
             <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
                 <div
@@ -137,10 +136,4 @@
 
     </div>
 
-    <script>
-        setTimeout(() => {
-            document.getElementById('error')?.remove();
-            document.getElementById('success')?.remove();
-        }, 4000);
-    </script>
 @endsection

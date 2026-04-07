@@ -1,21 +1,10 @@
 @extends('layouts.app1')
 
 @section('content')
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-        }
-    </style>
 
     <div class="p-6 max-w-7xl mx-auto">
 
-        {{-- HEADER --}}
         <div class="flex justify-between items-end mb-8">
             <div>
                 <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
@@ -26,10 +15,17 @@
                     {{ $clients->total() }} clients registered · Updated today
                 </p>
             </div>
+            <a href="{{ route('Client.create') }}"
+                class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium
+              bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
+              hover:opacity-90 transition shadow-md shadow-orange-200">
+                <span
+                    class="w-5 h-5 bg-white/25 rounded-full flex items-center justify-center text-base leading-none">+</span>
+                Add Client
+            </a>
         </div>
 
 
-        {{-- SEARCH --}}
         <form method="GET"
             class="bg-white rounded-2xl border border-gray-300 p-5 mb-6
         grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -73,12 +69,10 @@
         @endif
 
 
-        {{-- TABLE --}}
         <div class="bg-white rounded-2xl border border-gray-300 overflow-hidden">
 
             <table class="w-full text-sm text-left">
 
-                {{-- HEAD --}}
                 <thead class="bg-gray-50 border-b border-gray-300">
                     <tr>
                         <th class="px-6 py-4 text-xs text-gray-400 uppercase">Client</th>
@@ -89,16 +83,13 @@
                     </tr>
                 </thead>
 
-                {{-- BODY --}}
                 <tbody class="divide-y divide-gray-50">
 
                     @forelse($clients as $client)
                         <tr class="hover:bg-gray-50/60 transition">
 
-                            {{-- CLIENT --}}
                             <td class="px-6 py-4 flex items-center gap-3">
 
-                                {{-- Avatar --}}
                                 <div
                                     class="w-10 h-10 rounded-full bg-orange-100
                             flex items-center justify-center
@@ -117,22 +108,18 @@
 
                             </td>
 
-                            {{-- EMAIL --}}
                             <td class="px-6 py-4 text-gray-700">
                                 {{ $client->email }}
                             </td>
 
-                            {{-- PHONE --}}
                             <td class="px-6 py-4 text-gray-600">
                                 {{ $client->phone ?? '-' }}
                             </td>
 
-                            {{-- DATE --}}
                             <td class="px-6 py-4 text-gray-600">
                                 {{ $client->created_at ? $client->created_at->format('d M Y') : '-' }}
                             </td>
 
-                            {{-- ACTIONS --}}
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
 
@@ -189,7 +176,6 @@
     </div>
 
 
-    {{-- PAGINATION --}}
     <div class="mt-8 flex justify-center">
         {{ $clients->links() }}
     </div>

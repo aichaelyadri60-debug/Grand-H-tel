@@ -29,7 +29,7 @@ class ClientController extends Controller
         }
 
         $clients = $query->paginate(6);
-        return view('receptionist.clients' ,compact('clients'));
+        return view('receptionist.clients.index' ,compact('clients'));
     }
 
     /**
@@ -37,7 +37,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('receptionist.clients.create');
     }
 
     /**

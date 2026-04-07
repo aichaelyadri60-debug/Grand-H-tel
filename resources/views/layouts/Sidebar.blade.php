@@ -7,31 +7,26 @@
         [
             'path' => 'receptionnist.dashboard',
             'label' => 'Dashboard',
-            'icon' => 'layout-dashboard',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
             'path' => 'receptionnist.dashboard.room',
             'label' => 'Rooms',
-            'icon' => 'bed-double',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
             'path' => 'clients.index',
             'label' => 'Clients',
-            'icon' => 'users',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
             'path' => 'Reservations.index',
             'label' => 'Reservations',
-            'icon' => 'calendar-check',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
             'path' => 'Room.index',
             'label' => 'Payments',
-            'icon' => 'credit-card',
             'roles' => ['admin'],
         ],
     ];

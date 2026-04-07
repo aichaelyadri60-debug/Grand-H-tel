@@ -2,7 +2,6 @@
 
 @section('content')
 
-    {{-- HERO : pleine largeur, pas de conteneur --}}
     <section class="relative h-[420px] flex items-center justify-center overflow-hidden mb-10">
 
         <div class="absolute inset-0 bg-cover bg-center"
@@ -31,10 +30,8 @@
     </section>
 
 
-    {{-- TOUT LE CONTENU CENTRÉ dans ce seul conteneur --}}
     <div class="max-w-7xl mx-auto px-6">
 
-        {{-- STATS --}}
         <div class="grid grid-cols-3 gap-4 mb-10">
             @foreach ([
                 ['num' => '24/7',  'label' => 'Guest support'],
@@ -51,7 +48,6 @@
         </div>
 
 
-        {{-- SERVICES HEADER --}}
         <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
 
             <div>
@@ -70,7 +66,6 @@
         </div>
 
 
-        {{-- SERVICES GRID --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
 
             @foreach ($services as $service)
@@ -117,11 +112,9 @@
         </div>
 
 
-        {{-- DIVIDER --}}
         <hr class="border-slate-200 my-8">
 
 
-        {{-- CTA BAND --}}
         <div class="bg-[#1A1209] rounded-2xl px-8 py-8 flex items-center justify-between gap-6 flex-wrap mb-10">
 
             <div>
@@ -141,6 +134,6 @@
 
         </div>
 
-    </div>{{-- fin max-w-7xl --}}
+    </div>
 
 @endsection

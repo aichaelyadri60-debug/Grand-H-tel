@@ -1,16 +1,6 @@
 @extends('layouts.app1')
 @section('content')
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-        }
-    </style>
 
     <div class="p-6 max-w-7xl mx-auto">
 
@@ -165,7 +155,6 @@
                                             </button>
                                         @endif
                                     @else
-                                        <!-- Accepter -->
                                         <form method="POST" action="{{ route('reservations.accept', $reservation->id) }}">
                                             @csrf
                                             @method('PATCH')
@@ -175,7 +164,6 @@
                                             </button>
                                         </form>
 
-                                        <!-- Refuser -->
                                         <a href="#"
                                             class="flex items-center justify-center px-4 py-2 text-xs font-medium
               text-red-700 bg-red-100 border border-red-300
@@ -184,7 +172,6 @@
                                             Refuser
                                         </a>
 
-                                        <!-- Delete -->
                                         <form method="POST" action="{{ route('Reservations.destroy', $reservation->id) }}"
                                             onsubmit="return confirm('Delete reservation?')">
                                             @csrf

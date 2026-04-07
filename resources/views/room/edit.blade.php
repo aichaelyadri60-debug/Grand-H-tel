@@ -6,7 +6,6 @@
             <div
                 style="background:var(--color-background-primary,#fff);border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.25);">
 
-                {{-- Header --}}
                 <div style="background:#B45309;padding:28px 28px 0;text-align:center;position:relative;">
                     <div
                         style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
@@ -24,7 +23,6 @@
                     <div style="height:22px;background:#fff;border-radius:22px 22px 0 0"></div>
                 </div>
 
-                {{-- Body --}}
                 <div style="padding:4px 28px 0">
                     @if ($errors->any())
                         <div id="errorBox"

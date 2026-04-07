@@ -3,7 +3,6 @@
 
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 
-        {{-- HEADER --}}
         <div class="bg-amber-700 text-center pt-8 px-7">
             <div class="w-11 h-11 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -23,7 +22,6 @@
             <div class="h-6 bg-white rounded-t-2xl"></div>
         </div>
 
-        {{-- BODY --}}
         <div class="px-7 pb-7 relative">
 
             <a href="{{ route('receptionnist.dashboard.room') }}"

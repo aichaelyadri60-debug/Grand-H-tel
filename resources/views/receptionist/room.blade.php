@@ -2,17 +2,6 @@
 @section('content')
 
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-        }
-    </style>
 
     <div class="p-6 max-w-7xl mx-auto">
 

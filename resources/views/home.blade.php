@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- HERO SECTION --}}
     <section class="h-150 flex items-center justify-center bg-cover bg-center"
         style="background-image:url('{{ asset('img/hero.jpg') }}')">
 
@@ -17,15 +16,11 @@
             <a href="{{route('Room.index')}}" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-semibold">
                 Explore Rooms
             </a>
-            {{-- <a class="flex-column items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-                Contact us
-            </a> --}}
+
         </div>
     </section>
 
 
-    {{-- FEATURES SECTION --}}
     <section class="py-24 bg-gradient-to-b from-white to-slate-50">
 
         <div class="container mx-auto px-6 text-center">
@@ -92,7 +87,6 @@
     </section>
 
 
-    {{-- ROOMS SECTION --}}
     <section class="py-24 bg-white">
 
         <div class="container mx-auto px-6 text-center">
@@ -151,7 +145,6 @@
     </section>
 
 
-    {{-- CTA SECTION --}}
     <section class="py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white text-center">
 
         <div class="container mx-auto px-6">

@@ -61,5 +61,9 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
     ->name('clients.index');
     Route::post('clients/{client}', [ClientController::class,'banOrdeban'])
     ->name('clients.banordeban');
+    Route::get('clients/create', [ClientController::class,'create'])
+    ->name('Client.create');
+
+
     Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');
 });
