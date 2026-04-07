@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\changePasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,12 +26,16 @@ class AuthController extends Controller
     public function login(loginRequest $request)
     {
 
-        $user = User::where('email' ,$request->email)->firstOrFail();
-        if($user->is_banned){
-            return back()->with('error','vous avez banni');
+        $user = User::where('email', $request->email)->firstOrFail();
+        if ($user->is_banned) {
+            return back()->with('error', 'vous avez banni');
         }
+
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
+            if (!$user->changed_password) {
+                return redirect()->route('password.change.form');
+            }
             return redirect('/');
         }
 
@@ -56,5 +60,22 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         return redirect('/');
+    }
+
+    public function changePasswordForm()
+    {
+        return view('receptionist.clients.change_password');
+    }
+
+    public function changePassword(changePasswordRequest $request)
+    {
+        $user = auth()->user();
+
+        $user->update([
+            'password' => Hash::make($request->password),
+            'changed_password' => true,
+        ]);
+
+        return redirect('/')->with('success', 'Password updated successfully');
     }
 }

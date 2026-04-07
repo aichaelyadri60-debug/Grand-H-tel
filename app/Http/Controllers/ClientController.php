@@ -55,7 +55,7 @@ class ClientController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($passwordTemp),
-            'changed_password' => true,
+            'changed_password' => false,
         ]);
 
         Mail::to($request->email)

@@ -39,16 +39,19 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 Route::middleware(['auth', 'client'])->group(function () {
     Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
     Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
+    Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
+    Route::post('/change-password', [AuthController::class, 'changePassword'])
+        ->name('password.change');
 });
 
 
 
+Route::get('dashboard', [ReceptionnistController::class, 'index'])->name('receptionnist.dashboard');
 
 Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
     Route::patch('reservations/{reservation}/accept', [ReservationController::class, 'accept'])->name('reservations.accept');
     Route::get('reservations', [ReservationController::class, 'index'])->name('Reservations.index');
     Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('Reservations.destroy');
-    Route::get('dashboard', [ReceptionnistController::class, 'index'])->name('receptionnist.dashboard');
     Route::get('dashboard/room', [ReceptionnistController::class, 'dashboard'])->name('receptionnist.dashboard.room');
     Route::get('/rooms/create', [RoomController::class, 'create'])->name('createRoom');
     Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
