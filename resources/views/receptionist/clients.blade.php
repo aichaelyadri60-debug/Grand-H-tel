@@ -43,8 +43,8 @@
                    focus:ring-2 focus:ring-orange-300 outline-none">
 
                 <option value="">All Status</option>
-                <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>banned</option>
-                <option value="debanned" {{ request('status') == '' ? 'selected' : '' }}>debanned</option>
+                <option value="banned" {{ request('status') == "banned" ? 'selected' : '' }}>banned</option>
+                <option value="debanned" {{ request('status') == "debanned" ? 'selected' : '' }}>debanned</option>
 
             </select>
 
@@ -110,7 +110,7 @@
 
                             {{-- DATE --}}
                             <td class="px-6 py-4 text-gray-600">
-                                {{ $client->created_at->format('d M Y') }}
+                                {{ $client->created_at?$client->created_at->format('d M Y'):'-' }}
                             </td>
 
                             {{-- ACTIONS --}}
@@ -126,7 +126,7 @@
                                     </a>
 
 
-                                    @if ($client->status == 'debanned')
+                                    @if (!$client->is_banned)
                                         <form action="{{ route('clients.banordeban', $client->id) }}" method="POST">
                                             @csrf
                                             <button

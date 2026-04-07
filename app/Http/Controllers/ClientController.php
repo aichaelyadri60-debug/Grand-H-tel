@@ -13,17 +13,22 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::where('role' ,'client');
         if($request->search){
-            $query->where('name' ,'like' ,'%'.$request->search.'%' )
-                     ->orWhere('email' ,'like' ,'%'.$request->search.'%');
+            $query->where(function ($q) use ($request){
+                $q->where('name' ,'like' ,'%'.$request->search.'%' )
+                ->orWhere('email' ,'like' ,'%'.$request->search.'%');
+
+            });
         }
 
-        if($request->status){
-            $query->where('status' ,$request->status);
+        if($request->status ==='banned'){
+            $query->where('is_banned' ,true);
+        }else if($request->status ==='debanned'){
+            $query->where('is_banned' ,false);
         }
 
-        $clients =$query->where('role' ,'client')->paginate(6);
+        $clients = $query->paginate(6);
         return view('receptionist.clients' ,compact('clients'));
     }
 
