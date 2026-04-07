@@ -1,5 +1,3 @@
-
-
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <div class="min-h-screen grid md:grid-cols-2 bg-[#F8F5F1]">
@@ -8,11 +6,7 @@
     <div class="hidden md:block relative">
 
 
-        <img
-            src="{{ asset('img/imaaaaage.webp')}}"
-            alt="Hotel"
-            class="absolute inset-0 w-full h-full object-cover"
-        >
+        <img src="{{ asset('img/imaaaaage.webp') }}" alt="Hotel" class="absolute inset-0 w-full h-full object-cover">
 
         <div class="absolute inset-0 bg-black/40"></div>
 
@@ -55,20 +49,26 @@
                 </p>
             </div>
 
-            @if($errors->any())
-            <div id="errorBox"
-                 class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
-                @foreach($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
+            @if ($errors->any())
+                <div id="errorBox"
+                    class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
             @endif
 
-            @if(session('success'))
-            <div id="successBox"
-                 class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
-                {{ session('success') }}
-            </div>
+            @if (session('success'))
+                <div id="successBox"
+                    class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div id="errorBox"
+                    class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    {{ session('error') }}
+                </div>
             @endif
 
 
@@ -80,11 +80,8 @@
                         Email
                     </label>
 
-                    <input type="email"
-                           name="email"
-                           value="{{ old('email') }}"
-                           required
-                           class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
+                    <input type="email" name="email" value="{{ old('email') }}" required
+                        class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
                                   focus:ring-2 focus:ring-amber-400
                                   focus:border-amber-400 outline-none transition">
                 </div>
@@ -94,16 +91,14 @@
                         Mot de passe
                     </label>
 
-                    <input type="password"
-                           name="password"
-                           required
-                           class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
+                    <input type="password" name="password" required
+                        class="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2.5
                                   focus:ring-2 focus:ring-amber-400
                                   focus:border-amber-400 outline-none transition">
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-amber-600 text-white py-3 rounded-lg
+                    class="w-full bg-amber-600 text-white py-3 rounded-lg
                                font-medium hover:bg-amber-700 transition">
                     Se connecter
                 </button>
@@ -111,7 +106,7 @@
 
             <p class="text-center text-sm text-gray-500 mt-6">
                 Pas encore de compte ?
-                <a href="{{ route('Showregister')}}" class="text-amber-600 font-medium hover:underline">
+                <a href="{{ route('Showregister') }}" class="text-amber-600 font-medium hover:underline">
                     Créer un compte
                 </a>
             </p>
@@ -121,10 +116,4 @@
 </div>
 
 
-<script>
-setTimeout(() => {
-    document.getElementById('errorBox')?.remove();
-    document.getElementById('successBox')?.remove();
-}, 4000);
-</script>
 

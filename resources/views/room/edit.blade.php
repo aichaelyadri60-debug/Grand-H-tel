@@ -26,6 +26,27 @@
 
                 {{-- Body --}}
                 <div style="padding:4px 28px 0">
+                    @if ($errors->any())
+                        <div id="errorBox"
+                            class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div id="successBox"
+                            class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div id="errorBox"
+                            class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <form action="{{ route('updateRoom', $room->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -96,7 +117,8 @@
                             </option>
                             <option value="occupied" {{ $room->status == 'occupied' ? 'selected' : '' }}>Occupied
                             </option>
-                            <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>Maintenance
+                            <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>
+                                Maintenance
                             </option>
                         </select>
 
@@ -113,16 +135,7 @@
                             @endforeach
                         </div>
 
-                        @if ($errors->any())
-                            <div
-                                style="margin-top:14px;background:#fef2f2;border:0.5px solid #fecaca;border-radius:10px;padding:10px 14px">
-                                <ul style="font-size:12px;color:#dc2626;list-style:disc inside;line-height:1.7">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+
 
                         <div
                             style="display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;margin-top:16px;border-top:0.5px solid #f0f0f0">

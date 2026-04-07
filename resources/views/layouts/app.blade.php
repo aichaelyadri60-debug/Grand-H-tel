@@ -38,3 +38,9 @@
 </body>
 
 </html>
+<script>
+    setTimeout(() => {
+        document.getElementById('errorBox')?.remove();
+        document.getElementById('successBox')?.remove();
+    }, 4000);
+</script>

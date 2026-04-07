@@ -71,9 +71,29 @@
                     </form>
 
 
+
                 </div>
             </div>
 
+            @if ($errors->any())
+                <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div id="successBox"
+                    class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
 
                 @forelse($rooms as $room)
@@ -169,8 +189,8 @@
           hover:scale-[1.02]
           transition-all duration-200">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
                                 </svg>

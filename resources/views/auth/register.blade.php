@@ -33,6 +33,12 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+                <div id="errorBox"
+                    class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    {{ session('error') }}
+                </div>
+            @endif
 
 
 
@@ -112,7 +118,7 @@
             <div>
             </div>
 
-            <div >
+            <div>
                 <h1 class="text-4xl font-semibold leading-snug">
                     Hotel Management
                 </h1>

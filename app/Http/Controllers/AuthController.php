@@ -26,6 +26,10 @@ class AuthController extends Controller
     public function login(loginRequest $request)
     {
 
+        $user = User::where('email' ,$request->email)->firstOrFail();
+        if($user->is_banned){
+            return back()->with('error','vous avez banni');
+        }
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             return redirect('/');

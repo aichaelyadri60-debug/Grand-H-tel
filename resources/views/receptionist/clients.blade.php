@@ -43,8 +43,8 @@
                    focus:ring-2 focus:ring-orange-300 outline-none">
 
                 <option value="">All Status</option>
-                <option value="banned" {{ request('status') == "banned" ? 'selected' : '' }}>banned</option>
-                <option value="debanned" {{ request('status') == "debanned" ? 'selected' : '' }}>debanned</option>
+                <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>banned</option>
+                <option value="debanned" {{ request('status') == 'debanned' ? 'selected' : '' }}>debanned</option>
 
             </select>
 
@@ -52,6 +52,25 @@
                 Search
             </button>
         </form>
+        @if ($errors->any())
+            <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div id="successBox"
+                class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                {{ session('error') }}
+            </div>
+        @endif
 
 
         {{-- TABLE --}}
@@ -110,7 +129,7 @@
 
                             {{-- DATE --}}
                             <td class="px-6 py-4 text-gray-600">
-                                {{ $client->created_at?$client->created_at->format('d M Y'):'-' }}
+                                {{ $client->created_at ? $client->created_at->format('d M Y') : '-' }}
                             </td>
 
                             {{-- ACTIONS --}}
