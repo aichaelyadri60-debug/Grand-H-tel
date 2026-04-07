@@ -1,172 +1,144 @@
-@extends('layouts.app')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<div class="min-h-screen bg-black/70 flex items-center justify-center p-6">
 
+    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 
-@section('content')
+        {{-- HEADER --}}
+        <div class="bg-amber-700 text-center pt-8 px-7">
+            <div class="w-11 h-11 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <path d="M9 22V12h6v10"/>
+                </svg>
+            </div>
 
+            <p class="text-[10px] tracking-widest uppercase text-amber-100">
+                Room Management
+            </p>
 
-    <div
-        class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-teal-50 flex items-center justify-center px-4 py-24">
+            <h2 class="text-2xl text-white font-serif mb-6">
+                Add New Room
+            </h2>
 
-        <div class="pointer-events-none fixed top-20 right-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
-        <div class="pointer-events-none fixed bottom-10 left-0 w-60 h-60 bg-teal-200/20 rounded-full blur-3xl"></div>
+            <div class="h-6 bg-white rounded-t-2xl"></div>
+        </div>
 
-        <div class="w-full max-w-xl relative z-10">
+        {{-- BODY --}}
+        <div class="px-7 pb-7 relative">
 
-            <div class="bg-white rounded-2xl shadow-xl shadow-amber-100/50 overflow-hidden border border-amber-100">
+            <a href="{{ route('receptionnist.dashboard.room') }}"
+               class="inline-flex items-center  mb-4 text-sm text-amber-700 font-medium hover:text-amber-900 absolute bottom-119 left-10">
+                ← Retour
+            </a>
 
-                <div class="bg-gradient-to-r from-amber-500 to-amber-400 px-8 pt-8 pb-10 text-center relative">
+            <form action="{{ route('storeRoom') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                            <polyline points="9 22 9 12 15 12 15 22" />
-                        </svg>
+                <div class="flex items-center gap-3 my-5">
+                    <span class="text-xs uppercase tracking-widest text-gray-400">
+                        Room details
+                    </span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-4">
+
+                    <div>
+                        <label class="text-xs text-gray-400 uppercase">Room No.</label>
+                        <input type="text" name="roomNumber"
+                            value="{{ old('roomNumber') }}"
+                            class="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-600 outline-none"
+                            required>
                     </div>
 
-                    <p class="text-amber-100 text-xs tracking-widest uppercase mb-1 font-medium">
-                        Room Management
-                    </p>
+                    <div>
+                        <label class="text-xs text-gray-400 uppercase">Type</label>
+                        <select name="type"
+                            class="w-full mt-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-600 outline-none"
+                            required>
+                            <option value="">Select</option>
+                            <option>Single</option>
+                            <option>Double</option>
+                            <option>Suite</option>
+                        </select>
+                    </div>
 
-                    <h2 class="text-white text-2xl font-bold font-serif tracking-wide">
-                        Add New Room
-                    </h2>
-
-                    <div class="absolute bottom-0 left-0 right-0 h-6 bg-white rounded-t-3xl"></div>
                 </div>
 
-                <div class="px-8 pb-8 pt-2">
+                <div class="mb-4">
+                    <label class="text-xs text-gray-400 uppercase">Price per night</label>
 
-                    <form action="{{ route('storeRoom') }}" method="POST" class="space-y-5" enctype="multipart/form-data">
-                        @csrf
+                    <div class="relative mt-1">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-amber-700">$</span>
 
-                        <div class="flex items-center gap-3 mb-1">
-                            <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">
-                                Room Details
-                            </span>
-                            <div class="flex-1 h-px bg-gray-100"></div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4">
-
-                            <div>
-                                <label class="text-xs font-semibold text-gray-500 uppercase">Room No.</label>
-                                <input type="text" name="roomNumber" value="{{ old('roomNumber') }}" required
-                                    placeholder="ex: 214"
-                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-400/40">
-                            </div>
-
-                            <div>
-                                <label class="text-xs font-semibold text-gray-500 uppercase">Type</label>
-
-                                <select name="type"
-                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-400/40"
-                                    required>
-
-                                    <option value="">Select</option>
-                                    <option value="Single" {{ old('type') == 'Single' ? 'selected' : '' }}>Single</option>
-                                    <option value="Double" {{ old('type') == 'Double' ? 'selected' : '' }}>Double</option>
-                                    <option value="Suite" {{ old('type') == 'Suite' ? 'selected' : '' }}>Suite</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div>
-                            <label class="text-xs font-semibold text-gray-500 uppercase">
-                                Price per Night
-                            </label>
-
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-amber-500 font-bold">$</span>
-
-                                <input type="number" step="0.01" name="price" value="{{ old('price') }}" required
-                                    class="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-400/40">
-                            </div>
-                        </div>
-
-                        <div>
-
-                            <label class="text-xs font-semibold text-gray-500 uppercase mb-2 block">
-                                Room Status
-                            </label>
-
-                            <select name="status" id="statusSelect" class="hidden">
-                                <option value="available" selected>Available</option>
-                                <option value="occupied">Occupied</option>
-                                <option value="maintenance">Maintenance</option>
-                            </select>
-
-                            <div class="grid grid-cols-3 gap-3">
-
-                                <button type="button" onclick="setStatus('available')" id="pill-available"
-                                    class="status-pill border-2 border-teal-400 bg-teal-50 text-teal-700 rounded-xl py-3 text-xs font-semibold">
-                                    Available
-                                </button>
-
-                                <button type="button" onclick="setStatus('occupied')" id="pill-occupied"
-                                    class="status-pill border-2 border-gray-200 bg-gray-50 text-gray-400 rounded-xl py-3 text-xs font-semibold">
-                                    Occupied
-                                </button>
-
-                                <button type="button" onclick="setStatus('maintenance')" id="pill-maintenance"
-                                    class="status-pill border-2 border-gray-200 bg-gray-50 text-gray-400 rounded-xl py-3 text-xs font-semibold">
-                                    Maintenance
-                                </button>
-
-                            </div>
-                        </div>
-                        <div>
-                            <label
-                                class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                                Room Image
-                            </label>
-
-                            <input type="file" name="image" accept="image/*"
-                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm
-               file:mr-4 file:py-2 file:px-4
-               file:rounded-lg file:border-0
-               file:text-sm file:font-semibold
-               file:bg-amber-50 file:text-amber-600
-               hover:file:bg-amber-100
-               focus:outline-none focus:ring-2 focus:ring-amber-400/40">
-                        </div>
-
-                        @if ($errors->any())
-                            <div class="bg-red-50 border border-red-200 rounded-xl p-3">
-                                <ul class="text-xs text-red-600 list-disc list-inside">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <button type="submit"
-                            class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white rounded-xl font-semibold shadow-md transition">
-                            Create Room
-                        </button>
-
-                    </form>
+                        <input type="number" name="price"
+                            class="w-full pl-7 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-600 outline-none"
+                            required>
+                    </div>
                 </div>
-            </div>
+
+                <div class="flex items-center gap-3 my-5">
+                    <span class="text-xs uppercase tracking-widest text-gray-400">
+                        Room status
+                    </span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 text-xs">
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="status" value="available" checked class="peer hidden">
+
+                        <div class="p-3 rounded-xl border border-green-600
+                            bg-green-50 text-green-700 text-center
+                            peer-checked:ring-2 peer-checked:ring-green-500">
+                             Available
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="status" value="occupied" class="peer hidden">
+
+                        <div class="p-3 rounded-xl border border-gray-200
+                            bg-gray-50 text-gray-500 text-center
+                            peer-checked:border-red-600
+                            peer-checked:bg-red-50
+                            peer-checked:text-red-700">
+                             Occupied
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="status" value="maintenance" class="peer hidden">
+
+                        <div class="p-3 rounded-xl border border-gray-200
+                            bg-gray-50 text-gray-500 text-center
+                            peer-checked:border-amber-600
+                            peer-checked:bg-amber-50
+                            peer-checked:text-amber-700">
+                             Maintenance
+                        </div>
+                    </label>
+
+                </div>
+
+                <div class="flex items-center gap-3 my-5">
+                    <span class="text-xs uppercase tracking-widest text-gray-400">
+                        Room image
+                    </span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <input type="file" name="image"
+                    class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+
+                <button type="submit"
+                    class="w-full mt-6 py-3 bg-amber-700 text-white rounded-lg hover:bg-amber-800 transition">
+                    Create Room
+                </button>
+
+            </form>
         </div>
     </div>
-
-    <script>
-        function setStatus(val) {
-            document.getElementById('statusSelect').value = val;
-
-            document.querySelectorAll('.status-pill').forEach(p => {
-                p.classList.remove('border-teal-400', 'bg-teal-50', 'text-teal-700');
-                p.classList.add('border-gray-200', 'bg-gray-50', 'text-gray-400');
-            });
-
-            const active = document.getElementById('pill-' + val);
-            active.classList.remove('border-gray-200', 'bg-gray-50', 'text-gray-400');
-            active.classList.add('border-teal-400', 'bg-teal-50', 'text-teal-700');
-        }
-    </script>
-
-@endsection
+</div>

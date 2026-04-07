@@ -1,231 +1,189 @@
-@extends('layouts.app')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-@section('content')
+        <div
+            style="min-height:100vh;background:rgba(15,10,5,0.72);display:flex;align-items:center;justify-content:center;padding:24px;">
 
-<div class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-teal-50 flex items-center justify-center px-4 py-24">
+            <div
+                style="background:var(--color-background-primary,#fff);border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.25);">
 
-    <div class="pointer-events-none fixed top-20 right-0 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl"></div>
-    <div class="pointer-events-none fixed bottom-10 left-0 w-60 h-60 bg-teal-200/20 rounded-full blur-3xl"></div>
-
-    <div class="w-full max-w-xl relative z-10">
-
-        <div class="bg-white rounded-2xl shadow-xl shadow-amber-100/50 overflow-hidden border border-amber-100">
-
-            <div class="bg-gradient-to-r from-amber-500 to-amber-400 px-8 pt-8 pb-10 text-center relative">
-                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                        <polyline points="9 22 9 12 15 12 15 22"/>
-                    </svg>
-                </div>
-                <p class="text-amber-100 text-xs tracking-widest uppercase mb-1 font-medium">Room Management</p>
-                <h2 class="text-white text-2xl font-bold font-serif tracking-wide">Edit Room</h2>
-
-                <div class="absolute bottom-0 left-0 right-0 h-6 bg-white rounded-t-3xl"></div>
-            </div>
-
-            {{-- Form body --}}
-            <div class="px-8 pb-8 pt-2">
-
-                <form action="{{ route('updateRoom', $room->id) }}" method="POST" class="space-y-5">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="flex items-center gap-3 mb-1">
-                        <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">Room Details</span>
-                        <div class="flex-1 h-px bg-gray-100"></div>
+                {{-- Header --}}
+                <div style="background:#B45309;padding:28px 28px 0;text-align:center;position:relative;">
+                    <div
+                        style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
+                        <svg style="width:22px;height:22px;color:#fff" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
                     </div>
+                    <p
+                        style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,230,180,0.8);font-weight:500;margin-bottom:4px">
+                        Room Management</p>
+                    <h2 style="font-family:Georgia,serif;color:#fff;font-size:22px;font-weight:400;margin-bottom:20px">
+                        Edit Room</h2>
+                    <div style="height:22px;background:#fff;border-radius:22px 22px 0 0"></div>
+                </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                {{-- Body --}}
+                <div style="padding:4px 28px 0">
+                    <form action="{{ route('updateRoom', $room->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                        <div>
-                            <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                                <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
-                                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                        <path d="M3 21h18M4 21V7l8-4 8 4v14"/>
-                                    </svg>
-                                </span>
-                                Room No.
-                            </label>
-                            <input
-                                type="text"
-                                name="roomNumber"
-                                value="{{ old('roomNumber', $room->roomNumber) }}"
-                                required
-                                placeholder="ex: 214"
-                                class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition"
-                            >
+                        <div style="display:flex;align-items:center;gap:10px;margin:18px 0 14px">
+                            <span
+                                style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;white-space:nowrap">Room
+                                details</span>
+                            <div style="flex:1;height:0.5px;background:#e5e7eb"></div>
                         </div>
 
-                        <div>
-                            <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                                <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
-                                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-                                    </svg>
-                                </span>
-                                Type
-                            </label>
-                            <div class="relative">
-                                <select
-                                    name="type"
-                                    required
-                                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition appearance-none pr-9"
-                                >
-                                    <option value="Single" {{ $room->type == 'Single' ? 'selected' : '' }}>Single</option>
-                                    <option value="Double" {{ $room->type == 'Double' ? 'selected' : '' }}>Double</option>
-                                    <option value="Suite"  {{ $room->type == 'Suite'  ? 'selected' : '' }}>Suite</option>
-                                </select>
-                                <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path d="M6 9l6 6 6-6"/>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                            <div>
+                                <label
+                                    style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
+                                    Room No.
+                                </label>
+                                <input type="text" name="roomNumber"
+                                    value="{{ old('roomNumber', $room->roomNumber) }}" required placeholder="ex: 214"
+                                    style="width:100%;padding:9px 14px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;outline:none">
+                            </div>
+                            <div>
+                                <label
+                                    style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
+                                    Type
+                                </label>
+                                <div style="position:relative">
+                                    <select name="type" required
+                                        style="width:100%;padding:9px 32px 9px 14px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;appearance:none;outline:none">
+                                        <option value="Single" {{ $room->type == 'Single' ? 'selected' : '' }}>Single
+                                        </option>
+                                        <option value="Double" {{ $room->type == 'Double' ? 'selected' : '' }}>Double
+                                        </option>
+                                        <option value="Suite" {{ $room->type == 'Suite' ? 'selected' : '' }}>Suite
+                                        </option>
+                                    </select>
+                                    <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#888;pointer-events:none"
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M6 9l6 6 6-6" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                            <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
-                                <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 010 3h-3a1.5 1.5 0 000 3H15"/>
-                                </svg>
-                            </span>
-                            Price per Night
-                        </label>
-                        <div class="relative">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-amber-500 font-bold text-sm">$</span>
-                            <input
-                                type="number"
-                                name="price"
-                                step="0.01"
-                                value="{{ old('price', $room->price) }}"
-                                required
-                                placeholder="0.00"
-                                class="w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400 transition"
-                            >
+                        <div style="margin-top:14px">
+                            <label
+                                style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
+                                Price per night
+                            </label>
+                            <div style="position:relative">
+                                <span
+                                    style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#B45309;font-weight:600;font-size:13px">$</span>
+                                <input type="number" name="price" step="0.01"
+                                    value="{{ old('price', $room->price) }}" required placeholder="0.00"
+                                    style="width:100%;padding:9px 14px 9px 26px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;outline:none">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="flex items-center gap-3 pt-1">
-                        <span class="text-xs font-semibold text-gray-400 tracking-widest uppercase">Room Status</span>
-                        <div class="flex-1 h-px bg-gray-100"></div>
-                    </div>
+                        <div style="display:flex;align-items:center;gap:10px;margin:18px 0 14px">
+                            <span
+                                style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;white-space:nowrap">Room
+                                status</span>
+                            <div style="flex:1;height:0.5px;background:#e5e7eb"></div>
+                        </div>
 
-                    <div>
-                        <label class="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                            <span class="w-4 h-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded flex items-center justify-center">
-                                <svg class="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>
-                            </span>
-                            Current Status
-                        </label>
-
-                        <select name="status" id="statusSelect" class="hidden">
-                            <option value="available"    {{ $room->status == 'available'    ? 'selected' : '' }}>Available</option>
-                            <option value="occupied"     {{ $room->status == 'occupied'     ? 'selected' : '' }}>Occupied</option>
-                            <option value="maintenance"  {{ $room->status == 'maintenance'  ? 'selected' : '' }}>Maintenance</option>
+                        <select name="status" id="statusSelect" style="display:none">
+                            <option value="available" {{ $room->status == 'available' ? 'selected' : '' }}>Available
+                            </option>
+                            <option value="occupied" {{ $room->status == 'occupied' ? 'selected' : '' }}>Occupied
+                            </option>
+                            <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>Maintenance
+                            </option>
                         </select>
 
-                        <div class="grid grid-cols-3 gap-3">
-
-                            <button type="button"
-                                onclick="setStatus('available')"
-                                id="pill-available"
-                                class="status-pill flex flex-col items-center gap-1.5 py-3 px-2 border-2 rounded-xl text-xs font-semibold transition-all duration-200
-                                       {{ $room->status == 'available' ? 'border-teal-400 bg-teal-50 text-teal-700 shadow-sm shadow-teal-100' : 'border-gray-200 bg-gray-50 text-gray-400 hover:border-teal-300 hover:bg-teal-50/50 hover:text-teal-600' }}">
-                                <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
-                                Available
-                            </button>
-
-                            <button type="button"
-                                onclick="setStatus('occupied')"
-                                id="pill-occupied"
-                                class="status-pill flex flex-col items-center gap-1.5 py-3 px-2 border-2 rounded-xl text-xs font-semibold transition-all duration-200
-                                       {{ $room->status == 'occupied' ? 'border-red-400 bg-red-50 text-red-600 shadow-sm shadow-red-100' : 'border-gray-200 bg-gray-50 text-gray-400 hover:border-red-300 hover:bg-red-50/50 hover:text-red-500' }}">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                                Occupied
-                            </button>
-
-                            <button type="button"
-                                onclick="setStatus('maintenance')"
-                                id="pill-maintenance"
-                                class="status-pill flex flex-col items-center gap-1.5 py-3 px-2 border-2 rounded-xl text-xs font-semibold transition-all duration-200
-                                       {{ $room->status == 'maintenance' ? 'border-amber-400 bg-amber-50 text-amber-700 shadow-sm shadow-amber-100' : 'border-gray-200 bg-gray-50 text-gray-400 hover:border-amber-300 hover:bg-amber-50/50 hover:text-amber-600' }}">
-                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                                Maintenance
-                            </button>
-
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                            @foreach ([['available', '#1D9E75', '#0F6E56', 'rgba(29,158,117,0.08)', '#0F9A6E', 'Available'], ['occupied', '#E24B4A', '#A32D2D', 'rgba(226,75,74,0.07)', '#E24B4A', 'Occupied'], ['maintenance', '#D97706', '#854F0B', 'rgba(212,119,6,0.09)', '#D97706', 'Maintenance']] as [$val, $dot, $text, $bg, $border, $label])
+                                <button type="button" id="pill-{{ $val }}"
+                                    onclick="setStatus('{{ $val }}')"
+                                    style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.18s;
+                        {{ $room->status == $val ? "border:1.5px solid {$border};background:{$bg};color:{$text}" : 'border:1.5px solid #e5e7eb;background:#f9fafb;color:#888' }}">
+                                    <span
+                                        style="width:9px;height:9px;border-radius:50%;background:{{ $dot }}"></span>
+                                    {{ $label }}
+                                </button>
+                            @endforeach
                         </div>
-                    </div>
 
-                    @if ($errors->any())
-                        <div class="bg-red-50 border border-red-200 rounded-xl p-3">
-                            <ul class="text-xs text-red-600 space-y-1 list-disc list-inside">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                        @if ($errors->any())
+                            <div
+                                style="margin-top:14px;background:#fef2f2;border:0.5px solid #fecaca;border-radius:10px;padding:10px 14px">
+                                <ul style="font-size:12px;color:#dc2626;list-style:disc inside;line-height:1.7">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div
+                            style="display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;margin-top:16px;border-top:0.5px solid #f0f0f0">
+                            <a href="{{ route('receptionnist.dashboard.room') }}"
+                                style="display:flex;align-items:center;gap:7px;padding:9px 16px;border:0.5px solid #d1d5db;border-radius:10px;font-size:13px;font-weight:500;color:#6b7280;text-decoration:none;transition:all 0.15s">
+                                <svg style="width:14px;height:14px" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                                </svg>
+                                Back
+                            </a>
+                            <button type="submit"
+                                style="display:flex;align-items:center;gap:7px;padding:9px 20px;background:#B45309;border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer">
+                                <svg style="width:14px;height:14px" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path d="M5 13l4 4L19 7" />
+                                </svg>
+                                Update Room
+                            </button>
                         </div>
-                    @endif
 
-                    <div class="flex justify-between items-center pt-3 border-t border-gray-100">
-
-                        <a href="{{ url()->previous() }}"
-                           class="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-500 font-medium hover:bg-gray-50 hover:text-gray-700 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Cancel
-                        </a>
-
-                        <button type="submit"
-                            class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white text-sm font-semibold rounded-xl shadow-md shadow-amber-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-200 active:translate-y-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path d="M5 13l4 4L19 7"/>
-                            </svg>
-                            Update Room
-                        </button>
-
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
 
-    </div>
-</div>
+        <script>
+            const pillConfig = {
+                available: {
+                    border: '#0F9A6E',
+                    bg: 'rgba(29,158,117,0.08)',
+                    color: '#0F6E56'
+                },
+                occupied: {
+                    border: '#E24B4A',
+                    bg: 'rgba(226,75,74,0.07)',
+                    color: '#A32D2D'
+                },
+                maintenance: {
+                    border: '#D97706',
+                    bg: 'rgba(212,119,6,0.09)',
+                    color: '#854F0B'
+                },
+            };
 
-<script>
-const statusConfig = {
-    available:   { border: 'border-teal-400',  bg: 'bg-teal-50',   text: 'text-teal-700',  shadow: 'shadow-teal-100'  },
-    occupied:    { border: 'border-red-400',    bg: 'bg-red-50',    text: 'text-red-600',   shadow: 'shadow-red-100'   },
-    maintenance: { border: 'border-amber-400',  bg: 'bg-amber-50',  text: 'text-amber-700', shadow: 'shadow-amber-100' },
-};
-
-const defaultClasses = 'border-gray-200 bg-gray-50 text-gray-400';
-
-function setStatus(val) {
-    document.getElementById('statusSelect').value = val;
-
-    ['available', 'occupied', 'maintenance'].forEach(s => {
-        const pill = document.getElementById('pill-' + s);
-        pill.className = pill.className
-            .replace(/border-\S+/g, '')
-            .replace(/bg-\S+/g, '')
-            .replace(/text-\S+/g, '')
-            .replace(/shadow-\S+/g, '')
-            .replace(/shadow\b/g, '')
-            .trim();
-
-        if (s === val) {
-            const c = statusConfig[s];
-            pill.classList.add('border-2', c.border, c.bg, c.text, 'shadow-sm', c.shadow);
-        } else {
-            pill.classList.add('border-2', ...defaultClasses.split(' '));
-        }
-    });
-}
-</script>
-
-@endsection
+            function setStatus(val) {
+                document.getElementById('statusSelect').value = val;
+                ['available', 'occupied', 'maintenance'].forEach(s => {
+                    const p = document.getElementById('pill-' + s);
+                    if (s === val) {
+                        const c = pillConfig[s];
+                        p.style.cssText = p.style.cssText.replace(/border:[^;]+;/, '').replace(/background:[^;]+;/, '')
+                            .replace(/color:[^;]+;/, '');
+                        p.style.border = '1.5px solid ' + c.border;
+                        p.style.background = c.bg;
+                        p.style.color = c.color;
+                    } else {
+                        p.style.border = '1.5px solid #e5e7eb';
+                        p.style.background = '#f9fafb';
+                        p.style.color = '#888';
+                    }
+                });
+            }
+        </script>
