@@ -75,8 +75,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function banordeban(Client $client)
+    public function banordeban(User $client)
     {
-
+        $client->is_banned = !$client->is_banned ;
+        $client->save();
+        return back()->with('success' ,'client debanni avec success.');
     }
 }
