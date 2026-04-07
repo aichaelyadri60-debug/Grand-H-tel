@@ -46,7 +46,7 @@
                 </div>
             @endif
 
-            <form  method="POST">
+            <form action="{{route('Client.store')}}" method="POST">
                 @csrf
 
                 <div class="flex items-center gap-3 my-5">

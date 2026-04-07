@@ -57,12 +57,14 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
     Route::put('rooms/{room}', [RoomController::class, 'update'])->name('updateRoom');
     Route::delete('rooms/{room}', [RoomController::class, 'destroy'])->name('destroyRoom');
 
-    Route::get('clients', [ClientController::class,'index'])
-    ->name('clients.index');
-    Route::post('clients/{client}', [ClientController::class,'banOrdeban'])
-    ->name('clients.banordeban');
-    Route::get('clients/create', [ClientController::class,'create'])
-    ->name('Client.create');
+    Route::get('clients', [ClientController::class, 'index'])
+        ->name('clients.index');
+    Route::post('clients/{client}', [ClientController::class, 'banOrdeban'])
+        ->name('clients.banordeban');
+    Route::get('clients/create', [ClientController::class, 'create'])
+        ->name('Client.create');
+    Route::post('clients', [ClientController::class, 'store'])
+        ->name('Client.store');
 
 
     Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');
