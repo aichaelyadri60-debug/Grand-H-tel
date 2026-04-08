@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\receReservationsRequest;
 use App\Http\Requests\reservationrequest;
 use App\Models\Payment;
 use App\Models\Reservation;
@@ -130,13 +131,72 @@ class ReservationController extends Controller
         return back()->with('success', 'Reservation accepted & payment created');
     }
 
-    public function create(){
-        $clients =User::where('role' ,'client')
-                ->where('is_banned' ,false)
-                ->get();
-        $rooms =Room::where('status','available')
-                ->get();
-        return view('receptionist.reservations.create'.
-             compact('clients' ,'rooms'));
+    public function create()
+    {
+        $clients = User::where('role', 'client')
+            ->where('is_banned', false)
+            ->get();
+        $rooms = Room::where('status', 'available')
+            ->get();
+        return view(
+            'receptionist.reservations.create',
+            compact('clients', 'rooms')
+        );
     }
+
+
+public function store(receReservationsRequest $request)
+{
+    $room = Room::findOrFail($request->room_id);
+
+    $checkIn = Carbon::parse($request->check_in);
+    $checkOut = Carbon::parse($request->check_out);
+
+    $nights = $checkIn->diffInDays($checkOut);
+    $totalPrice = $room->price * $nights;
+
+    DB::transaction(function () use (
+        $request,
+        $room,
+        $checkIn,
+        $checkOut,
+        $totalPrice
+    ) {
+
+        $reservation = Reservation::create([
+            'user_id' => $request->client_id,
+            'room_id' => $room->id,
+            'check_in' => $checkIn,
+            'check_out' => $checkOut,
+            'total_price' => $totalPrice,
+            'status' => 'confirmed',
+        ]);
+
+        Reservation::where('room_id', $room->id)
+            ->where('status', 'pending')
+            ->where(function ($query) use ($checkIn, $checkOut) {
+
+                $query->whereBetween('check_in', [$checkIn, $checkOut])
+                      ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                      ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                          $q->where('check_in','<=',$checkIn)
+                            ->where('check_out','>=',$checkOut);
+                      });
+            })
+            ->update([
+                'status' => 'cancelled'
+            ]);
+
+        $room->update([
+            'status' => 'occupied'
+        ]);
+
+        $reservation->payment()->create([
+            'amount' => $totalPrice,
+            'status' => 'unpaid'
+        ]);
+    });
+
+    return back()->with('success','Reservation confirmed successfully');
+}
 }
