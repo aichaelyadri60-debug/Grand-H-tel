@@ -3,7 +3,6 @@
 <div class="min-h-screen bg-black/10 flex items-center justify-center p-8 ">
   <div class="w-full max-w-md bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-2xl">
 
-    {{-- HEADER --}}
     <div class="relative bg-orange-700 px-8 py-10 text-center"
          style="background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);">
 
@@ -22,12 +21,11 @@
       </div>
     </div>
 
-    {{-- BODY --}}
     <div class="px-7 py-2 divide-y divide-gray-100">
 
       <div class="flex justify-between items-center py-3.5">
         <span class="text-sm text-gray-400 flex items-center gap-2">
-          {{-- icon email --}} Email
+        Email
         </span>
         <span class="text-sm font-medium text-gray-800">{{ $client->email }}</span>
       </div>
@@ -48,7 +46,6 @@
 
     </div>
 
-    {{-- FOOTER --}}
     <div class="bg-gray-50 border-t border-gray-100 px-7 py-4 flex justify-between items-center">
 
       <a href="{{ route('clients.index') }}"

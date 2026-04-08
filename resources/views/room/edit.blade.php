@@ -6,7 +6,6 @@
 
     <div class="w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
 
-        {{-- HEADER --}}
         <div class="bg-amber-700 text-center pt-7 px-7 relative">
 
             <div class="w-11 h-11 mx-auto mb-2 rounded-xl bg-white/20
@@ -29,10 +28,8 @@
             <div class="h-6 bg-white rounded-t-2xl"></div>
         </div>
 
-        {{-- BODY --}}
         <div class="px-7 pb-6">
 
-            {{-- ERRORS --}}
             @if ($errors->any())
                 <div class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
                     @foreach ($errors->all() as $error)
@@ -41,12 +38,10 @@
                 </div>
             @endif
 
-            {{-- FORM --}}
             <form action="{{ route('updateRoom',$room->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                {{-- SECTION TITLE --}}
                 <div class="flex items-center gap-3 my-4">
                     <span class="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
                         Room details
@@ -54,10 +49,8 @@
                     <div class="flex-1 h-px bg-gray-200"></div>
                 </div>
 
-                {{-- GRID --}}
                 <div class="grid grid-cols-2 gap-3">
 
-                    {{-- ROOM NUMBER --}}
                     <div>
                         <label class="text-[10px] uppercase tracking-wider text-gray-500">
                             Room No.
@@ -70,7 +63,6 @@
                                    focus:ring-2 focus:ring-amber-300 outline-none">
                     </div>
 
-                    {{-- TYPE --}}
                     <div>
                         <label class="text-[10px] uppercase tracking-wider text-gray-500">
                             Type
@@ -90,7 +82,6 @@
 
                 </div>
 
-                {{-- PRICE --}}
                 <div class="mt-4">
                     <label class="text-[10px] uppercase tracking-wider text-gray-500">
                         Price per night
@@ -107,7 +98,6 @@
                     </div>
                 </div>
 
-                {{-- STATUS --}}
                 <div class="flex items-center gap-3 my-5">
                     <span class="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
                         Room status
@@ -118,7 +108,6 @@
                 <input type="hidden" name="status" id="statusInput"
                        value="{{ $room->status }}">
 
-                {{-- STATUS PILLS --}}
                 <div class="grid grid-cols-3 gap-3">
 
                     @foreach([
@@ -142,7 +131,6 @@
 
                 </div>
 
-                {{-- FOOTER --}}
                 <div class="flex justify-between items-center pt-6 mt-6 border-t">
 
                     <a href="{{ route('receptionnist.dashboard.room') }}"
@@ -164,7 +152,6 @@
     </div>
 </div>
 
-{{-- SCRIPT --}}
 <script>
 function setStatus(val){
     document.getElementById('statusInput').value = val;
