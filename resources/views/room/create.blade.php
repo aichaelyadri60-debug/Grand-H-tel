@@ -1,5 +1,5 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-<div class="min-h-screen bg-black/70 flex items-center justify-center p-6">
+<div class="min-h-screen bg-black/10 flex items-center justify-center p-6">
 
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 

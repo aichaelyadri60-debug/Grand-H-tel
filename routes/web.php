@@ -68,6 +68,8 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
         ->name('Client.create');
     Route::post('clients', [ClientController::class, 'store'])
         ->name('Client.store');
+    Route::get('clients/{client}', [ClientController::class, 'show'])
+        ->name('Client.show');
 
 
     Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');

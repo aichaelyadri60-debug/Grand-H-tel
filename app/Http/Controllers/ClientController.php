@@ -69,9 +69,9 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $client)
     {
-        //
+        return view('receptionist.clients.show' ,compact('client'));
     }
 
     /**

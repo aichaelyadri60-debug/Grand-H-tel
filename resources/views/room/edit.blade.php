@@ -1,200 +1,192 @@
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <div
-            style="min-height:100vh;background:rgba(15,10,5,0.72);display:flex;align-items:center;justify-content:center;padding:24px;">
-
-            <div
-                style="background:var(--color-background-primary,#fff);border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.25);">
-
-                <div style="background:#B45309;padding:28px 28px 0;text-align:center;position:relative;">
-                    <div
-                        style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-                        <svg style="width:22px;height:22px;color:#fff" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                            <polyline points="9 22 9 12 15 12 15 22" />
-                        </svg>
-                    </div>
-                    <p
-                        style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,230,180,0.8);font-weight:500;margin-bottom:4px">
-                        Room Management</p>
-                    <h2 style="font-family:Georgia,serif;color:#fff;font-size:22px;font-weight:400;margin-bottom:20px">
-                        Edit Room</h2>
-                    <div style="height:22px;background:#fff;border-radius:22px 22px 0 0"></div>
-                </div>
-
-                <div style="padding:4px 28px 0">
-                    @if ($errors->any())
-                        <div id="errorBox"
-                            class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
-                            @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    @if (session('success'))
-                        <div id="successBox"
-                            class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div id="errorBox"
-                            class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                    <form action="{{ route('updateRoom', $room->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div style="display:flex;align-items:center;gap:10px;margin:18px 0 14px">
-                            <span
-                                style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;white-space:nowrap">Room
-                                details</span>
-                            <div style="flex:1;height:0.5px;background:#e5e7eb"></div>
-                        </div>
-
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                            <div>
-                                <label
-                                    style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
-                                    Room No.
-                                </label>
-                                <input type="text" name="roomNumber"
-                                    value="{{ old('roomNumber', $room->roomNumber) }}" required placeholder="ex: 214"
-                                    style="width:100%;padding:9px 14px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;outline:none">
-                            </div>
-                            <div>
-                                <label
-                                    style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
-                                    Type
-                                </label>
-                                <div style="position:relative">
-                                    <select name="type" required
-                                        style="width:100%;padding:9px 32px 9px 14px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;appearance:none;outline:none">
-                                        <option value="Single" {{ $room->type == 'Single' ? 'selected' : '' }}>Single
-                                        </option>
-                                        <option value="Double" {{ $room->type == 'Double' ? 'selected' : '' }}>Double
-                                        </option>
-                                        <option value="Suite" {{ $room->type == 'Suite' ? 'selected' : '' }}>Suite
-                                        </option>
-                                    </select>
-                                    <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#888;pointer-events:none"
-                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path d="M6 9l6 6 6-6" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:14px">
-                            <label
-                                style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#888;margin-bottom:6px">
-                                Price per night
-                            </label>
-                            <div style="position:relative">
-                                <span
-                                    style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#B45309;font-weight:600;font-size:13px">$</span>
-                                <input type="number" name="price" step="0.01"
-                                    value="{{ old('price', $room->price) }}" required placeholder="0.00"
-                                    style="width:100%;padding:9px 14px 9px 26px;background:#f9fafb;border:0.5px solid #e5e7eb;border-radius:10px;font-size:13px;outline:none">
-                            </div>
-                        </div>
-
-                        <div style="display:flex;align-items:center;gap:10px;margin:18px 0 14px">
-                            <span
-                                style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#888;white-space:nowrap">Room
-                                status</span>
-                            <div style="flex:1;height:0.5px;background:#e5e7eb"></div>
-                        </div>
-
-                        <select name="status" id="statusSelect" style="display:none">
-                            <option value="available" {{ $room->status == 'available' ? 'selected' : '' }}>Available
-                            </option>
-                            <option value="occupied" {{ $room->status == 'occupied' ? 'selected' : '' }}>Occupied
-                            </option>
-                            <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>
-                                Maintenance
-                            </option>
-                        </select>
-
-                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-                            @foreach ([['available', '#1D9E75', '#0F6E56', 'rgba(29,158,117,0.08)', '#0F9A6E', 'Available'], ['occupied', '#E24B4A', '#A32D2D', 'rgba(226,75,74,0.07)', '#E24B4A', 'Occupied'], ['maintenance', '#D97706', '#854F0B', 'rgba(212,119,6,0.09)', '#D97706', 'Maintenance']] as [$val, $dot, $text, $bg, $border, $label])
-                                <button type="button" id="pill-{{ $val }}"
-                                    onclick="setStatus('{{ $val }}')"
-                                    style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:12px;font-size:11px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.18s;
-                        {{ $room->status == $val ? "border:1.5px solid {$border};background:{$bg};color:{$text}" : 'border:1.5px solid #e5e7eb;background:#f9fafb;color:#888' }}">
-                                    <span
-                                        style="width:9px;height:9px;border-radius:50%;background:{{ $dot }}"></span>
-                                    {{ $label }}
-                                </button>
-                            @endforeach
-                        </div>
 
 
+@vite(['resources/css/app.css','resources/js/app.js'])
 
-                        <div
-                            style="display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;margin-top:16px;border-top:0.5px solid #f0f0f0">
-                            <a href="{{ route('receptionnist.dashboard.room') }}"
-                                style="display:flex;align-items:center;gap:7px;padding:9px 16px;border:0.5px solid #d1d5db;border-radius:10px;font-size:13px;font-weight:500;color:#6b7280;text-decoration:none;transition:all 0.15s">
-                                <svg style="width:14px;height:14px" fill="none" stroke="currentColor"
-                                    stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M19 12H5M12 19l-7-7 7-7" />
-                                </svg>
-                                Back
-                            </a>
-                            <button type="submit"
-                                style="display:flex;align-items:center;gap:7px;padding:9px 20px;background:#B45309;border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer">
-                                <svg style="width:14px;height:14px" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path d="M5 13l4 4L19 7" />
-                                </svg>
-                                Update Room
-                            </button>
-                        </div>
+<div class="min-h-screen bg-black/70 flex items-center justify-center p-6">
 
-                    </form>
-                </div>
+    <div class="w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+        {{-- HEADER --}}
+        <div class="bg-amber-700 text-center pt-7 px-7 relative">
+
+            <div class="w-11 h-11 mx-auto mb-2 rounded-xl bg-white/20
+                        flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                     stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
             </div>
+
+            <p class="text-[10px] tracking-widest uppercase text-amber-100">
+                Room Management
+            </p>
+
+            <h2 class="text-white text-xl font-serif mt-1 mb-5">
+                Edit Room
+            </h2>
+
+            <div class="h-6 bg-white rounded-t-2xl"></div>
         </div>
 
-        <script>
-            const pillConfig = {
-                available: {
-                    border: '#0F9A6E',
-                    bg: 'rgba(29,158,117,0.08)',
-                    color: '#0F6E56'
-                },
-                occupied: {
-                    border: '#E24B4A',
-                    bg: 'rgba(226,75,74,0.07)',
-                    color: '#A32D2D'
-                },
-                maintenance: {
-                    border: '#D97706',
-                    bg: 'rgba(212,119,6,0.09)',
-                    color: '#854F0B'
-                },
-            };
+        {{-- BODY --}}
+        <div class="px-7 pb-6">
 
-            function setStatus(val) {
-                document.getElementById('statusSelect').value = val;
-                ['available', 'occupied', 'maintenance'].forEach(s => {
-                    const p = document.getElementById('pill-' + s);
-                    if (s === val) {
-                        const c = pillConfig[s];
-                        p.style.cssText = p.style.cssText.replace(/border:[^;]+;/, '').replace(/background:[^;]+;/, '')
-                            .replace(/color:[^;]+;/, '');
-                        p.style.border = '1.5px solid ' + c.border;
-                        p.style.background = c.bg;
-                        p.style.color = c.color;
-                    } else {
-                        p.style.border = '1.5px solid #e5e7eb';
-                        p.style.background = '#f9fafb';
-                        p.style.color = '#888';
-                    }
-                });
-            }
-        </script>
+            {{-- ERRORS --}}
+            @if ($errors->any())
+                <div class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
+
+            {{-- FORM --}}
+            <form action="{{ route('updateRoom',$room->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                {{-- SECTION TITLE --}}
+                <div class="flex items-center gap-3 my-4">
+                    <span class="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
+                        Room details
+                    </span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                {{-- GRID --}}
+                <div class="grid grid-cols-2 gap-3">
+
+                    {{-- ROOM NUMBER --}}
+                    <div>
+                        <label class="text-[10px] uppercase tracking-wider text-gray-500">
+                            Room No.
+                        </label>
+
+                        <input type="text" name="roomNumber"
+                            value="{{ old('roomNumber',$room->roomNumber) }}"
+                            class="w-full mt-1 px-3 py-2 bg-gray-50 border
+                                   border-gray-200 rounded-lg text-sm
+                                   focus:ring-2 focus:ring-amber-300 outline-none">
+                    </div>
+
+                    {{-- TYPE --}}
+                    <div>
+                        <label class="text-[10px] uppercase tracking-wider text-gray-500">
+                            Type
+                        </label>
+
+                        <select name="type"
+                            class="w-full mt-1 px-3 py-2 bg-gray-50 border
+                                   border-gray-200 rounded-lg text-sm
+                                   focus:ring-2 focus:ring-amber-300 outline-none">
+
+                            <option value="Single" {{ $room->type=='Single'?'selected':'' }}>Single</option>
+                            <option value="Double" {{ $room->type=='Double'?'selected':'' }}>Double</option>
+                            <option value="Suite" {{ $room->type=='Suite'?'selected':'' }}>Suite</option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                {{-- PRICE --}}
+                <div class="mt-4">
+                    <label class="text-[10px] uppercase tracking-wider text-gray-500">
+                        Price per night
+                    </label>
+
+                    <div class="relative mt-1">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-amber-700 font-semibold text-sm">$</span>
+
+                        <input type="number" step="0.01" name="price"
+                            value="{{ old('price',$room->price) }}"
+                            class="w-full pl-7 pr-3 py-2 bg-gray-50 border
+                                   border-gray-200 rounded-lg text-sm
+                                   focus:ring-2 focus:ring-amber-300 outline-none">
+                    </div>
+                </div>
+
+                {{-- STATUS --}}
+                <div class="flex items-center gap-3 my-5">
+                    <span class="text-[10px] uppercase tracking-widest text-gray-500 font-medium">
+                        Room status
+                    </span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <input type="hidden" name="status" id="statusInput"
+                       value="{{ $room->status }}">
+
+                {{-- STATUS PILLS --}}
+                <div class="grid grid-cols-3 gap-3">
+
+                    @foreach([
+                        ['available','bg-emerald-50 border-emerald-500 text-emerald-700','Available','bg-emerald-500'],
+                        ['occupied','bg-red-50 border-red-500 text-red-700','Occupied','bg-red-500'],
+                        ['maintenance','bg-amber-50 border-amber-500 text-amber-700','Maintenance','bg-amber-500'],
+                    ] as [$value,$active,$label,$dot])
+
+                    <button type="button"
+                        onclick="setStatus('{{ $value }}')"
+                        id="pill-{{ $value }}"
+                        class="status-pill flex flex-col items-center gap-2 py-3 rounded-xl border text-xs font-medium
+                        {{ $room->status==$value ? $active : 'bg-gray-50 border-gray-200 text-gray-500' }}">
+
+                        <span class="w-2 h-2 rounded-full {{ $dot }}"></span>
+                        {{ $label }}
+
+                    </button>
+
+                    @endforeach
+
+                </div>
+
+                {{-- FOOTER --}}
+                <div class="flex justify-between items-center pt-6 mt-6 border-t">
+
+                    <a href="{{ route('receptionnist.dashboard.room') }}"
+                       class="flex items-center gap-2 px-4 py-2 border rounded-lg
+                              text-gray-600 hover:bg-gray-100 text-sm">
+                        ← Back
+                    </a>
+
+                    <button type="submit"
+                        class="flex items-center gap-2 px-5 py-2 bg-amber-700
+                               hover:bg-amber-800 text-white rounded-lg text-sm font-medium">
+                        ✓ Update Room
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- SCRIPT --}}
+<script>
+function setStatus(val){
+    document.getElementById('statusInput').value = val;
+
+    document.querySelectorAll('.status-pill').forEach(p=>{
+        p.classList.remove(
+            'bg-emerald-50','border-emerald-500','text-emerald-700',
+            'bg-red-50','border-red-500','text-red-700',
+            'bg-amber-50','border-amber-500','text-amber-700'
+        );
+        p.classList.add('bg-gray-50','border-gray-200','text-gray-500');
+    });
+
+    const active = document.getElementById('pill-'+val);
+
+    if(val==='available')
+        active.className += ' bg-emerald-50 border-emerald-500 text-emerald-700';
+    if(val==='occupied')
+        active.className += ' bg-red-50 border-red-500 text-red-700';
+    if(val==='maintenance')
+        active.className += ' bg-amber-50 border-amber-500 text-amber-700';
+}
+</script>
+
+

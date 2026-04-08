@@ -123,7 +123,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
 
-                                    <a
+                                    <a href="{{route('Client.show',$client->id)}}"
                                         class="flex items-center justify-center px-4 py-2 text-xs font-medium
                                 text-blue-700 bg-blue-100 border border-blue-300
                                 rounded-lg transition duration-200
