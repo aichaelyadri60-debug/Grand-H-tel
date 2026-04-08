@@ -6,6 +6,7 @@ use App\Http\Requests\reservationrequest;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ReservationController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return view('receptionist.reservations', compact('reservations'));
+        return view('receptionist.reservations.reservations', compact('reservations'));
     }
 
     public function formReserv(Room $room)
@@ -127,5 +128,15 @@ class ReservationController extends Controller
         });
 
         return back()->with('success', 'Reservation accepted & payment created');
+    }
+
+    public function create(){
+        $clients =User::where('role' ,'client')
+                ->where('is_banned' ,false)
+                ->get();
+        $rooms =Room::where('status','available')
+                ->get();
+        return view('receptionist.reservations.create'.
+             compact('clients' ,'rooms'));
     }
 }

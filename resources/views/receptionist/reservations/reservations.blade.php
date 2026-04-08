@@ -24,6 +24,14 @@
                     {{ $reservations->total() }} reservations found · Updated today
                 </p>
             </div>
+            <a href="{{ route('receptionnist.reservations.create') }}"
+                class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium
+              bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
+              hover:opacity-90 transition shadow-md shadow-orange-200">
+                <span
+                    class="w-5 h-5 bg-white/25 rounded-full flex items-center justify-center text-base leading-none">+</span>
+                Add Reservation
+            </a>
         </div>
 
 
