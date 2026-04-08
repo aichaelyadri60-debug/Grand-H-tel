@@ -5,27 +5,27 @@
     $initials = collect(explode(' ', $userName))->map(fn($w) => strtoupper($w[0]))->take(2)->implode('');
     $navItems = [
         [
-            'path' => 'receptionnist.dashboard',
+            'path' => 'dashboard.statistique',
             'label' => 'Dashboard',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'receptionnist.dashboard.room',
+            'path' => 'dashboard.rooms',
             'label' => 'Rooms',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'clients.index',
+            'path' => 'dashboard.clients.index',
             'label' => 'Clients',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'Reservations.index',
+            'path' => 'dashboard.reservations.index',
             'label' => 'Reservations',
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'Room.index',
+            'path' => 'dashboard.rooms',
             'label' => 'Payments',
             'roles' => ['admin'],
         ],
@@ -48,7 +48,6 @@
                 Grand Hotel
             </span>
         </div>
-
 
     </div>
     <div class="px-4 py-4 border-b border-slate-800">

@@ -7,7 +7,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentsController;
-use App\Http\Controllers\ReceptionnistController;
+use App\Http\Controllers\DahboardController;
 use App\Http\Controllers\ReservationController;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
@@ -42,35 +42,88 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
     Route::post('/change-password', [AuthController::class, 'changePassword'])
         ->name('password.change');
+    Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 });
 
 
+// Route::get('dashboard', [DahboardController::class, 'index'])->name('receptionnist.dashboard');
+Route::middleware(['auth', 'role:admin,Receptionniste'])
+    ->prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
 
-Route::get('dashboard', [ReceptionnistController::class, 'index'])->name('receptionnist.dashboard');
+        /*
 
-Route::middleware(['auth', 'role:admin,Receptionniste'])->group(function () {
-    Route::patch('reservations/{reservation}/accept', [ReservationController::class, 'accept'])->name('reservations.accept');
-    Route::get('reservations', [ReservationController::class, 'index'])->name('Reservations.index');
-    Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('Reservations.destroy');
-    Route::get('dashboard/room', [ReceptionnistController::class, 'dashboard'])->name('receptionnist.dashboard.room');
-    Route::get('/rooms/create', [RoomController::class, 'create'])->name('createRoom');
-    Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
-    Route::post('/rooms', [RoomController::class, 'store'])->name('storeRoom');
-    Route::get('rooms/{room}/edit', [RoomController::class, 'edit'])->name('editRoom');
-    Route::put('rooms/{room}', [RoomController::class, 'update'])->name('updateRoom');
-    Route::delete('rooms/{room}', [RoomController::class, 'destroy'])->name('destroyRoom');
+         Statistiques
 
-    Route::get('clients', [ClientController::class, 'index'])
-        ->name('clients.index');
-    Route::post('clients/{client}', [ClientController::class, 'banOrdeban'])
-        ->name('clients.banordeban');
-    Route::get('clients/create', [ClientController::class, 'create'])
-        ->name('Client.create');
-    Route::post('clients', [ClientController::class, 'store'])
-        ->name('Client.store');
-    Route::get('clients/{client}', [ClientController::class, 'show'])
-        ->name('Client.show');
+        */
+        Route::get('statistique', [DahboardController::class, 'index'])
+            ->name('statistique');
+
+        Route::get('rooms-dashboard', [DahboardController::class, 'dashboard_room'])
+            ->name('rooms');
 
 
-    Route::patch('payment/{payment}/pay', [PaymentsController::class, 'pay'])->name('payments.pay');
+        /*
+         Reservations
+        */
+        Route::prefix('reservations')->name('reservations.')->group(function () {
+
+            Route::get('/', [ReservationController::class, 'index'])->name('index');
+            Route::get('create', [ReservationController::class, 'create'])->name('create');
+            Route::post('/', [ReservationController::class, 'store'])->name('store');
+
+            Route::patch('{reservation}/accept',
+                [ReservationController::class, 'accept']
+            )->name('accept');
+
+            Route::delete('{reservation}',
+                [ReservationController::class, 'destroy']
+            )->name('destroy');
+        });
+
+
+        /*
+        Rooms
+        */
+        Route::prefix('rooms')->name('rooms.')->group(function () {
+            // Route::get('/',)
+            Route::get('create', [RoomController::class, 'create'])->name('create');
+            Route::post('/', [RoomController::class, 'store'])->name('store');
+            Route::get('{room}/edit', [RoomController::class, 'edit'])->name('edit');
+            Route::put('{room}', [RoomController::class, 'update'])->name('update');
+            Route::delete('{room}', [RoomController::class, 'destroy'])->name('destroy');
+        });
+
+
+        /*
+
+         Clients
+
+        */
+        Route::prefix('clients')->name('clients.')->group(function () {
+
+            Route::get('/', [ClientController::class, 'index'])->name('index');
+            Route::get('create', [ClientController::class, 'create'])->name('create');
+            Route::post('/', [ClientController::class, 'store'])->name('store');
+            Route::get('{client}', [ClientController::class, 'show'])->name('show');
+
+            Route::patch('{client}/ban',
+                [ClientController::class, 'banOrdeban']
+            )->name('banordeban');
+        });
+
+
+        /*
+
+         Payments
+
+        */
+        Route::prefix('payments')->name('payments.')->group(function () {
+
+            Route::patch('{payment}/pay',
+                [PaymentsController::class, 'pay']
+            )->name('pay');
+        });
+
 });

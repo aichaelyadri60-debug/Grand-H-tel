@@ -14,6 +14,14 @@
                     {{ $reservations->total() }} reservations found · Updated today
                 </p>
             </div>
+            <a href="{{ route('dashboard.reservations.create') }}"
+                class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium
+              bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
+              hover:opacity-90 transition shadow-md shadow-orange-200">
+                <span
+                    class="w-5 h-5 bg-white/25 rounded-full flex items-center justify-center text-base leading-none">+</span>
+                Add Reservation
+            </a>
         </div>
 
 
@@ -132,7 +140,7 @@
                                     @if ($reservation->status === 'confirmed')
                                         @if ($reservation->payment->status != 'paid')
                                             <form method="POST"
-                                                action="{{ route('payments.pay', $reservation->payment->id) }}">
+                                                action="{{ route('dashboard.payments.pay', $reservation->payment->id) }}">
                                                 @csrf
                                                 @method('PATCH')
 
@@ -155,7 +163,7 @@
                                             </button>
                                         @endif
                                     @else
-                                        <form method="POST" action="{{ route('reservations.accept', $reservation->id) }}">
+                                        <form method="POST" action="{{ route('dashboard.reservations.accept', $reservation->id) }}">
                                             @csrf
                                             @method('PATCH')
 
@@ -164,15 +172,7 @@
                                             </button>
                                         </form>
 
-                                        <a href="#"
-                                            class="flex items-center justify-center px-4 py-2 text-xs font-medium
-              text-red-700 bg-red-100 border border-red-300
-              rounded-lg transition duration-200
-              hover:bg-red-200 hover:shadow-sm">
-                                            Refuser
-                                        </a>
-
-                                        <form method="POST" action="{{ route('Reservations.destroy', $reservation->id) }}"
+                                        <form method="POST" action="{{ route('dashboard.reservations.destroy', $reservation->id) }}"
                                             onsubmit="return confirm('Delete reservation?')">
                                             @csrf
                                             @method('DELETE')

@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('createRoom') }}"
+            <a href="{{ route('dashboard.rooms.create') }}"
                 class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium
               bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
               hover:opacity-90 transition shadow-md shadow-orange-200">
@@ -157,14 +157,14 @@
 
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
-                                    <a href="{{ route('editRoom', $room->id) }}"
+                                    <a href="{{ route('dashboard.rooms.edit', $room->id) }}"
                                         class="px-3 py-1.5 text-xs font-medium rounded-lg
                         bg-amber-50 text-amber-800 border border-amber-200
                         hover:bg-amber-100 transition">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('destroyRoom', $room->id) }}" method="POST"
+                                    <form action="{{ route('dashboard.rooms.destroy', $room->id) }}" method="POST"
                                         onsubmit="return confirm('Delete this room?')">
                                         @csrf
                                         @method('DELETE')

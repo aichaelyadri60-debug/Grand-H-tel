@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoomRequest;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -26,23 +27,14 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('room.create');
+        return view('Dashboard.room.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoomRequest $request)
     {
-
-        $request->validate([
-            'roomNumber' => 'required',
-            'type' => 'required',
-            'price' => 'required|numeric',
-            'status' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
-        ]);
-
         $imagePath = null;
 
         if ($request->hasFile('image')) {
@@ -71,7 +63,7 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        return view('room.edit', compact('room'));
+        return view('Dashboard.room.edit', compact('room'));
     }
 
     /**

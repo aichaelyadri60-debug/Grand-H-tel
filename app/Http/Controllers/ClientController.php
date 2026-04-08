@@ -33,7 +33,7 @@ class ClientController extends Controller
         }
 
         $clients = $query->paginate(6);
-        return view('receptionist.clients.index', compact('clients'));
+        return view('Dashboard.clients.index', compact('clients'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('receptionist.clients.create');
+        return view('Dashboard.room.create');
     }
 
     /**
@@ -71,7 +71,7 @@ class ClientController extends Controller
      */
     public function show(User $client)
     {
-        return view('receptionist.clients.show' ,compact('client'));
+        return view('Dashboard.clients.show' ,compact('client'));
     }
 
     /**

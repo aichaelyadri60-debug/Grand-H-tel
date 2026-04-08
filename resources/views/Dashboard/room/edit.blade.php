@@ -38,7 +38,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('updateRoom',$room->id) }}" method="POST">
+            <form action="{{ route('dashboard.rooms.edit',$room->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -133,7 +133,7 @@
 
                 <div class="flex justify-between items-center pt-6 mt-6 border-t">
 
-                    <a href="{{ route('receptionnist.dashboard.room') }}"
+                    <a href="{{ route('dashboard.rooms') }}"
                        class="flex items-center gap-2 px-4 py-2 border rounded-lg
                               text-gray-600 hover:bg-gray-100 text-sm">
                         ← Back

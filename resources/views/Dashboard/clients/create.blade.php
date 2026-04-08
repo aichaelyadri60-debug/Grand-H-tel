@@ -46,7 +46,7 @@
                 </div>
             @endif
 
-            <form action="{{route('Client.store')}}" method="POST">
+            <form action="{{route('dashboard.clients.store')}}" method="POST">
                 @csrf
 
                 <div class="flex items-center gap-3 my-5">
@@ -98,7 +98,7 @@
 
                 <div class="flex justify-between items-center pt-6 border-t">
 
-                    <a href="{{ route('clients.index') }}"
+                    <a href="{{ route('dashboard.clients.index') }}"
                         class="flex items-center gap-2 px-4 py-2 text-sm font-medium
                                text-gray-600 border border-gray-300 rounded-lg
                                hover:bg-gray-100 transition">

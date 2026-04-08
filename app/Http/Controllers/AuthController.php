@@ -64,7 +64,7 @@ class AuthController extends Controller
 
     public function changePasswordForm()
     {
-        return view('receptionist.clients.change_password');
+        return view('Dashboard.clients.change_password');
     }
 
     public function changePassword(changePasswordRequest $request)

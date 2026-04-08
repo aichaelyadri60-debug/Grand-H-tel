@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\receReservationsRequest;
 use App\Http\Requests\reservationrequest;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
+
+
     public function index(Request $request)
     {
         $query = Reservation::with('user');
@@ -28,8 +32,10 @@ class ReservationController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return view('receptionist.reservations', compact('reservations'));
+        return view('Dashboard.reservations.reservations', compact('reservations'));
     }
+
+
 
     public function formReserv(Room $room)
     {
@@ -38,8 +44,12 @@ class ReservationController extends Controller
             return redirect()->route('Showlogin');
         }
         $room = Room::findOrFail($room->id);
-        return view('reservation.create', compact('room'));
+        return view('Dashboard.reservations.create', compact('room'));
     }
+
+
+
+
     public function reserver(reservationrequest $request, Room $room)
     {
         $reservation = Reservation::where('room_id', $room->id)
@@ -92,11 +102,17 @@ class ReservationController extends Controller
             ->with('success', 'Reservation created successfully!');
     }
 
+
+
+
     public function destroy(Reservation $reservation)
     {
         $reservation->delete();
-        return redirect()->route('Reservations.index')->with('success', 'reservations supprimer avec succes .');
+        return redirect()->route('dashboard.reservations.index')->with('success', 'reservations supprimer avec succes .');
     }
+
+
+
 
     public function accept(Reservation $reservation)
     {
@@ -127,5 +143,82 @@ class ReservationController extends Controller
         });
 
         return back()->with('success', 'Reservation accepted & payment created');
+    }
+
+
+
+
+
+    public function create()
+    {
+        $clients = User::where('role', 'client')
+            ->where('is_banned', false)
+            ->get();
+        $rooms = Room::where('status', 'available')
+            ->get();
+        return view(
+            'Dashboard.reservations.create',
+            compact('clients', 'rooms')
+        );
+    }
+
+
+
+
+
+
+    public function store(receReservationsRequest $request)
+    {
+        $room = Room::findOrFail($request->room_id);
+
+        $checkIn = Carbon::parse($request->check_in);
+        $checkOut = Carbon::parse($request->check_out);
+
+        $nights = $checkIn->diffInDays($checkOut);
+        $totalPrice = $room->price * $nights;
+
+        DB::transaction(function () use (
+            $request,
+            $room,
+            $checkIn,
+            $checkOut,
+            $totalPrice
+        ) {
+
+            $reservation = Reservation::create([
+                'user_id' => $request->client_id,
+                'room_id' => $room->id,
+                'check_in' => $checkIn,
+                'check_out' => $checkOut,
+                'total_price' => $totalPrice,
+                'status' => 'confirmed',
+            ]);
+
+            Reservation::where('room_id', $room->id)
+                ->where('status', 'pending')
+                ->where(function ($query) use ($checkIn, $checkOut) {
+
+                    $query->whereBetween('check_in', [$checkIn, $checkOut])
+                        ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                        ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                            $q->where('check_in', '<=', $checkIn)
+                                ->where('check_out', '>=', $checkOut);
+                        });
+                })
+                ->update([
+                    'status' => 'cancelled'
+                ]);
+
+            $room->update([
+                'status' => 'occupied'
+            ]);
+
+            $reservation->payment()->create([
+                'amount' => $totalPrice,
+                'status' => 'unpaid'
+            ]);
+        });
+
+        return back()->with('success', 'Reservation confirmed successfully');
     }
 }

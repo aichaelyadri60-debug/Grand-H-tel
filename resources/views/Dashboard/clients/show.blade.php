@@ -48,13 +48,13 @@
 
     <div class="bg-gray-50 border-t border-gray-100 px-7 py-4 flex justify-between items-center">
 
-      <a href="{{ route('clients.index') }}"
+      <a href="{{ route('dashboard.clients.index') }}"
          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm text-gray-500
                 border border-gray-200 hover:bg-white transition">
         ← Retour
       </a>
 
-      <form method="POST" action="{{ route('clients.banordeban', $client->id) }}">
+      <form method="POST" action="{{ route('dashboard.clients.banordeban', $client->id) }}">
         @csrf
         @method('PATCH')
         <button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium

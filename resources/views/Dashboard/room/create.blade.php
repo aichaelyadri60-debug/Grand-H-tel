@@ -24,7 +24,7 @@
 
         <div class="px-7 pb-7 relative">
 
-            <a href="{{ route('receptionnist.dashboard.room') }}"
+            <a href="{{ route('dashboard.rooms') }}"
                 class="inline-flex items-center  mb-4 text-sm text-amber-700 font-medium hover:text-amber-900 absolute bottom-119 left-10">
                 ← Retour
             </a>
@@ -50,7 +50,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('storeRoom') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.rooms.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="flex items-center gap-3 my-5">

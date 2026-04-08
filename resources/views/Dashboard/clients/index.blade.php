@@ -1,8 +1,6 @@
 @extends('layouts.app1')
 
 @section('content')
-
-
     <div class="p-6 max-w-7xl mx-auto">
 
         <div class="flex justify-between items-end mb-8">
@@ -15,7 +13,7 @@
                     {{ $clients->total() }} clients registered · Updated today
                 </p>
             </div>
-            <a href="{{ route('Client.create') }}"
+            <a href="{{ route('dashboard.clients.create') }}"
                 class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium
               bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
               hover:opacity-90 transition shadow-md shadow-orange-200">
@@ -123,7 +121,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
 
-                                    <a href="{{route('Client.show',$client->id)}}"
+                                    <a href="{{ route('dashboard.clients.show', $client->id) }}"
                                         class="flex items-center justify-center px-4 py-2 text-xs font-medium
                                 text-blue-700 bg-blue-100 border border-blue-300
                                 rounded-lg transition duration-200
@@ -132,9 +130,11 @@
                                     </a>
 
 
-                                    @if (!$client->is_banned)
-                                        <form action="{{ route('clients.banordeban', $client->id) }}" method="POST">
-                                            @csrf
+                                    {{-- @if (!$client->is_banned) --}}
+                                    <form action="{{ route('dashboard.clients.banordeban', $client->id) }}" method="POST">
+                                        @csrf
+
+                                        @if (!$client->is_banned)
                                             <button
                                                 class="flex items-center justify-center px-4 py-2 text-xs font-medium
                                 text-red-700 bg-red-100 border border-red-300
@@ -142,10 +142,7 @@
                                 hover:bg-red-200 hover:shadow-sm">
                                                 Ban
                                             </button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('clients.banordeban', $client->id) }}" method="POST">
-                                            @csrf
+                                        @else
                                             <button
                                                 class="flex items-center justify-center px-4 py-2 text-xs font-medium
                                 text-green-700 bg-green-100 border border-green-300
@@ -153,8 +150,8 @@
                                 hover:bg-green-200 hover:shadow-sm">
                                                 Deban
                                             </button>
-                                        </form>
-                                    @endif
+                                        @endif
+
 
                             </td>
 
