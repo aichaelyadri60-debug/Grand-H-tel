@@ -13,6 +13,10 @@ class Payment extends Model
         'method',
         'paid_at'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function reservation()
     {
