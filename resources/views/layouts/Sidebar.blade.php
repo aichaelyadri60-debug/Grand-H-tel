@@ -25,8 +25,8 @@
             'roles' => ['admin', 'Receptionniste'],
         ],
         [
-            'path' => 'dashboard.rooms',
-            'label' => 'Payments',
+            'path' => 'admin.receptionists.index',
+            'label' => 'Receptionnist',
             'roles' => ['admin'],
         ],
     ];

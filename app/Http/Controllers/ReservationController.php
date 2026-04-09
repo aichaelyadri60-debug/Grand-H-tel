@@ -105,10 +105,12 @@ class ReservationController extends Controller
 
 
 
-    public function destroy(Reservation $reservation)
+    public function refuse(Reservation $reservation)
     {
-        $reservation->delete();
-        return redirect()->route('dashboard.reservations.index')->with('success', 'reservations supprimer avec succes .');
+        $reservation->update([
+            'status' => 'cancelled'
+        ]);
+        return redirect()->route('dashboard.reservations.index')->with('success', 'reservations concel avec succes .');
     }
 
 

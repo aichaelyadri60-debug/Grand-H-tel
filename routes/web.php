@@ -8,15 +8,19 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\DahboardController;
+use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\ReservationController;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 })->name('homepage');
 
 Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('aboutus', function () {
+    return view('Home.about');
+})->name('about');
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'sendmail'])
     ->name('contact.store');
@@ -42,10 +46,19 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
     Route::post('/change-password', [AuthController::class, 'changePassword'])
         ->name('password.change');
-    Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 });
+Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 
 
+
+
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::resource('receptionists', ReceptionistController::class);
+    });
 // Route::get('dashboard', [DahboardController::class, 'index'])->name('receptionnist.dashboard');
 Route::middleware(['auth', 'role:admin,Receptionniste'])
     ->prefix('dashboard')
@@ -73,13 +86,15 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
             Route::get('create', [ReservationController::class, 'create'])->name('create');
             Route::post('/', [ReservationController::class, 'store'])->name('store');
 
-            Route::patch('{reservation}/accept',
+            Route::patch(
+                '{reservation}/accept',
                 [ReservationController::class, 'accept']
             )->name('accept');
 
-            Route::delete('{reservation}',
-                [ReservationController::class, 'destroy']
-            )->name('destroy');
+            Route::post(
+                '{reservation}',
+                [ReservationController::class, 'refuse']
+            )->name('refuse');
         });
 
 
@@ -87,7 +102,6 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
         Rooms
         */
         Route::prefix('rooms')->name('rooms.')->group(function () {
-            // Route::get('/',)
             Route::get('create', [RoomController::class, 'create'])->name('create');
             Route::post('/', [RoomController::class, 'store'])->name('store');
             Route::get('{room}/edit', [RoomController::class, 'edit'])->name('edit');
@@ -108,7 +122,8 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
             Route::post('/', [ClientController::class, 'store'])->name('store');
             Route::get('{client}', [ClientController::class, 'show'])->name('show');
 
-            Route::patch('{client}/ban',
+            Route::patch(
+                '{client}/ban',
                 [ClientController::class, 'banOrdeban']
             )->name('banordeban');
         });
@@ -121,9 +136,9 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
         */
         Route::prefix('payments')->name('payments.')->group(function () {
 
-            Route::patch('{payment}/pay',
+            Route::patch(
+                '{payment}/pay',
                 [PaymentsController::class, 'pay']
             )->name('pay');
         });
-
-});
+    });

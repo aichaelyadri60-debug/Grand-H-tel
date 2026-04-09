@@ -44,7 +44,7 @@
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
                     Services
                 </a>
-                <a
+                <a href="{{ route('about') }}"
                     class="nav-link relative text-sm font-medium text-white/90 hover:text-amber-300 transition-colors duration-200 cursor-pointer
                            after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-px after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full">
                     About Us

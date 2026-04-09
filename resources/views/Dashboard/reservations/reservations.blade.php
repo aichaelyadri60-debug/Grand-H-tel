@@ -162,8 +162,11 @@
                                                 Paid
                                             </button>
                                         @endif
+                                    @elseif ($reservation->status === 'cancelled')
+                                        <div></div>
                                     @else
-                                        <form method="POST" action="{{ route('dashboard.reservations.accept', $reservation->id) }}">
+                                        <form method="POST"
+                                            action="{{ route('dashboard.reservations.accept', $reservation->id) }}">
                                             @csrf
                                             @method('PATCH')
 
@@ -172,17 +175,18 @@
                                             </button>
                                         </form>
 
-                                        <form method="POST" action="{{ route('dashboard.reservations.destroy', $reservation->id) }}"
-                                            onsubmit="return confirm('Delete reservation?')">
+                                        <form method="POST"
+                                            action="{{ route('dashboard.reservations.refuse', $reservation->id) }}"
+                                            onsubmit="return confirm('Refusee reservation?')">
                                             @csrf
-                                            @method('DELETE')
+
 
                                             <button type="submit"
                                                 class="flex items-center justify-center px-4 py-2 text-xs font-medium
-                   text-gray-700 bg-gray-100 border border-gray-300
+                   text-red-700 bg-red-100 border border-red-300
                    rounded-lg transition duration-200
-                   hover:bg-gray-200 hover:shadow-sm">
-                                                Delete
+                   hover:bg-red-200 hover:shadow-sm">
+                                                refuse
                                             </button>
                                         </form>
 
