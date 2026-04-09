@@ -14,7 +14,13 @@ class Payment extends Model
         'paid_at'
     ];
 
-    public function reservation(){
+    public function reservation()
+    {
         return $this->belongsTo(Reservation::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
     }
 }
