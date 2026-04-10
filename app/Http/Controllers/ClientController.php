@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\clientRequest;
 use App\Mail\PasswordMail;
+use App\Models\Invoice;
+use App\Models\Reservation;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -59,7 +62,7 @@ class ClientController extends Controller
         ]);
 
         Mail::to($request->email)
-        ->send(new PasswordMail($request->name ,$request->email ,$request->phone ,$passwordTemp));
+            ->send(new PasswordMail($request->name, $request->email, $request->phone, $passwordTemp));
         return back()->with(
             'success',
             'Client created. et email envoyer avec success. '
@@ -71,7 +74,7 @@ class ClientController extends Controller
      */
     public function show(User $client)
     {
-        return view('Dashboard.clients.show' ,compact('client'));
+        return view('Dashboard.clients.show', compact('client'));
     }
 
     /**
@@ -99,4 +102,44 @@ class ClientController extends Controller
         $client->save();
         return back()->with('success', 'client debanni avec success.');
     }
+
+
+    public function dashboard()
+    {
+        $user = Auth::user();
+
+        $reservations = $user->reservations()
+            ->with(['payment.invoice'])
+            ->latest()
+            ->get();
+
+        $totalReservations = $reservations->count();
+        $paidReservations = $reservations->where('payment.status', 'paid')->count();
+        $pendingReservations = $reservations->where('status', 'pending')->count();
+
+        return view('client.dashboard', compact(
+            'reservations',
+            'totalReservations',
+            'paidReservations',
+            'pendingReservations'
+        ));
+    }
+
+
+
+
+    public function reservations()
+    {
+        $user = Auth::user();
+
+        $reservations = $user->reservations()
+            ->with(['payment.invoice'])
+            ->latest()
+            ->paginate(5);
+
+        return view('client.reservations', compact('reservations'));
+    }
+
+
+
 }

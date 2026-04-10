@@ -58,16 +58,27 @@
             </div>
 
             @auth
+                @if (auth()->user()->role === 'client')
+                    <div class="hidden lg:flex items-center gap-3">
+                        <a href="{{ route('client.reservations') }}" id="staffBtn"
+                            class="px-5 py-2 rounded-xl text-sm font-medium
+            bg-white/15 backdrop-blur-sm text-white border border-white/25
+            hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
+                            dashboard
+                        </a>
+                    </div>
+                @else
+                    <div class="hidden lg:flex items-center gap-3">
+                        <a href="{{ route('dashboard.statistique') }}" id="staffBtn"
+                            class="px-5 py-2 rounded-xl text-sm font-medium
+            bg-white/15 backdrop-blur-sm text-white border border-white/25
+            hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
+                            dashboard
+                        </a>
+                    </div>
+                @endif
 
 
-                <div class="hidden lg:flex items-center gap-3">
-                    <a href="{{ route('dashboard.statistique') }}" id="staffBtn"
-                        class="px-5 py-2 rounded-xl text-sm font-medium
-               bg-white/15 backdrop-blur-sm text-white border border-white/25
-               hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
-                        dashboard
-                    </a>
-                </div>
 
 
             @endauth
@@ -105,7 +116,7 @@
 
         <div class="px-6 py-5 space-y-1">
 
-            <a  href="{{ route('homepage') }}"
+            <a href="{{ route('homepage') }}"
                 class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 text-sm font-medium hover:bg-amber-50 hover:text-amber-600 transition-colors duration-200 cursor-pointer">
                 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
@@ -154,19 +165,27 @@
             <div class="h-px bg-amber-100 my-2"></div>
 
             @auth
+                @if (auth()->user()->role === 'client')
+                    <a href="{{ route('client.dashboard') }}"
+                        class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200">
 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                        </svg>
 
-                <a href="{{ route('dashboard.statistique') }}"  id="staffBtn"
-                    class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200 cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
-                    </svg>
+                        Reservations
+                    </a>
+                @else
+                    <a href="{{ route('dashboard.statistique') }}"
+                        class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200">
 
-                    dashboard
-                </a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                        </svg>
 
-
-
+                        Dashboard
+                    </a>
+                @endif
             @endauth
 
             @guest

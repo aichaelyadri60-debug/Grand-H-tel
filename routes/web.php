@@ -46,6 +46,16 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
     Route::post('/change-password', [AuthController::class, 'changePassword'])
         ->name('password.change');
+    Route::get('/client/dashboard', [ClientController::class, 'dashboard'])
+        ->name('client.dashboard');
+
+
+
+    Route::get('/client/reservations', [ClientController::class, 'reservations'])
+        ->name('client.reservations');
+
+
+
 });
 Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 

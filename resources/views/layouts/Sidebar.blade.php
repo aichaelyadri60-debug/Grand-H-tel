@@ -29,6 +29,21 @@
             'label' => 'Receptionnist',
             'roles' => ['admin'],
         ],
+        [
+            'path' => 'client.dashboard',
+            'label' => 'Mon Dashboard',
+            'roles' => ['client'],
+        ],
+        [
+            'path' => 'client.reservations',
+            'label' => 'Mes Reservations',
+            'roles' => ['client'],
+        ],
+        [
+            'path' => 'client.invoices',
+            'label' => 'Mon Profil',
+            'roles' => ['client'],
+        ],
     ];
 @endphp
 
@@ -64,7 +79,13 @@
                     {{ $userName }}
                 </p>
                 <p class="text-xs text-slate-500 truncate">
-                    {{ $userRole === 'admin' ? 'Administrateur' : 'Réceptionniste' }}
+                    @if ($userRole === 'admin')
+                        Administrateur
+                    @elseif($userRole === 'Receptionniste')
+                        Réceptionniste
+                    @else
+                        Client
+                    @endif
                 </p>
             </div>
 
