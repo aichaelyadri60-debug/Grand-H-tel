@@ -37,6 +37,20 @@ class ReservationController extends Controller
 
 
 
+    public function show(Reservation $reservation)
+    {
+
+        // dd($reservation->payment);
+        if ($reservation->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $reservation->load(['room', 'payment.invoice']);
+
+        return view('client.show', compact('reservation'));
+    }
+
+
     public function formReserv(Room $room)
     {
         $user = auth()->user();
@@ -125,7 +139,7 @@ class ReservationController extends Controller
             ]);
 
             // dd($reservation);
-            Payment::create([
+            Payment::update([
                 'reservation_id' => $reservation->id,
                 'amount' => $reservation->total_price,
                 'status' => 'unpaid'

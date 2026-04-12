@@ -39,11 +39,11 @@
             'label' => 'Mes Reservations',
             'roles' => ['client'],
         ],
-        [
-            'path' => 'client.invoices',
-            'label' => 'Mon Profil',
-            'roles' => ['client'],
-        ],
+        // [
+        //     'path' => 'profile.edit',
+        //     'label' => 'Mon Profil',
+        //     'roles' => ['client'],
+        // ],
     ];
 @endphp
 

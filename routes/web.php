@@ -8,6 +8,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\DahboardController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\ReservationController;
 use GuzzleHttp\Client;
@@ -42,6 +44,12 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 
 Route::middleware(['auth', 'client'])->group(function () {
     Route::get('Reservation/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
+    Route::get('client/reservations/{reservation}', [ReservationController::class, 'show'])->name('detailReservation');
+    Route::delete('/client/reservations/{reservation}', [ClientController::class, 'cancel'])
+        ->name('client.reservation.cancel');
+
+    Route::get('/invoice/{invoice}', [ReservationController::class, 'print'])
+        ->name('invoice.print');
     Route::post('/rooms/{room}/reserve', [ReservationController::class, 'reserver'])->name('reservations.store');
     Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
     Route::post('/change-password', [AuthController::class, 'changePassword'])
@@ -49,13 +57,8 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::get('/client/dashboard', [ClientController::class, 'dashboard'])
         ->name('client.dashboard');
 
-
-
     Route::get('/client/reservations', [ClientController::class, 'reservations'])
         ->name('client.reservations');
-
-
-
 });
 Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 
