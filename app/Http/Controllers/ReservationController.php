@@ -58,7 +58,7 @@ class ReservationController extends Controller
             return redirect()->route('Showlogin');
         }
         $room = Room::findOrFail($room->id);
-        return view('Dashboard.reservations.create', compact('room'));
+        return view('reservation.create', compact('room'));
     }
 
 
@@ -139,7 +139,7 @@ class ReservationController extends Controller
             ]);
 
             // dd($reservation);
-            Payment::update([
+            Payment::create([
                 'reservation_id' => $reservation->id,
                 'amount' => $reservation->total_price,
                 'status' => 'unpaid'

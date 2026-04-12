@@ -76,7 +76,7 @@
                             </td>
 
                             <td class="px-6 py-4">
-                                @if ($reservation->payment)->status === 'paid'
+                                @if (optional($reservation->payment)->status === 'paid')
                                     <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
                                         Payé
                                     </span>
@@ -100,7 +100,7 @@
 
                                     {{-- FACTURE --}}
                                     @if ($reservation->status === 'confirmed')
-                                        <a target="_blank"
+                                        <a href="{{route('invoice.print' ,$reservation->id)}}" target="_blank"
                                             class="px-4 py-2 text-xs font-medium
                                    text-green-700 bg-green-100 border border-green-300
                                    rounded-lg hover:bg-green-200">

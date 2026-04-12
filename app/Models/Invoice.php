@@ -10,8 +10,7 @@ class Invoice extends Model
         'payment_id',
         'user_id',
         'invoice_number',
-        'amount',
-        'issued_at'
+        'amount'
     ];
 
     public function payment()

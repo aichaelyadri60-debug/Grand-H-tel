@@ -117,12 +117,11 @@
                 </div>
             </div>
 
-            {{-- ACTIONS --}}
             <div class="flex gap-3 flex-wrap pt-4 border-t">
 
                 {{-- FACTURE --}}
                 @if(($reservation->payment?->invoice))
-                    <a
+                    <a  href="{{route('invoice.print' ,$reservation->id)}}"
                        target="_blank"
                        class="px-5 py-2 text-sm text-white rounded-xl
                               bg-gradient-to-r from-amber-500 to-amber-400
@@ -135,7 +134,7 @@
                 @if(
                     $reservation->status !== 'confirmed' &&
                     $reservation->status !== 'cancelled' &&
-                    optional($reservation->payment)->status !== 'paid'
+                    ($reservation->payment)->status !== 'paid'
                 )
                     <form method="POST"
                           action="{{ route('client.reservation.cancel', $reservation->id) }}">
