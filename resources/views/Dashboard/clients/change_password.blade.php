@@ -5,7 +5,7 @@
 
           <div class="text-center mb-6">
               <h2 class="text-2xl font-bold text-gray-800">
-                  Change Password 🔐
+                  Change Password 
               </h2>
               <p class="text-sm text-gray-500 mt-1">
                   Pour votre sécurité, veuillez changer votre mot de passe.
