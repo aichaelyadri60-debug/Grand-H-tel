@@ -16,13 +16,13 @@
         </div>
 
         @if (session('success'))
-            <div class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+            <div id="successBox" class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('error'))
-            <div class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+            <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
                 {{ session('error') }}
             </div>
         @endif
@@ -90,7 +90,6 @@
                             <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
 
-                                    {{-- Voir  --}}
                                     <a href="{{route('detailReservation' , $reservation->id)}}"
                                         class="px-4 py-2 text-xs font-medium
                                text-blue-700 bg-blue-100 border border-blue-300
@@ -98,7 +97,6 @@
                                         Voir
                                     </a>
 
-                                    {{-- FACTURE --}}
                                     @if ($reservation->status === 'confirmed')
                                         <a href="{{route('invoice.print' ,$reservation->id)}}" target="_blank"
                                             class="px-4 py-2 text-xs font-medium
@@ -112,7 +110,9 @@
                                         $reservation->status !== 'confirmed' &&
                                             $reservation->status !== 'cancelled' &&
                                             optional($reservation->payment)->status !== 'paid')
-                                        <form method="POST" @csrf @method('DELETE') <button
+                                        <form method="POST" action="{{route('refuseOrAnnuleer' ,$reservation->id)}}">
+                                        @csrf
+                                        <button
                                             onclick="return confirm('Annuler cette réservation ?')"
                                             class="px-4 py-2 text-xs font-medium
                                         text-red-700 bg-red-100 border border-red-300
@@ -139,7 +139,6 @@
             </table>
         </div>
 
-        {{-- PAGINATION --}}
         <div class="mt-8 flex justify-center">
             {{ $reservations->links() }}
         </div>

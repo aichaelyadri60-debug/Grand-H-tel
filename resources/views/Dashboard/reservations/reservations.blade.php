@@ -176,7 +176,7 @@
                                         </form>
 
                                         <form method="POST"
-                                            action="{{ route('dashboard.reservations.refuse', $reservation->id) }}"
+                                            action="{{ route('refuseOrAnnuleer', $reservation->id) }}"
                                             onsubmit="return confirm('Refusee reservation?')">
                                             @csrf
 

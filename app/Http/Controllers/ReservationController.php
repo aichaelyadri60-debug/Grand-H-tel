@@ -119,12 +119,18 @@ class ReservationController extends Controller
 
 
 
-    public function refuse(Reservation $reservation)
+    public function refuseOrAnnuler(Reservation $reservation)
     {
         $reservation->update([
             'status' => 'cancelled'
         ]);
-        return redirect()->route('dashboard.reservations.index')->with('success', 'reservations concel avec succes .');
+        if(auth()->user()->role === 'client'){
+            return redirect()->route('client.reservations')->with('success', 'reservations concel avec succes .');
+
+        }else{
+            return redirect()->route('dashboard.reservations.index')->with('success', 'reservations concel avec succes .');
+
+        }
     }
 
 

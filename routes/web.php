@@ -47,7 +47,7 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::get('client/reservations/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
     Route::get('client/reservations/{reservation}/show', [ReservationController::class, 'show'])->name('detailReservation');
     Route::delete('/client/reservations/{reservation}', [ClientController::class, 'cancel'])
-    ->name('client.reservation.cancel');
+        ->name('client.reservation.cancel');
 
     Route::get('/invoice/{reservation}', [FactureController::class, 'print'])
         ->name('invoice.print');
@@ -60,6 +60,7 @@ Route::middleware(['auth', 'client'])->group(function () {
 
     Route::get('/client/reservations', [ClientController::class, 'reservations'])
         ->name('client.reservations');
+    Route::post('client/reservations/{reservation}',[ReservationController::class, 'refuseOrAnnuler'])->name('refuseOrAnnuleer');
 });
 Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 
@@ -107,8 +108,8 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
 
             Route::post(
                 '{reservation}',
-                [ReservationController::class, 'refuse']
-            )->name('refuse');
+                [ReservationController::class, 'refuseOrAnnuler']
+            )->name('refuseOrAnnuleer');
         });
 
 

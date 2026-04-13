@@ -13,10 +13,21 @@
           </div>
 
           @if ($errors->any())
-              <div class="mb-4 bg-red-100 text-red-600 p-3 rounded-lg text-sm">
+              <div id="errorBox" class="mb-4 bg-red-100 text-red-600 p-3 rounded-lg text-sm">
                   {{ $errors->first() }}
               </div>
           @endif
+                  @if (session('success'))
+            <div id="successBox" class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+                {{ session('error') }}
+            </div>
+        @endif
 
           <form method="POST" action="{{ route('password.change') }}" class="space-y-5">
               @csrf
