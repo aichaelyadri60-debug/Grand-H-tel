@@ -5,7 +5,7 @@
 
           <div class="text-center mb-6">
               <h2 class="text-2xl font-bold text-gray-800">
-                  Change Password 
+                  Change Password
               </h2>
               <p class="text-sm text-gray-500 mt-1">
                   Pour votre sécurité, veuillez changer votre mot de passe.
@@ -55,7 +55,7 @@
               </div>
 
               <button
-                  class="w-full bg-orange-500 hover:bg-orange-600 text-white
+                  class="w-full bg-gradient-to-br from-[#D85A30] to-[#EF9F27]  text-white
                        font-semibold py-3 rounded-lg transition duration-300
                        shadow-md hover:shadow-lg">
 

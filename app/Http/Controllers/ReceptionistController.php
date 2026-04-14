@@ -50,9 +50,9 @@ class ReceptionistController extends Controller
             ->with('success', 'Receptionist created');
     }
 
-    public function show(User $user)
+    public function show(User $receptionist)
     {
-        return view('admin.receptionists.show', compact('user'));
+        return view('admin.receptionists.show', compact('receptionist'));
     }
     // EDIT
     public function edit(User $receptionist)

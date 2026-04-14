@@ -6,7 +6,7 @@
 
     <div class="w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden">
 
-        <div class="bg-amber-700 text-center pt-7 px-7 relative">
+        <div class="bg-gradient-to-br from-[#D85A30] to-[#EF9F27] text-center pt-7 px-7 relative">
 
             <div class="w-11 h-11 mx-auto mb-2 rounded-xl bg-white/20
                         flex items-center justify-center">
@@ -38,7 +38,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('dashboard.rooms.edit',$room->id) }}" method="POST">
+            <form action="{{ route('dashboard.rooms.update',$room->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -140,7 +140,7 @@
                     </a>
 
                     <button type="submit"
-                        class="flex items-center gap-2 px-5 py-2 bg-amber-700
+                        class="flex items-center gap-2 px-5 py-2 bg-gradient-to-br from-[#D85A30] to-[#EF9F27]
                                hover:bg-amber-800 text-white rounded-lg text-sm font-medium">
                         ✓ Update Room
                     </button>

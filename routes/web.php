@@ -140,7 +140,7 @@ Route::middleware(['auth', 'role:admin,Receptionniste'])
             Route::post('/', [ClientController::class, 'store'])->name('store');
             Route::get('{client}', [ClientController::class, 'show'])->name('show');
 
-            Route::patch(
+            Route::post(
                 '{client}/ban',
                 [ClientController::class, 'banOrdeban']
             )->name('banordeban');

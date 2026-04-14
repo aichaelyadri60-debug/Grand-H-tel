@@ -106,6 +106,7 @@
                                         </a>
                                     @endif
 
+                                    {{-- {{dd($reservation->status)}} --}}
                                     @if (
                                         $reservation->status !== 'confirmed' &&
                                             $reservation->status !== 'cancelled' &&

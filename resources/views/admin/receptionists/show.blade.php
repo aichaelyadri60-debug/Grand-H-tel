@@ -4,7 +4,7 @@
 
 <div class="max-w-5xl mx-auto p-6">
 
-    {{-- Header --}}
+
     <div class="flex justify-between items-center mb-8">
 
         <div>
@@ -24,52 +24,46 @@
 
     </div>
 
-    {{-- Card --}}
     <div class="bg-white rounded-2xl border border-gray-300 shadow-sm p-8">
 
         <div class="flex items-center gap-6 mb-8">
 
-            {{-- Avatar --}}
             <div
                 class="w-20 h-20 rounded-full bg-orange-100
                        flex items-center justify-center
                        text-2xl font-bold text-orange-700">
 
-                {{ strtoupper(substr($user->name,0,1)) }}
+                {{ strtoupper(substr($receptionist->name,0,1)) }}
             </div>
 
             <div>
                 <h2 class="text-xl font-semibold text-gray-900">
-                    {{ $user->name }}
+                    {{ $receptionist->name }}
                 </h2>
 
                 <p class="text-gray-500 text-sm">
-                    Receptionist #{{ $user->id }}
+                    Receptionist #{{ $receptionist->id }}
                 </p>
             </div>
 
         </div>
 
-        {{-- Info Grid --}}
         <div class="grid md:grid-cols-2 gap-6">
 
-            {{-- Email --}}
             <div>
                 <p class="text-xs text-gray-400 uppercase">Email</p>
                 <p class="font-medium text-gray-800 mt-1">
-                    {{ $user->email }}
+                    {{ $receptionist->email }}
                 </p>
             </div>
 
-            {{-- Phone --}}
             <div>
                 <p class="text-xs text-gray-400 uppercase">Phone</p>
                 <p class="font-medium text-gray-800 mt-1">
-                    {{ $user->phone ?? '-' }}
+                    {{ $receptionist->phone ?? '-' }}
                 </p>
             </div>
 
-            {{-- Role --}}
             <div>
                 <p class="text-xs text-gray-400 uppercase">Role</p>
 
@@ -79,11 +73,10 @@
                 </span>
             </div>
 
-            {{-- Status --}}
             <div>
                 <p class="text-xs text-gray-400 uppercase">Status</p>
 
-                @if($user->is_banned)
+                @if($receptionist->is_banned)
                     <span class="inline-block mt-1 px-3 py-1 text-xs
                         bg-red-100 text-red-700 rounded-full">
                         Banned
@@ -96,26 +89,23 @@
                 @endif
             </div>
 
-            {{-- Created --}}
             <div>
                 <p class="text-xs text-gray-400 uppercase">Created At</p>
                 <p class="font-medium text-gray-800 mt-1">
-                    {{ $user->created_at ?$user->created_at ->format('d M Y') :'-'}}
+                    {{ $receptionist->created_at ?$receptionist->created_at ->format('d M Y') :'-'}}
                 </p>
             </div>
 
         </div>
 
-        {{-- Actions --}}
         <div class="flex gap-3 mt-10 border-t pt-6">
 
-            {{ dd($user->id) }}
-            {{-- Ban / Deban --}}
+            {{-- {{dd($receptionist->created_at)}} --}}
             <form method="POST"
-                action="{{ route('dashboard.clients.banordeban',['client' =>$user->id]) }}">
+                action="{{ route('dashboard.clients.banordeban',['client' => $receptionist->id]) }}">
                 @csrf
 
-                @if(!$user->is_banned)
+                @if(!$receptionist->is_banned)
                     <button
                         class="px-5 py-2 text-sm font-medium
                                text-red-700 bg-red-100 border border-red-300
@@ -132,9 +122,8 @@
                 @endif
             </form>
 
-            {{-- Delete --}}
             <form method="POST"
-                action="{{ route('dashboard.receptionists.destroy',$user->id) }}"
+                action="{{ route('admin.receptionists.destroy',$receptionist->id) }}"
                 onsubmit="return confirm('Delete this receptionist ?')">
 
                 @csrf

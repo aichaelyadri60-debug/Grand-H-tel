@@ -3,7 +3,7 @@
 
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 
-        <div class="bg-amber-700 text-center pt-8 px-7">
+        <div class="bg-gradient-to-br from-[#D85A30] to-[#EF9F27] text-center pt-8 px-7">
             <div class="w-11 h-11 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -24,10 +24,6 @@
 
         <div class="px-7 pb-7 relative">
 
-            <a href="{{ route('dashboard.rooms') }}"
-                class="inline-flex items-center  mb-4 text-sm text-amber-700 font-medium hover:text-amber-900 absolute bottom-119 left-10">
-                ← Retour
-            </a>
             @if ($errors->any())
                 <div id="errorBox"
                     class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
@@ -153,10 +149,34 @@
                 <input type="file" name="image"
                     class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
 
-                <button type="submit"
-                    class="w-full mt-6 py-3 bg-amber-700 text-white rounded-lg hover:bg-amber-800 transition">
-                    Create Room
-                </button>
+                <div class="flex justify-between items-center pt-6 border-t">
+
+                    <a href="{{ route('dashboard.rooms') }}"
+                        class="flex items-center gap-2 px-4 py-2 text-sm font-medium
+                               text-gray-600 border border-gray-300 rounded-lg
+                               hover:bg-gray-100 transition">
+
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+
+                        Back
+                    </a>
+
+                    <button type="submit"
+                        class="flex items-center gap-2 px-5 py-2 bg-gradient-to-br from-[#D85A30] to-[#EF9F27] text-white
+                               rounded-lg text-sm font-medium
+                               hover:bg-amber-800 transition shadow-sm">
+
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
+                            viewBox="0 0 24 24">
+                            <path d="M5 13l4 4L19 7" />
+                        </svg>
+
+                        Create
+                    </button>
+
+                </div>
 
             </form>
         </div>

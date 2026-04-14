@@ -45,20 +45,19 @@
                     Send us a Message
                 </h2>
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        <span>✓</span>
+                    <div class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
                         <span>{{ session('success') }}</span>
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-error">
+                    <div id="successBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
                         <span>{{ session('error') }}</span>
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div style="color:red">
+                    <div id="errorBox" class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm" >
                         @foreach ($errors->all() as $error)
                             <p>{{ $error }}</p>
                         @endforeach

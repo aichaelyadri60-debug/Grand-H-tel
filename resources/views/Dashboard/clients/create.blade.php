@@ -6,7 +6,7 @@
 
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
 
-        <div class="bg-amber-700 text-center pt-8 px-8 relative">
+        <div class="bg-gradient-to-br from-[#D85A30] to-[#EF9F27] text-center pt-8 px-8 relative">
 
             <div class="w-11 h-11 mx-auto mb-3 rounded-xl bg-white/20 flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
@@ -112,7 +112,7 @@
                     </a>
 
                     <button type="submit"
-                        class="flex items-center gap-2 px-5 py-2 bg-amber-700 text-white
+                        class="flex items-center gap-2 px-5 py-2 bg-gradient-to-br from-[#D85A30] to-[#EF9F27] text-white
                                rounded-lg text-sm font-medium
                                hover:bg-amber-800 transition shadow-sm">
 

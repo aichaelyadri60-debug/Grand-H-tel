@@ -44,7 +44,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('Dashboard.room.create');
+        return view('Dashboard.clients.create');
     }
 
     /**
@@ -100,7 +100,11 @@ class ClientController extends Controller
     {
         $client->is_banned = !$client->is_banned;
         $client->save();
-        return back()->with('success', 'client debanni avec success.');
+        if($client->is_banned ){
+            return back()->with('success', 'client banni avec success.');
+        }else{
+            return back()->with('success', 'client debanni avec success.');
+        }
     }
 
 
@@ -141,7 +145,7 @@ class ClientController extends Controller
     }
 
 
-    
+
 
 
 }

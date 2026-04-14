@@ -111,14 +111,14 @@
                     <td class="px-6 py-4">
                         <div class="flex justify-end gap-2">
 
-                            <a href="{{ route('admin.receptionists.show',$r->id) }}"
+                            <a href="{{ route('admin.receptionists.show',['receptionist'=>$r->id]) }}"
                                class="px-4 py-2 text-xs font-medium
                                text-blue-700 bg-blue-100 border border-blue-300
                                rounded-lg hover:bg-blue-200">
                                 View
                             </a>
 
-                            <a href="{{ route('admin.receptionists.edit',$r->id) }}"
+                            <a href="{{ route('admin.receptionists.edit',['receptionist'=>$r->id]) }}"
                                class="px-4 py-2 text-xs font-medium
                                text-amber-700 bg-amber-100 border border-amber-300
                                rounded-lg hover:bg-amber-200">
@@ -126,7 +126,7 @@
                             </a>
 
                             <form method="POST"
-                                  action="{{ route('admin.receptionists.destroy',$r->id) }}">
+                                  action="{{ route('admin.receptionists.destroy',['receptionist'=>$r->id]) }}">
                                 @csrf
                                 @method('DELETE')
 

@@ -22,7 +22,12 @@ class receReservationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => 'required|exists:users,id',
+            'client_id' => 'nullable|exists:users,id',
+
+            'manual_name' => 'nullable|string|max:255|required_without:client_id',
+            'manual_email' => 'nullable|email',
+            'manual_phone' => 'nullable|string|max:20',
+
             'room_id' => 'required|exists:rooms,id',
             'check_in' => 'required|date|after_or_equal:today',
             'check_out' => 'required|date|after:check_in',

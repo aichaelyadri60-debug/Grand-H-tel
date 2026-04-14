@@ -124,12 +124,10 @@ class ReservationController extends Controller
         $reservation->update([
             'status' => 'cancelled'
         ]);
-        if(auth()->user()->role === 'client'){
+        if (auth()->user()->role === 'client') {
             return redirect()->route('client.reservations')->with('success', 'reservations concel avec succes .');
-
-        }else{
+        } else {
             return redirect()->route('dashboard.reservations.index')->with('success', 'reservations concel avec succes .');
-
         }
     }
 
@@ -199,8 +197,21 @@ class ReservationController extends Controller
         $nights = $checkIn->diffInDays($checkOut);
         $totalPrice = $room->price * $nights;
 
+        if ($request->manual_name) {
+
+            $client = User::create([
+                'name' => $request->manual_name,
+                'email' => $request->manual_email ?? uniqid() . '@guest.com',
+                'password' => bcrypt('guest123'), // ou null si autorisé
+            ]);
+
+            $client_id = $client->id;
+        } else {
+            $client_id = $request->client_id;
+        }
+
         DB::transaction(function () use (
-            $request,
+            $client_id,
             $room,
             $checkIn,
             $checkOut,
@@ -208,7 +219,7 @@ class ReservationController extends Controller
         ) {
 
             $reservation = Reservation::create([
-                'user_id' => $request->client_id,
+                'user_id' => $client_id,
                 'room_id' => $room->id,
                 'check_in' => $checkIn,
                 'check_out' => $checkOut,
