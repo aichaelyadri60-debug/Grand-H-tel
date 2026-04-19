@@ -19,7 +19,6 @@ return new class extends Migration
             $table->dateTime('check_in');
             $table->dateTime('check_out');
 
-            $table->integer('guests')->default(1);
             $table->decimal('total_price', 10, 2)->nullable();
 
             $table->enum('status', [
@@ -29,13 +28,6 @@ return new class extends Migration
                 'checked_out',
                 'cancelled'
             ])->default('pending');
-
-            $table->enum('payment_status', [
-                'unpaid',
-                'paid'
-            ])->default('unpaid');
-
-            $table->text('notes')->nullable();
 
             $table->timestamps();
         });

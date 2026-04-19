@@ -145,13 +145,7 @@
                                     <span class="text-gray-800 font-semibold text-sm">{{ $room->type }} Room</span>
                                 </div>
 
-                                @if ($room->status == 'available')
-                                    <span
-                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 text-teal-700 text-xs font-semibold rounded-full border border-teal-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
-                                        Available
-                                    </span>
-                                @elseif($room->status == 'occupied')
+                                @if($room->isOccupied())
                                     <span
                                         class="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded-full border border-red-200">
                                         <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
@@ -159,9 +153,9 @@
                                     </span>
                                 @else
                                     <span
-                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                                        Maintenance
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-200">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                        Disponible
                                     </span>
                                 @endif
                             </div>

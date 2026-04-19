@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ReservationController extends Controller
 {
@@ -66,18 +67,11 @@ class ReservationController extends Controller
 
     public function reserver(reservationrequest $request, Room $room)
     {
-        $reservation = Reservation::where('room_id', $room->id)
-            ->whereIn('status', ['pending', 'confirmed', 'checked_in'])
-            ->exists();
-
-        if ($reservation) {
-            return back()->with('error', 'on peut pas reserver cette chambre');
-        }
 
         $checkIn = Carbon::parse($request->check_in);
         $checkOut = Carbon::parse($request->check_out);
         $alreadyConfirmed = Reservation::where('room_id', $room->id)
-            ->where('status', 'confirmed')
+            ->where('status', ['confirmed', 'checked_in'])
             ->where(function ($query) use ($checkIn, $checkOut) {
 
                 $query->whereBetween('check_in', [$checkIn, $checkOut])
@@ -92,7 +86,7 @@ class ReservationController extends Controller
         if ($alreadyConfirmed) {
             return back()->with(
                 'error',
-                'Cette chambre est déjà réservée pour ces dates.'
+                'Cette chambre est deja reservee pour ces dates.'
             );
         }
 
@@ -105,10 +99,8 @@ class ReservationController extends Controller
             'room_id' => $room->id,
             'check_in' => $checkIn,
             'check_out' => $checkOut,
-            'guests' => $request->guests,
             'total_price' => $totalPrice,
             'status' => 'pending',
-            'payment_status' => 'unpaid',
         ]);
 
         return redirect()
@@ -202,7 +194,7 @@ class ReservationController extends Controller
             $client = User::create([
                 'name' => $request->manual_name,
                 'email' => $request->manual_email ?? uniqid() . '@guest.com',
-                'password' => bcrypt('guest123'), // ou null si autorisé
+                'password' => Hash::make('guest123'),
             ]);
 
             $client_id = $client->id;
@@ -242,9 +234,6 @@ class ReservationController extends Controller
                     'status' => 'cancelled'
                 ]);
 
-            $room->update([
-                'status' => 'occupied'
-            ]);
 
             $reservation->payment()->create([
                 'amount' => $totalPrice,

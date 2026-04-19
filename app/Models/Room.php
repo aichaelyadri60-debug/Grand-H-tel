@@ -18,4 +18,13 @@ class Room extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function isOccupied()
+    {
+        return $this->reservations()
+            ->whereIn('status', ['confirmed', 'checked_in'])
+            ->where('check_in', '<=', now())
+            ->where('check_out', '>', now())
+            ->exists();
+    }
 }

@@ -11,21 +11,23 @@ class Reservation extends Model
         'room_id',
         'check_in',
         'check_out',
-        'guests',
         'total_price',
         'status',
-        'payment_status',
-        'notes',
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function room(){
+    public function room()
+    {
         return $this->belongsTo(Room::class);
     }
 
-    public function payment(){
+    public function payment()
+    {
         return $this->hasOne(Payment::class);
     }
+
+
 }
