@@ -60,7 +60,7 @@
             @auth
                 @if (auth()->user()->role === 'client')
                     <div class="hidden lg:flex items-center gap-3">
-                        <a href="{{ route('client.dahboard') }}" id="staffBtn"
+                        <a href="{{ route('client.dashboard') }}" id="staffBtn"
                             class="px-5 py-2 rounded-xl text-sm font-medium
             bg-white/15 backdrop-blur-sm text-white border border-white/25
             hover:bg-white/25 hover:border-white/40 transition-all duration-200 cursor-pointer">
@@ -166,14 +166,14 @@
 
             @auth
                 @if (auth()->user()->role === 'client')
-                    <a href="{{ route('client.reservations') }}"
+                    <a href="{{ route('client.dashboard') }}"
                         class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200">
 
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
                         </svg>
 
-                        Reservations
+                        Dashboard
                     </a>
                 @else
                     <a href="{{ route('dashboard.statistique') }}"

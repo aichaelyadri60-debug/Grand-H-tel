@@ -30,7 +30,7 @@
             'roles' => ['admin'],
         ],
         [
-            'path' => 'client.dahboard',
+            'path' => 'client.dashboard',
             'label' => 'Dashboard',
             'roles' => ['client'],
         ],
