@@ -186,30 +186,43 @@ class ReservationController extends Controller
         $checkIn = Carbon::parse($request->check_in);
         $checkOut = Carbon::parse($request->check_out);
 
+        // verificaion de chambre
+        $exists = Reservation::where('room_id', $room->id)
+            ->where('status', 'confirmed')
+            ->where(function ($query) use ($checkIn, $checkOut) {
+                $query->whereBetween('check_in', [$checkIn, $checkOut])
+                    ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                    ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                        $q->where('check_in', '<=', $checkIn)
+                            ->where('check_out', '>=', $checkOut);
+                    });
+            })
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'Cette chambre est deja reservee pour ces dates ');
+        }
+
         $nights = $checkIn->diffInDays($checkOut);
         $totalPrice = $room->price * $nights;
 
-        if ($request->manual_name) {
+        DB::transaction(function () use ($request, $room, $checkIn, $checkOut, $totalPrice) {
 
-            $client = User::create([
-                'name' => $request->manual_name,
-                'email' => $request->manual_email ?? uniqid() . '@guest.com',
-                'password' => Hash::make('guest123'),
-            ]);
+            //  Creation client
+            if ($request->manual_name) {
+                $client = User::firstOrCreate(
+                    ['email' => $request->manual_email],
+                    [
+                        'name' => $request->manual_name,
+                        'password' => Hash::make('guest123'),
+                    ]
+                );
+                $client_id = $client->id;
+            } else {
+                $client_id = $request->client_id;
+            }
 
-            $client_id = $client->id;
-        } else {
-            $client_id = $request->client_id;
-        }
-
-        DB::transaction(function () use (
-            $client_id,
-            $room,
-            $checkIn,
-            $checkOut,
-            $totalPrice
-        ) {
-
+            // Création réservation
             $reservation = Reservation::create([
                 'user_id' => $client_id,
                 'room_id' => $room->id,
@@ -219,10 +232,10 @@ class ReservationController extends Controller
                 'status' => 'confirmed',
             ]);
 
+            //  Annuler les pending
             Reservation::where('room_id', $room->id)
                 ->where('status', 'pending')
                 ->where(function ($query) use ($checkIn, $checkOut) {
-
                     $query->whereBetween('check_in', [$checkIn, $checkOut])
                         ->orWhereBetween('check_out', [$checkIn, $checkOut])
                         ->orWhere(function ($q) use ($checkIn, $checkOut) {
@@ -230,17 +243,15 @@ class ReservationController extends Controller
                                 ->where('check_out', '>=', $checkOut);
                         });
                 })
-                ->update([
-                    'status' => 'cancelled'
-                ]);
+                ->update(['status' => 'cancelled']);
 
-
+            // Paiement
             $reservation->payment()->create([
                 'amount' => $totalPrice,
                 'status' => 'unpaid'
             ]);
         });
 
-        return back()->with('success', 'Reservation confirmed successfully');
+        return back()->with('success', 'Reservation confirme');
     }
 }

@@ -32,6 +32,13 @@
                     </div>
                 @endif
 
+                @if(session('error'))
+                <div id="errorBox"
+                        class="mb-5 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm shadow">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="mb-5 text-center">
                     <button type="button" onclick="toggleManualClient()"
                         class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-600 to-orange-500 rounded-lg shadow hover:scale-105 transition">

@@ -6,7 +6,7 @@ use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\DahboardController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ClientController;
-
+use App\Http\Controllers\RoomController;
 
 Route::middleware(['auth', 'role:admin,Receptionniste'])
     ->prefix('dashboard')
