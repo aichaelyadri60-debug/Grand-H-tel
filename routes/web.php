@@ -38,6 +38,7 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 
 
 
+Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 
 
 
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'role:client'])->prefix('client')->group(function () 
     Route::get('reservations/{reservation}/show', [ReservationController::class, 'show'])->name('detailReservation');
     Route::delete('reservations/{reservation}', [ClientController::class, 'cancel'])
         ->name('client.reservation.cancel');
+    Route::get('Dashboard', [ClientController::class, 'dashboard'])->name('client.dahboard');
 
     Route::get('invoice/{reservation}', [FactureController::class, 'print'])
         ->name('invoice.print');
@@ -61,7 +63,6 @@ Route::middleware(['auth', 'role:client'])->prefix('client')->group(function () 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 });
-Route::get('/rooms', [RoomController::class, 'index'])->name('Room.index');
 
 
 

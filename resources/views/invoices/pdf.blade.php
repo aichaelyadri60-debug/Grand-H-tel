@@ -140,7 +140,7 @@
                     <td>{{ $reservation->check_in }}</td>
                     <td>{{ $reservation->check_out }}</td>
                     <td>
-                        {{ ($reservation->check_in)->diffInDays($reservation->check_out) }}
+                        {{ \Carbon\Carbon::parse($reservation->check_in)->diffInDays($reservation->check_out) }}
                     </td>
                     <td>{{ $payment->amount }} MAD</td>
                 </tr>

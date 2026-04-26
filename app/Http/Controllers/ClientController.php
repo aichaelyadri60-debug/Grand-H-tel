@@ -110,9 +110,8 @@ class ClientController extends Controller
         $user = Auth::user();
 
         $reservations = $user->reservations()
-            ->with(['payment.invoice'])
             ->latest()
-            ->get();
+            ->paginate(5);
 
         $totalReservations = $reservations->count();
         $paidReservations = $reservations->where('payment.status', 'paid')->count();
