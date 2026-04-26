@@ -46,7 +46,7 @@ class ReservationController extends Controller
             abort(403);
         }
 
-        $reservation->load(['room', 'payment.invoice']);
+        $reservation->load(['room', 'payment']);
 
         return view('client.show', compact('reservation'));
     }

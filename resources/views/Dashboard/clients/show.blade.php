@@ -4,7 +4,6 @@
 
     <div class="w-full max-w-md bg-white rounded-2xl border border-amber-100 shadow-lg overflow-hidden">
 
-        {{-- HEADER --}}
         <div class="bg-gradient-to-br from-[#D85A30] to-[#EF9F27]  px-8 py-10 text-center">
 
             <div class="w-16 h-16 mx-auto rounded-full bg-white/20 border border-white/40
@@ -20,7 +19,6 @@
                 {{ ucfirst($client->role) }}
             </p>
 
-            {{-- STATUS --}}
             <div class="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full text-xs font-medium
                         {{ $client->is_banned ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
 
@@ -32,7 +30,6 @@
 
         </div>
 
-        {{-- INFOS --}}
         <div class="px-6 py-4 divide-y divide-amber-50">
 
             <div class="flex justify-between py-3">
@@ -52,13 +49,12 @@
             <div class="flex justify-between py-3">
                 <span class="text-sm text-gray-400">Inscrit le</span>
                 <span class="text-sm font-medium text-gray-800">
-                    {{ optional($client->created_at)->format('d M Y') }}
+                    {{ $client->created_at->format('d M Y') }}
                 </span>
             </div>
 
         </div>
 
-        {{-- ACTIONS --}}
         <div class="bg-amber-50 border-t border-amber-100 px-6 py-4 flex justify-between items-center">
 
             <a href="{{ route('dashboard.clients.index') }}"

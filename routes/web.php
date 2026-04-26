@@ -13,8 +13,6 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceptionistController;
 use App\Http\Controllers\ReservationController;
-use GuzzleHttp\Client;
-use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,7 +41,7 @@ Route::get('register', [AuthController::class, 'ShowRegister'])->name('Showregis
 
 
 
-Route::middleware(['auth', 'client'])->prefix('client')->group(function () {
+Route::middleware(['auth', 'role:client'])->prefix('client')->group(function () {
     Route::get('reservations/{room}', [ReservationController::class, 'formReserv'])->name('ShowReservation');
     Route::get('reservations/{reservation}/show', [ReservationController::class, 'show'])->name('detailReservation');
     Route::delete('reservations/{reservation}', [ClientController::class, 'cancel'])
@@ -55,8 +53,6 @@ Route::middleware(['auth', 'client'])->prefix('client')->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
     Route::post('/change-password', [AuthController::class, 'changePassword'])
         ->name('password.change');
-    Route::get('client/dashboard', [ClientController::class, 'dashboard'])
-        ->name('client.dashboard');
 
     Route::get('reservations', [ClientController::class, 'reservations'])
         ->name('client.reservations');

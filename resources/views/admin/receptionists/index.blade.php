@@ -3,7 +3,6 @@
 @section('content')
 <div class="p-6 max-w-7xl mx-auto">
 
-    {{-- HEADER --}}
     <div class="flex justify-between items-end mb-8">
         <div>
             <h1 class="text-3xl font-semibold text-gray-900 tracking-tight">
@@ -28,7 +27,6 @@
         </a>
     </div>
 
-    {{-- SEARCH --}}
     <form method="GET"
         class="bg-white rounded-2xl border border-gray-300 p-5 mb-6
         grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -45,14 +43,12 @@
         </button>
     </form>
 
-    {{-- ALERTS --}}
     @if(session('success'))
         <div class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- TABLE --}}
     <div class="bg-white rounded-2xl border border-gray-300 overflow-hidden">
 
         <table class="w-full text-sm text-left">
@@ -72,7 +68,6 @@
             @forelse($receptionists as $r)
                 <tr class="hover:bg-gray-50/60 transition">
 
-                    {{-- USER --}}
                     <td class="px-6 py-4 flex items-center gap-3">
 
                         <div class="w-10 h-10 rounded-full bg-orange-100
@@ -92,22 +87,18 @@
 
                     </td>
 
-                    {{-- EMAIL --}}
                     <td class="px-6 py-4 text-gray-700">
                         {{ $r->email }}
                     </td>
 
-                    {{-- PHONE --}}
                     <td class="px-6 py-4 text-gray-600">
                         {{ $r->phone ?? '-' }}
                     </td>
 
-                    {{-- DATE --}}
                     <td class="px-6 py-4 text-gray-600">
                         {{ $r->created_at?->format('d M Y') }}
                     </td>
 
-                    {{-- ACTIONS --}}
                     <td class="px-6 py-4">
                         <div class="flex justify-end gap-2">
 
@@ -156,7 +147,6 @@
         </table>
     </div>
 
-    {{-- PAGINATION --}}
     <div class="mt-8 flex justify-center">
         {{ $receptionists->links() }}
     </div>

@@ -38,7 +38,7 @@
                         Rooms Management
                     </h2>
                     <p class="text-sm text-gray-400 mt-0.5">
-                        {{ $rooms->total() }} room{{ $rooms->total() != 1 ? 's' : '' }} found
+                        {{ $rooms->total() }}
                     </p>
                 </div>
 
@@ -145,7 +145,7 @@
                                     <span class="text-gray-800 font-semibold text-sm">{{ $room->type }} Room</span>
                                 </div>
 
-                                @if($room->isOccupied())
+                                @if ($room->isOccupied())
                                     <span
                                         class="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded-full border border-red-200">
                                         <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
@@ -183,8 +183,8 @@
           hover:scale-[1.02]
           transition-all duration-200">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 7V3m8 4V3M4 11h16M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
                                 </svg>
@@ -212,33 +212,14 @@
             </div>
 
 
-            @if ($rooms->hasPages())
-                <div class="mt-10 flex justify-center">
-                    <div class="pagination-wrapper">
-                        {{ $rooms->withQueryString()->links() }}
-                    </div>
+
+            <div class="mt-10 flex justify-center">
+                <div class="pagination-wrapper">
+                    {{ $rooms->links() }}
                 </div>
-            @endif
+            </div>
 
         </div>
     </div>
 
-    <style>
-        .pagination-wrapper nav span[aria-current="page"] span,
-        .pagination-wrapper nav a:hover {
-            background: linear-gradient(135deg, #f59e0b, #f97316) !important;
-            color: white !important;
-            border-color: transparent !important;
-        }
-
-        .pagination-wrapper nav span,
-        .pagination-wrapper nav a {
-            border-radius: 10px !important;
-            border: 1px solid #e5e7eb !important;
-            font-size: 0.85rem !important;
-            font-weight: 500 !important;
-            padding: 0.5rem 0.9rem !important;
-            transition: all 0.2s !important;
-        }
-    </style>
 @endsection

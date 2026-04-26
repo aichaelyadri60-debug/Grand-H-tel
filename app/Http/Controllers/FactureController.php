@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class FactureController extends Controller
 {
-
 public function print(Reservation $reservation)
 {
     if ($reservation->user_id !== auth()->id()) {
@@ -22,18 +21,14 @@ public function print(Reservation $reservation)
 
     $payment = $reservation->payment;
 
-    if (!$payment->invoice) {
-        $invoice = $payment->invoice()->create([
-            'user_id' => $reservation->user->id,
-            'invoice_number' => 'INV-' . time(),
-            'amount' => $payment->amount
-        ]);
-    } else {
-        $invoice = $payment->invoice;
-    }
+    $invoiceNumber = 'INV-' . now()->format('YmdHis');
 
-    $pdf = pdf::loadView('invoices.pdf', compact('invoice'));
+    $pdf = Pdf::loadView('invoices.pdf', [
+        'reservation' => $reservation,
+        'payment' => $payment,
+        'invoiceNumber' => $invoiceNumber
+    ]);
 
-    return $pdf->download('facture-' . $invoice->invoice_number . '.pdf');
+    return $pdf->download('facture-' . $invoiceNumber . '.pdf');
 }
 }

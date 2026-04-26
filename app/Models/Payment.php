@@ -23,8 +23,5 @@ class Payment extends Model
         return $this->belongsTo(Reservation::class);
     }
 
-    public function invoice()
-    {
-        return $this->hasOne(Invoice::class);
-    }
+
 }

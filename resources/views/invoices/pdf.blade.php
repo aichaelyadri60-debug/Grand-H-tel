@@ -103,7 +103,6 @@
 
 <div class="invoice-box">
 
-    {{-- HEADER --}}
     <div class="header">
         <div>
             <div class="title">Facture Hôtel</div>
@@ -111,19 +110,17 @@
         </div>
 
         <div class="small-text" style="text-align:right;">
-            <p><strong>Réf :</strong> {{ $invoice->invoice_number }}</p>
-            <p><strong>Date :</strong> {{ $invoice->created_at->format('d/m/Y') }}</p>
+            <p><strong>Réf :</strong> {{ $invoiceNumber }}</p>
+            <p><strong>Date :</strong> {{ $payment->created_at->format('d/m/Y') }}</p>
         </div>
     </div>
 
-    {{-- CLIENT --}}
     <div class="section">
         <h3>Client</h3>
-        <p><strong>Nom :</strong> {{ $invoice->payment->reservation->user->name }}</p>
-        <p><strong>Email :</strong> {{ $invoice->payment->reservation->user->email }}</p>
+        <p><strong>Nom :</strong> {{ $reservation->user->name }}</p>
+        <p><strong>Email :</strong> {{ $reservation->user->email }}</p>
     </div>
 
-    {{-- TABLE DETAILS --}}
     <div class="section">
         <h3>Détails de réservation</h3>
 
@@ -133,32 +130,29 @@
                     <th>Chambre</th>
                     <th>Check-in</th>
                     <th>Check-out</th>
-                    <th>Nombre de nuits</th>
+                    <th>Nuits</th>
                     <th>Prix</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ $invoice->payment->reservation->room->roomNumber }}</td>
-                    <td>{{ $invoice->payment->reservation->check_in }}</td>
-                    <td>{{ $invoice->payment->reservation->check_out }}</td>
+                    <td>{{ $reservation->room->roomNumber }}</td>
+                    <td>{{ $reservation->check_in }}</td>
+                    <td>{{ $reservation->check_out }}</td>
                     <td>
-                        {{ \Carbon\Carbon::parse($invoice->payment->reservation->check_in)
-                        ->diffInDays($invoice->payment->reservation->check_out) }}
+                        {{ ($reservation->check_in)->diffInDays($reservation->check_out) }}
                     </td>
-                    <td>{{ $invoice->amount }} MAD</td>
+                    <td>{{ $payment->amount }} MAD</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    {{-- TOTAL --}}
     <div class="total">
         <span>Total à payer</span>
-        <strong>{{ $invoice->amount }} MAD</strong>
+        <strong>{{ $payment->amount }} MAD</strong>
     </div>
 
-    {{-- FOOTER --}}
     <div class="footer">
         © {{ date('Y') }} Hôtel - Tous droits réservés
     </div>

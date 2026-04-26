@@ -30,11 +30,6 @@
             'roles' => ['admin'],
         ],
         [
-            'path' => 'client.dashboard',
-            'label' => 'Mon Dashboard',
-            'roles' => ['client'],
-        ],
-        [
             'path' => 'client.reservations',
             'label' => 'Mes Reservations',
             'roles' => ['client'],

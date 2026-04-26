@@ -121,12 +121,12 @@
                 <div class="flex gap-3 flex-wrap pt-4 border-t">
 
                     {{-- FACTURE --}}
-                    @if ($reservation->payment?->invoice)
+                    @if ($reservation->status === 'confirmed' && optional($reservation->payment)->status === 'paid')
                         <a href="{{ route('invoice.print', $reservation->id) }}" target="_blank"
-                            class="px-5 py-2 text-sm text-white rounded-xl
-                              bg-gradient-to-r from-amber-500 to-amber-400
-                              hover:from-amber-600 hover:to-amber-500">
-                            Télécharger facture
+                            class="px-4 py-2 text-xs font-medium
+                                   text-green-700 bg-green-100 border border-green-300
+                                   rounded-lg hover:bg-green-200">
+                            Imprimer facture
                         </a>
                     @endif
                     {{-- {{ dd($reservation->status) }} --}}

@@ -130,7 +130,6 @@
                                     </a>
 
 
-                                    {{-- @if (!$client->is_banned) --}}
                                     <form action="{{ route('dashboard.clients.banordeban', $client->id) }}" method="POST">
                                         @csrf
 

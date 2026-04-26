@@ -3,7 +3,6 @@
         @csrf
         @method('patch')
 
-        {{-- NAME --}}
         <div>
             <label class="block text-xs text-gray-500 mb-1">
                 Nom
@@ -22,7 +21,6 @@
             @enderror
         </div>
 
-        {{-- EMAIL --}}
         <div>
             <label class="block text-xs text-gray-500 mb-1">
                 Email
@@ -41,7 +39,6 @@
             @enderror
         </div>
 
-        {{-- BUTTON --}}
         <div class="flex items-center gap-3">
             <button
                 type="submit"
@@ -51,7 +48,6 @@
                 Enregistrer
             </button>
 
-            {{-- SUCCESS --}}
             @if (session('status') === 'profile updated')
                 <span id="successBox" class="text-green-600 text-xs">
                      Sauvegarde

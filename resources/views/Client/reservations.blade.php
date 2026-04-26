@@ -97,7 +97,7 @@
                                         Voir
                                     </a>
 
-                                    @if ($reservation->status === 'confirmed')
+                                    @if ($reservation->status === 'confirmed' && optional($reservation->payment)->status === 'paid')
                                         <a href="{{route('invoice.print' ,$reservation->id)}}" target="_blank"
                                             class="px-4 py-2 text-xs font-medium
                                    text-green-700 bg-green-100 border border-green-300

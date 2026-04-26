@@ -3,7 +3,6 @@
 @section('content')
 <div class="max-w-4xl mx-auto px-6 py-10 space-y-6">
 
-    {{-- HEADER --}}
     <div>
         <h1 class="text-3xl font-semibold text-slate-800">
             Mon Profil
@@ -13,7 +12,6 @@
         </p>
     </div>
 
-    {{-- USER CARD --}}
     <div class="bg-white rounded-2xl border border-amber-100 shadow-sm p-6 flex items-center gap-5">
 
         <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-amber-500 to-amber-400 flex items-center justify-center text-white text-xl font-bold">
@@ -34,7 +32,6 @@
         </span>
     </div>
 
-    {{-- PROFILE INFO --}}
     <div class="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
 
         <div class="px-6 py-4 border-b">
@@ -49,7 +46,6 @@
 
     </div>
 
-    {{-- PASSWORD --}}
     <div class="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
 
         <div class="px-6 py-4 border-b">

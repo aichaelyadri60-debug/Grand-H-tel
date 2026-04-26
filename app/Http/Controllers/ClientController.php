@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\clientRequest;
 use App\Mail\PasswordMail;
-use App\Models\Invoice;
-use App\Models\Reservation;
 use App\Models\User;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -137,7 +134,6 @@ class ClientController extends Controller
         $user = Auth::user();
 
         $reservations = $user->reservations()
-            ->with(['payment.invoice'])
             ->latest()
             ->paginate(5);
 

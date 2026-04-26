@@ -166,7 +166,7 @@
 
             @auth
                 @if (auth()->user()->role === 'client')
-                    <a href="{{ route('client.dashboard') }}"
+                    <a href="{{ route('client.reservations') }}"
                         class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-white text-sm font-semibold shadow-md shadow-amber-200 hover:from-amber-600 hover:to-amber-500 transition-all duration-200">
 
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

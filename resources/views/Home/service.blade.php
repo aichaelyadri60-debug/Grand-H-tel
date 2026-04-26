@@ -115,24 +115,7 @@
         <hr class="border-slate-200 my-8">
 
 
-        <div class="bg-[#1A1209] rounded-2xl px-8 py-8 flex items-center justify-between gap-6 flex-wrap mb-10">
 
-            <div>
-                <h2 class="font-serif text-[1.4rem] font-bold text-[#F5ECD7] mb-1">
-                    Ready to experience Grand Hotel?
-                </h2>
-                <p class="text-[13px] font-light text-[#F5ECD7]/55">
-                    Reserve your suite today and enjoy every amenity from day one.
-                </p>
-            </div>
-
-            <a href="{{ route('Room.index') }}"
-               class="flex-shrink-0 bg-amber-500 hover:bg-amber-400 text-[#1A1209] font-medium
-                      text-[13.5px] px-6 py-2.5 rounded-xl transition-colors duration-150 tracking-wide">
-                Book your stay →
-            </a>
-
-        </div>
 
     </div>
 

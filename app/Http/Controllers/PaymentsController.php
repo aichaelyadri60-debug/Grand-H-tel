@@ -16,13 +16,6 @@ class PaymentsController extends Controller
             'paid_at' => now(),
             'method' => 'cash'
         ]);
-        Invoice::create([
-            'payment_id' => $payment->id,
-            'user_id' => $payment->reservation->user_id,
-            'invoice_number' => 'INV-' . strtoupper(Str::random(8)),
-            'amount' => $payment->amount,
-            'issued_at' => now(),
-        ]);
 
         return back()->with('success', 'Payment completed');
     }
