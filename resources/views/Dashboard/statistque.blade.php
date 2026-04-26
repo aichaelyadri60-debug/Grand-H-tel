@@ -1,9 +1,7 @@
-{{-- resources/views/receptionist/dashboard.blade.php --}}
 @extends('layouts.app1')
 @section('content')
 <div class="min-h-screen bg-gray-100 p-6">
 
-  {{-- TOPBAR --}}
   <div class="flex items-center justify-between mb-6">
     <div>
       <h1 class="text-lg font-semibold text-gray-800">Tableau de bord</h1>
@@ -16,7 +14,6 @@
     </span>
   </div>
 
-  {{-- KPI CARDS --}}
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
 
     <div class="bg-white rounded-xl border border-gray-200 p-4">
@@ -68,7 +65,6 @@
 
   </div>
 
-  {{-- STATUS STRIP --}}
   <div class="grid grid-cols-3 gap-4 mb-5">
     <div class="bg-amber-50 rounded-xl p-4">
       <p class="text-xl font-semibold text-amber-800">{{ $pending }}</p>
@@ -84,7 +80,6 @@
     </div>
   </div>
 
-  {{-- CHARTS --}}
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
 
     <div class="bg-white rounded-xl border border-gray-200 p-5">
@@ -111,7 +106,6 @@
 
   </div>
 
-  {{-- TABLE --}}
   <div class="bg-white rounded-xl border border-gray-200 p-5">
     <p class="text-sm font-medium text-gray-700 mb-4">Dernières réservations</p>
     <div class="overflow-x-auto">
@@ -148,7 +142,6 @@
 
 </div>
 
-@push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
   new Chart(document.getElementById('doughnutChart'), {
@@ -195,6 +188,5 @@
     }
   });
 </script>
-@endpush
 
 @endsection

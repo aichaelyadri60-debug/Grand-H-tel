@@ -47,7 +47,7 @@ Route::middleware(['auth', 'role:client'])->prefix('client')->group(function () 
     Route::get('reservations/{reservation}/show', [ReservationController::class, 'show'])->name('detailReservation');
     Route::delete('reservations/{reservation}', [ClientController::class, 'cancel'])
         ->name('client.reservation.cancel');
-    Route::get('Dashboard', [ClientController::class, 'dashboard'])->name('client.dahboard');
+    Route::get('dashboard', [ClientController::class, 'dashboard'])->name('client.dahboard');
 
     Route::get('invoice/{reservation}', [FactureController::class, 'print'])
         ->name('invoice.print');

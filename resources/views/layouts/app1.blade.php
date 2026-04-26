@@ -49,7 +49,7 @@
         @yield('content')
     </main>
 
- @stack('scripts')
+ {{-- @stack('scripts') --}}
 </body>
 
 </html>
