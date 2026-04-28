@@ -62,7 +62,7 @@ class ClientController extends Controller
             ->send(new PasswordMail($request->name, $request->email, $request->phone, $passwordTemp));
         return back()->with(
             'success',
-            'Client created. et email envoyer avec success. '
+            'Client cree et email envoyer avec success. '
         );
     }
 
@@ -72,22 +72,6 @@ class ClientController extends Controller
     public function show(User $client)
     {
         return view('Dashboard.clients.show', compact('client'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
