@@ -78,6 +78,6 @@ class ReceptionistController extends Controller
     {
         $receptionist->delete();
 
-        return back()->with('success', 'Deleted successfully');
+        return back()->with('success', 'receptionis Deleted successfully');
     }
 }

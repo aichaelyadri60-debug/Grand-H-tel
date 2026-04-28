@@ -186,7 +186,6 @@ class ReservationController extends Controller
         $checkIn = Carbon::parse($request->check_in);
         $checkOut = Carbon::parse($request->check_out);
 
-        // verificaion de chambre
         $exists = Reservation::where('room_id', $room->id)
             ->where('status', 'confirmed')
             ->where(function ($query) use ($checkIn, $checkOut) {
@@ -208,7 +207,6 @@ class ReservationController extends Controller
 
         DB::transaction(function () use ($request, $room, $checkIn, $checkOut, $totalPrice) {
 
-            //  Creation client
             if ($request->manual_name) {
                 $client = User::firstOrCreate(
                     ['email' => $request->manual_email],
@@ -222,7 +220,6 @@ class ReservationController extends Controller
                 $client_id = $request->client_id;
             }
 
-            // Création réservation
             $reservation = Reservation::create([
                 'user_id' => $client_id,
                 'room_id' => $room->id,
@@ -232,7 +229,6 @@ class ReservationController extends Controller
                 'status' => 'confirmed',
             ]);
 
-            //  Annuler les pending
             Reservation::where('room_id', $room->id)
                 ->where('status', 'pending')
                 ->where(function ($query) use ($checkIn, $checkOut) {
@@ -245,7 +241,6 @@ class ReservationController extends Controller
                 })
                 ->update(['status' => 'cancelled']);
 
-            // Paiement
             $reservation->payment()->create([
                 'amount' => $totalPrice,
                 'status' => 'unpaid'

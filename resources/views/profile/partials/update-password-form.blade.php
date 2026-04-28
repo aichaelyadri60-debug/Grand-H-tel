@@ -3,7 +3,12 @@
     <form method="POST" action="{{ route('password.update') }}" class="space-y-5">
         @csrf
         @method('PUT')
- 
+        @if (session('statusPassword'))
+            <div id="successBox"
+                class="mb-5 bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 text-sm">
+                <span>{{ session('statusPassword') }}</span>
+            </div>
+        @endif
 
         <div>
             <label class="block text-xs text-gray-500 mb-1">
