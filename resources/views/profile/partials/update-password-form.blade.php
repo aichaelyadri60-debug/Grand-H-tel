@@ -3,6 +3,7 @@
     <form method="POST" action="{{ route('password.update') }}" class="space-y-5">
         @csrf
         @method('PUT')
+ 
 
         <div>
             <label class="block text-xs text-gray-500 mb-1">
@@ -37,16 +38,11 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <button
-                class="px-5 py-2 bg-amber-500 text-white text-sm rounded-lg hover:bg-amber-600 transition">
+            <button class="px-5 py-2 bg-amber-500 text-white text-sm rounded-lg hover:bg-amber-600 transition">
                 Mettre à jour
             </button>
 
-            @if (session('status') === 'password-updated')
-                <span id="successBox" class="text-xs text-green-600">
-                     Mot de passe mis à jour
-                </span>
-            @endif
+
         </div>
 
     </form>

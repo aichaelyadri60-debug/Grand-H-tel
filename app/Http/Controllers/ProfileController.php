@@ -17,14 +17,16 @@ class ProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request)
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        if ($user->email !== $request->email) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
 
-        return redirect()->route('profile.edit')->with('status' ,'profile updated');
+        return redirect()->route('profile.edit')->with('success', 'profile updated with success');
     }
 }
